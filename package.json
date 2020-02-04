@@ -1,23 +1,43 @@
 {
   "name": "patriotpoll",
   "version": "0.1.0",
-  "private": true,
+  "main": "dist/PatriotPoll.min.js",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "fix": "vue-cli-service lint --fix",
+    "pre-release": "npm run build; git add . -A; git commit -m 'pre-release commit'",
+    "release-patch": "npm run pre-release && npm version patch && npm run release;",
+    "release-minor": "npm run pre-release && npm version minor && npm run release;",
+    "release-major": "npm run pre-release && npm version major && npm run release;",
+    "release": "npm publish; git add . -A; git commit; git push --tags origin",
+    "watch": "vue-cli-service build --watch --target lib --name PatriotPoll src/index.js"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.26",
+    "@fortawesome/free-brands-svg-icons": "^5.12.0",
+    "@fortawesome/free-solid-svg-icons": "^5.12.0",
+    "@fortawesome/vue-fontawesome": "^0.1.9",
+    "axios": "^0.19.2",
     "core-js": "^3.4.4",
-    "vue": "^2.6.10"
+    "d3": "^5.15.0",
+    "moment": "^2.24.0",
+    "randomcolor": "^0.5.4",
+    "vue": "^2.6.10",
+    "vue-interface": "^0.4.37",
+    "vue-router": "^3.1.5"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.1.0",
     "@vue/cli-plugin-eslint": "^4.1.0",
     "@vue/cli-service": "^4.1.0",
     "babel-eslint": "^10.0.3",
+    "babel-plugin-lodash": "^3.3.4",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
+    "node-sass": "^4.13.1",
+    "sass-loader": "^8.0.2",
     "vue-template-compiler": "^2.6.10"
   },
   "eslintConfig": {
