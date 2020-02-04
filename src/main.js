@@ -6,6 +6,7 @@ import router from './router';
 // import bugsnag from '@bugsnag/js';
 // import bugsnagVue from '@bugsnag/plugin-vue';
 
+import { DateFilter } from 'vue-interface/src/Filters/Date';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 Vue.filter('date', DateFilter);
