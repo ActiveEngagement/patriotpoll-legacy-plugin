@@ -29,6 +29,7 @@
 <script>
 import randomcolor from 'randomcolor';
 import Card from 'vue-interface/src/Components/Card';
+import { DateFilter } from 'vue-interface/src/Filters/Date';
 import CardBody from 'vue-interface/src/Components/Card/CardBody';
 import ProgressBar from 'vue-interface/src/Components/ProgressBar';
 import CardTitle from 'vue-interface/src/Components/Card/CardTitle';
@@ -55,6 +56,10 @@ export default {
         CardFooter,
         ProgressBar,
         //DounutChart
+    },
+
+    filters: {
+        'date': DateFilter
     },
 
     props: {
