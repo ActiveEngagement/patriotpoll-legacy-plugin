@@ -1,15 +1,21 @@
 <template>
     <div>
-        <iframe :src="src" :width="calculatedWidth" :height="calculatedHeight" class="youtube-embed" type="text/html" frameborder="0" @load="$emit('loaded')"/>
+        <iframe :src="src"
+            :width="calculatedWidth"
+            :height="calculatedHeight"
+            class="youtube-embed"
+            type="text/html"
+            frameborder="0"
+            @load="$emit('loaded')" />
     </div>
 </template>
 
 <script>
 export default {
 
-    inheritAttrs: false,
+    name: 'Youtube',
 
-    name: 'youtube',
+    inheritAttrs: false,
 
     props: {
 
@@ -32,30 +38,26 @@ export default {
 
         end: Number,
 
-        width: Number,
+        width: {
+            type: Number,
+            default: 520
+        },
 
         height: Number
 
+    },
+
+    data() {
+        return {
+            calculatedWidth: this.width,
+            calculatedHeight: this.height
+        };
     },
 
     computed: {
 
         src() {
             return `https://www.youtube.com/embed/${this.id}`;
-        }
-
-    },
-
-    methods: {
-
-        resize() {
-            if(!this.calculatedWidth) {
-                this.calculatedWidth = this.$el.clientWidth;
-            }
-
-            this.calculatedHeight = this.$el.clientWidth * (9 / 16);
-
-            return this.resize;
         }
 
     },
@@ -68,12 +70,16 @@ export default {
         window.removeEventListener('resize', this.resize);
     },
 
-    data() {
-        return {
-            calculatedWidth: this.width,
-            calculatedHeight: this.height
+    methods: {
+
+        resize() {
+            this.calculatedWidth = this.width || this.$el.clientWidth;
+            this.calculatedHeight = this.$el.clientWidth * (9 / 16);
+
+            return this.resize;
         }
+
     }
 
-}
+};
 </script>
