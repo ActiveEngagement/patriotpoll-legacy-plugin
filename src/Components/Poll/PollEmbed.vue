@@ -1,7 +1,7 @@
 <template>
     <div class="poll-embed" :class="`poll-embed-${align}`">
         <component
-            :is="`${strategy.embed.component}-embed`"
+            :is="strategy.embed.component"
             v-if="strategy"
             v-bind="strategy.embed.props"
             :image="poll && poll.embed ? poll.embed.url : null"
