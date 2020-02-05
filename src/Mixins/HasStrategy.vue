@@ -5,10 +5,9 @@ export default {
 
     props: {
         
-        poll: {
-            type: Object,
-            required: true
-        }
+        url: String,
+
+        poll: Object,
 
     },
 
@@ -16,6 +15,10 @@ export default {
 
         strategy() {
             let strategy = null;
+            
+            if(this.url) {
+                return match(this.url);
+            }
             
             if(this.form && this.form.options) {
                 strategy = this.form.options.strategy;
