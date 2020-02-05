@@ -74,7 +74,7 @@ export default {
 
         resize() {
             this.calculatedWidth = this.width || this.$el.clientWidth;
-            this.calculatedHeight = this.$el.clientWidth * (9 / 16);
+            this.calculatedHeight = this.calculatedWidth * (9 / 16);
 
             return this.resize;
         }

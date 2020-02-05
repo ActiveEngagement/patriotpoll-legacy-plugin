@@ -9,6 +9,8 @@ export default {
 
         poll: Object,
 
+        width: [Number, String]
+
     },
 
     computed: {

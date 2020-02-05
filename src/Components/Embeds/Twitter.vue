@@ -1,12 +1,12 @@
 <template>
     <div class="w-100" :style="{maxWidth: `${calculatedWidth}px`}">
         <div v-if="(activity || !loaded) && !image" class="position-relative" :style="{'min-height': '300px'}">
-            <activity-indicator size="sm" type="spinner" label="Loading Twitter..." :min-height="200" center/>
+            <activity-indicator size="sm" type="spinner" label="Loading Twitter..." :min-height="200" center />
         </div>
 
         <blockquote v-if="!activity" v-instantiate v-bind="attributes" :style="{'visibility': !loaded ? 'hidden' : 'visible'}">
             <a :href="url">
-                <img v-if="image" :src="image.url || image" :alt="`Screenshot of ${image}.`" class="img-fluid"/>
+                <img v-if="image" :src="image.url || image" :alt="`Screenshot of ${image}.`" class="img-fluid">
             </a>
         </blockquote>
     </div>
@@ -18,13 +18,27 @@ import ActivityIndicator from 'vue-interface/src/Components/ActivityIndicator';
 
 export default {
 
-    inheritAttrs: false,
-
-    name: 'twitter',
+    name: 'Twitter',
 
     components: {
         ActivityIndicator
     },
+
+    directives: {
+        instantiate: {
+            inserted(el, binding, vnode) {
+                vnode.context.$nextTick(() => {
+                    vnode.context.$twttr.widgets.load(el).then(() => {
+                        vnode.context.$el.querySelector('twitterwidget, .twitter-tweet').style.marginTop = 0;
+                        vnode.context.$el.querySelector('twitterwidget, .twitter-tweet').style.marginBottom = 0;
+                        vnode.context.loaded = true;
+                    });
+                });
+            }
+        }
+    },
+
+    inheritAttrs: false,
 
     props: {
 
@@ -82,27 +96,12 @@ export default {
 
     },
 
-    directives: {
-        instantiate: {
-            inserted(el, binding, vnode) {
-
-                vnode.context.$nextTick(() => {
-                    vnode.context.$twttr.widgets.load(el).then(() => {
-                        vnode.context.$el.querySelector('twitterwidget, .twitter-tweet').style.marginTop = 0;
-                        vnode.context.$el.querySelector('twitterwidget, .twitter-tweet').style.marginBottom = 0;
-                        vnode.context.loaded = true;
-                    });
-                });
-            }
-        }
-    },
-
-    watch: {
-        loaded(value) {
-            if(value) {
-                this.$emit('loaded');
-            }
-        }
+    data() {
+        return {
+            loaded: false,
+            activity: true,
+            calculatedWidth: this.width
+        };
     },
 
     computed: {
@@ -128,16 +127,12 @@ export default {
 
     },
 
-    methods: {
-
-        resize() {
-            if(!this.width) {
-                this.calculatedWidth = Math.min(this.$el.clientWidth, 550);
+    watch: {
+        loaded(value) {
+            if(value) {
+                this.$emit('loaded');
             }
-
-            return this.resize;
         }
-
     },
 
     mounted() {
@@ -156,13 +151,17 @@ export default {
         window.removeEventListener('resize', this.resize);
     },
 
-    data() {
-        return {
-            loaded: false,
-            activity: true,
-            calculatedWidth: this.width
+    methods: {
+
+        resize() {
+            if(!this.width) {
+                this.calculatedWidth = Math.min(this.$el.clientWidth, 550);
+            }
+
+            return this.resize;
         }
+
     }
 
-}
+};
 </script>

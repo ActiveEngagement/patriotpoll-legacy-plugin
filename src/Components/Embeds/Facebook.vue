@@ -1,16 +1,16 @@
 <template>
     <div class="w-100" :style="{maxWidth: `${calculatedWidth}px`}">
         <div v-if="(activity || !loaded) && !image" class="position-relative" :style="{'min-height': '300px'}">
-            <activity-indicator size="sm" type="spinner" label="Loading Post..." center/>
+            <activity-indicator size="sm" type="spinner" label="Loading Post..." center />
         </div>
 
-        <img v-if="!loaded" :src="image.url || image" :alt="`Screenshot of ${image}.`" class="img-fluid"/>
+        <img v-if="!loaded" :src="image.url || image" :alt="`Screenshot of ${image}.`" class="img-fluid">
 
         <div v-if="!activity" v-instantiate class="fb-post-wrapper">
             <div class="fb-post" v-bind="attributes">
                 <blockquote :cite="url" class="fb-xfbml-parse-ignore">
                     <a v-if="image" :href="url">
-                        <img :src="image.url || image" :alt="`Screenshot of ${image}.`" class="img-fluid"/>
+                        <img :src="image.url || image" :alt="`Screenshot of ${image}.`" class="img-fluid">
                     </a>
                 </blockquote>
             </div>
@@ -24,13 +24,27 @@ import ActivityIndicator from 'vue-interface/src/Components/ActivityIndicator';
 
 export default {
 
-    inheritAttrs: false,
-
-    name: 'facebook',
+    name: 'Facebook',
 
     components: {
         ActivityIndicator
     },
+
+    directives: {
+        instantiate: {
+            inserted(el, binding, vnode) {
+                vnode.context.resize();
+
+                vnode.context.$nextTick(() => {
+                    window.FB.XFBML.parse(vnode.context.$el.querySelector('.fb-post-wrapper'), () => {
+                        vnode.context.loaded = true;
+                    });
+                });
+            }
+        }
+    },
+
+    inheritAttrs: false,
 
     props: {
 
@@ -51,32 +65,16 @@ export default {
         width: {
             type: Number,
             default: 520
-        },
-
-        height: Number
+        }
 
     },
 
-    directives: {
-        instantiate: {
-            inserted(el, binding, vnode) {
-                vnode.context.resize();
-
-                vnode.context.$nextTick(() => {
-                    window.FB.XFBML.parse(vnode.context.$el.querySelector('.fb-post-wrapper'), () => {
-                        vnode.context.loaded = true;
-                    });
-                });
-            }
-        }
-    },
-
-    watch: {
-        loaded(value) {
-            if(value) {
-                this.$emit('loaded');
-            }
-        }
+    data() {
+        return {
+            loaded: false,
+            activity: true,
+            calculatedWidth: this.width
+        };
     },
 
     computed: {
@@ -95,16 +93,12 @@ export default {
 
     },
 
-    methods: {
-
-        resize() {
-            if(!this.width) {
-                this.calculatedWidth = Math.min(this.$el.clientWidth, 750);
+    watch: {
+        loaded(value) {
+            if(value) {
+                this.$emit('loaded');
             }
-
-            return this.resize;
         }
-
     },
 
     created() {
@@ -128,13 +122,17 @@ export default {
         window.removeEventListener('resize', this.resize);
     },
 
-    data() {
-        return {
-            loaded: false,
-            activity: true,
-            calculatedWidth: this.width
+    methods: {
+
+        resize() {
+            if(!this.width) {
+                this.calculatedWidth = Math.min(this.$el.clientWidth, 750);
+            }
+
+            return this.resize;
         }
+
     }
 
-}
+};
 </script>
