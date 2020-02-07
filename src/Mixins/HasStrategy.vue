@@ -9,7 +9,7 @@ export default {
 
         poll: Object,
 
-        width: [Number, String]
+        width: Number
 
     },
 
