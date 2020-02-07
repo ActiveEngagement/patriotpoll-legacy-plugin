@@ -29,7 +29,7 @@ export default {
                 strategy = this.poll.options.strategy;
             }
 
-            if(!(strategy instanceof Strategy)) {
+            if(!(strategy instanceof Strategy) && strategy) {
                 strategy = match(strategy.url);
             }
 
