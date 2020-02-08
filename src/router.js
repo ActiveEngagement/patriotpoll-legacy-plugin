@@ -6,6 +6,7 @@ Vue.use(Router);
 const router = new Router({
     base: process.env.BASE_URL,
     routes: [
+        /*
         {
             alias: '/',
             name: 'poll',
@@ -15,6 +16,7 @@ const router = new Router({
             },
             component: () => import('@/Views/Index')
         }
+        */
     ]
 });
 

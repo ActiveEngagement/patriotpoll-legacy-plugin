@@ -2,11 +2,14 @@
     <card class="poll-card">
         <card-header>{{ poll.published_at | date('MMMM D, YYYY') }}</card-header>
         <card-body>
-            <card-title v-if="poll.question || poll.title" v-html="poll.question || poll.title" />
-            <div v-else-if="poll.html" v-html="poll.html" />
-            <img v-if="image" :src="image.url" class="img-fluid poll-img">
+            <a :href="poll.permalink">
+                <card-title v-if="poll.question || poll.title" v-html="poll.question || poll.title" />
+                <div v-else-if="poll.html" v-html="poll.html" />
+                <div style="" :style="{'background': `url(${poll.image.url}) center / cover no-repeat`, height: '12rem'}" />
+                <img v-if="poll.embed" :src="poll.embed.url" class="img-fluid poll-img">
+            </a>
             <template v-if="poll.statistics">
-                <progress-bar v-for="(breakdown, answer) in poll.statistics.breakdown" :key="answer" :value="breakdown.percentage" :color="color()" :class="{'text-dark': breakdown.percentage === 0}">
+                <progress-bar v-for="(breakdown, answer) in poll.statistics.breakdown" :key="answer" :value="breakdown.percentage" :color="color()" :class="{'text-dark': breakdown.percentage === 0, 'text-light': breakdown.percentage > 0}">
                     {{ answer }} ({{ breakdown.total }})
                 </progress-bar>
             </template>
@@ -67,14 +70,6 @@ export default {
         poll: {
             type: Object,
             required: true
-        }
-
-    },
-
-    computed: {
-
-        image() {
-            return this.poll.embed;
         }
 
     },

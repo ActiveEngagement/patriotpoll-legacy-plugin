@@ -1,25 +1,30 @@
 <template>
     <div class="poll-question">
-        <div v-if="poll.html" class="poll-content" v-html="poll.html" />
+        <div class="mb-3">
+            <img v-if="poll.image" class="poll-img d-flex img-fluid mx-auto rounded shadow" :src="poll.image.url">
+            
+            <div v-if="poll.html" class="poll-content" v-html="poll.html" />
 
-        <img v-if="poll.embed" class="poll-img d-flex img-fluid mb-5 mx-auto" :src="poll.embed.url">
+            <img v-if="poll.embed" class="poll-img d-flex img-fluid mx-auto" :src="poll.embed.url">
 
-        <transition v-else-if="poll.options.include_embed" name="fade" mode="out-in">
-            <poll-embed :key="poll.id" :poll="poll" class="mb-5" />
-        </transition>
+            <transition v-else-if="poll.options.include_embed" name="fade" mode="out-in">
+                <poll-embed :key="poll.id" :poll="poll" />
+            </transition>
+        </div>
 
         <div class="d-flex mb-5">
             <btn-group
                 v-responsive-blocks="{selector: 'span'}"
                 :vertical="vertical"
                 :style="{'grid-template-columns': `repeat(${poll.answers.length}, minmax(${100 / poll.answers.length}%, 1fr)`}"
-                class="mx-auto"
+                class="mx-auto w-100"
                 toggle
                 @resize.native="onResize">
                 <btn
                     v-for="key in poll.answers"
                     :key="key"
                     :active="key === value"
+                    :style="{width: `${100 / poll.answers.length}%`}"
                     size="lg"
                     type="button"
                     variant="primary"
@@ -29,23 +34,6 @@
                 </btn>
             </btn-group>
         </div>
-    
-        <!--
-        <a href="#" class="d-flex justify-content-center">
-            <div class="mr-2">
-                <icon :icon="['fab', 'facebook']" />
-            </div>
-            <div class="mr-2">
-                <icon :icon="['fab', 'twitter']" />
-            </div>
-            <div class="mr-2">
-                <icon icon="envelope" />
-            </div>
-            <div>
-                <icon icon="share" /> Share this poll
-            </div>
-        </a>
-        -->
     </div>
 </template>
 
@@ -54,17 +42,6 @@ import PollEmbed from './PollEmbed';
 import Btn from 'vue-interface/src/Components/Btn';
 import BtnGroup from 'vue-interface/src/Components/BtnGroup';
 import ResponsiveBlocks from '../../Directives/ResponsiveBlocks';
-
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faShare } from '@fortawesome/free-solid-svg-icons/faShare';
-import { faTwitter } from '@fortawesome/free-brands-svg-icons/faTwitter';
-import { faEnvelope } from '@fortawesome/free-solid-svg-icons/faEnvelope';
-import { faFacebook } from '@fortawesome/free-brands-svg-icons/faFacebook';
-
-library.add(faShare);
-library.add(faTwitter);
-library.add(faEnvelope);
-library.add(faFacebook);
 
 export default {
 

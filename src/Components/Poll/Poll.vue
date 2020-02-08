@@ -1,184 +1,111 @@
 <template>
-    <div class="poll" :class="{'loading': loading}" :style="style">
-        <activity-indicator v-if="loading" label="Loading..." type="spinner" center />
-        <div v-else>
-            <poll-form
-                v-if="currentPoll"
-                :step="step"
-                :api-key="apiKey"
-                :poll="currentPoll"
-                :scroll-to="scrollTo"
-                :request="httpRequestOptions"
-                @step="onStep"
-                @next="onNext"
-                @slide-enter="onSlideEnter" />
-        </div>
+    <div class="poll">
+        <poll-date :poll="poll" />
+
+        <h1 v-if="poll.question" class="poll-header font-weight-light text-center mt-2" v-html="poll.question" />
+
+        <slide-deck :active="active" @enter="slide => $emit('slide-enter', slide)">
+            <div key="question">
+                <poll-question :poll="poll" @input="onSelectAnswer" />
+            </div>
+
+            <div key="contact">
+                <poll-form :answer="answer" :poll="poll" :api-key="apiKey" @submit-success="active = 'results'" @cancel="onClickBack" />
+            </div>
+
+            <div key="results">
+                <poll-results :poll="poll" :api-key="apiKey" @back="onClickBack" @next="poll => $emit('next', poll)" />
+            </div>
+        </slide-deck>
     </div>
 </template>
 
 <script>
+import PollDate from './PollDate';
 import PollForm from './PollForm';
-import Poll from '../../Models/Poll';
-import { unit } from 'vue-interface/src/Helpers/Functions';
-import HttpRequestOptions from '../../Mixins/HttpRequestOptions';
-import ActivityIndicator from 'vue-interface/src/Components/ActivityIndicator';
+import PollResults from './PollResults';
+import PollQuestion from './PollQuestion';
+
+import scrollTo from 'vue-interface/src/Helpers/ScrollTo';
+import SlideDeck from 'vue-interface/src/Components/SlideDeck';
 
 export default {
 
     name: 'Poll',
 
     components: {
+        PollDate,
+        PollResults,
+        PollQuestion,
         PollForm,
-        ActivityIndicator
+        SlideDeck
     },
 
-    mixins: [
-        HttpRequestOptions
-    ],
-
     props: {
-
-        id: [Number, String],
-
-        slug: [Number, String],
-
-        step: [Number, String],
-
-        poll: Object,
-
-        model: Object,
-        
-        scrollTo: {
-            type: [HTMLElement]
-        },
 
         apiKey: {
             type: String,
             required: true
         },
 
-        maxWidth: [Number, String]
+        poll: {
+            type: Object,
+            required: true
+        },
+
+        scrollTo: {
+            type: [HTMLElement]
+        },
+
+        step: [Number, String]
 
     },
 
-    data() {
-        let poll = this.poll;
-
-        if(this.model) {
-            poll = this.model instanceof Poll ? this.model.toJSON() : this.model;
-        }
-        
+    data() {        
         return {
-            loading: !poll,
-            currentPoll: null,
-            startingPoll: poll
+            answer: null,
+            active: this.step || null
         };
-    },
-
-    computed: {
-
-        style() {
-            return {
-                maxWidth: this.maxWidth ? unit(this.maxWidth) : null
-            };
-        }
-
     },
 
     watch: {
 
-        '$route.params.id': function(value) {
-            this.load(value);
-        },
-
-        loading(value) {
-            this.$emit('toggle-loading', value);
-            this.$emit(value ? 'start-loading' : 'stop-loading');
+        active(value) {
+            this.$emit('step', value);
         },
 
         poll(value) {
-            this.currentPoll = value;
+            this.errors = null;
+            this.active = null;
+        },
+
+        step(value) {
+            this.active = value;
         }
 
     },
 
-    mounted() {
-        if(this.startingPoll) {
-            this.loading = false;
-            this.$emit('load', this.currentPoll = this.startingPoll);
-        }
-        else if(!this.currentPoll) {
-            this.load(this.id || this.slug).then(model => {
-                this.$emit('load', model);
-            }, err => {
-                this.$emit('error', err);
-            });
-        }
-    },
-    
     methods: {
 
-        onNext(poll) {
-            this.$emit('next', poll);
+        onClickBack() {
+            scrollTo(this.scrollTo || this.$el, 100);
 
-            /*
-            this.$router.push({name: 'poll', params: {
-                id: poll.id,
-                poll: poll
-            }});
-            */
+            this.$nextTick(() => {
+                this.active = null;
+                this.answer = null;
+            });
         },
 
-        onSlideEnter(slide) {
-            this.$emit('slide-enter', slide);
-        },
+        onSelectAnswer(value) {
+            this.answer = value;
+            this.active = 'contact';
 
-        onStep(poll) {
-            this.$emit('step', poll);
-        },
-
-        load(id) {
-            this.loading = true;
-
-            if(id) {
-                return Poll.find(id, this.httpRequestOptions)
-                    .then(model => {
-                        this.loading = false;
-
-                        return this.currentPoll = model.toJSON();
-                    });
-            }
-            else {
-                return Poll.search(null, this.httpRequestOptions)
-                    .then(response => {
-                        this.loading = false; 
-
-                        if(response.data.data.length) {
-                            return this.currentPoll = response.data.data[0];
-                        }
-                    });
-            }
+            this.$nextTick(() => {
+                scrollTo(this.scrollTo || this.$el, 100);
+            });
         }
 
     }
 
 };
 </script>
-
-<style lang="scss">
-.poll {
-    max-width: 520px;
-
-    &:not(.loading) {
-        position: relative;
-        margin: 0 auto;
-    }
-
-    .fade-enter-active, .fade-leave-active {
-        transition: opacity .75s;
-    }
-    .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-        opacity: 0;
-    }
-}
-</style>

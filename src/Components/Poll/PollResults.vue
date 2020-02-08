@@ -1,5 +1,5 @@
 <template>
-    <div class="poll-results p-3">
+    <div class="poll-results mt-4 p-3">
         <dounut-chart :data="poll.statistics.breakdown" :height="300" />
 
         <div class="mt-3">

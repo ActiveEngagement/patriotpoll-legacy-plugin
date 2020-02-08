@@ -26,3 +26,19 @@ export default {
 
 };
 </script>
+
+<style lang="scss">
+@import '../../assets/scss/mixins';
+@import '../../assets/scss/variables';
+
+.poll-date {
+    @include body-font;
+    background-color: transparent;
+    color: $primary-red;
+    font-size: 15px;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+</style>

@@ -1,6 +1,6 @@
 <template>
     <section class="poll-archive my-lg-5 py-lg-5">
-        <activity-indicator v-if="loading" label="Loading Archive..." type="spinner" min-height="200px" />
+        <activity-indicator v-if="activity" label="Loading Archive..." type="spinner" min-height="200px" />
 
         <div v-else-if="!!polls.length" class="container">
             <div class="row">
@@ -22,7 +22,7 @@
 
             <div v-if="loadMore" class="row">
                 <div class="col-sm-12 load-more">
-                    <btn-activity :activity="loading" indicator="dots" size="md" @click="load(page + 1)">
+                    <btn-activity :activity="activity" indicator="dots" size="md" @click="load(page + 1)">
                         Load More
                     </btn-activity>
                 </div>
@@ -33,8 +33,7 @@
 
 <script>
 import PollCard from './PollCard';
-import Poll from '../../Models/Poll';
-import HttpRequestOptions from '../../Mixins/HttpRequestOptions';
+import axios from '../../Helpers/axios';
 import BtnActivity from 'vue-interface/src/Components/BtnActivity';
 import ActivityIndicator from 'vue-interface/src/Components/ActivityIndicator';
 
@@ -47,16 +46,19 @@ export default {
         BtnActivity,
         ActivityIndicator
     },
-
-    mixins: [
-        HttpRequestOptions
-    ],
+	
+    props: {
+        apiKey: {
+            type: String,
+            required: true
+        }
+    },
 
     data() {
         return {
             page: 1,
             polls: [],
-            loading: true,
+            activity: true,
             loadMore: false
         };
     },
@@ -70,21 +72,27 @@ export default {
     methods: {
 
         load(page) {
-            this.loading = true;
-
-            return Poll.search({
-                limit: 9,
-                expired: 1,
-                page: page
-            }, this.httpRequestOptions)
-                .then(response => {
-                    response.data.data.forEach(poll => {
-                        this.polls.push(poll);
-                    });
-					
-                    this.loading = false;
-                    this.page = response.current_page;
-                    this.loadMore = response.current_page < response.last_page;
+            this.activity = true;
+			
+            return axios.get('polls', {
+                params: {
+                    limit: 9,
+                    expired: 1,
+                    page: page
+                },
+                headers: {
+                    Authorization: 'Bearer ' + this.apiKey
+                }
+            })
+                .then(({ data }) => {
+                    this.polls = data.data;
+                    this.page = data.current_page;
+                    this.loadMore = data.current_page < data.last_page;
+                }, e => {
+                    console.log(e);
+                })
+                .finally(() => {
+                    this.activity = false;
                 });
         }
 
