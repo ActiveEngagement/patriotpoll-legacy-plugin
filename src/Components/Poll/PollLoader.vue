@@ -19,7 +19,7 @@
 
 <script>
 // import Vue from 'vue';
-import Poll from './Poll';
+import Poll from './PollCard';
 // import VueRouter from 'vue-router';
 import Permalink from '../../Mixins/Permalink';
 import unit from 'vue-interface/src/Helpers/Functions/unit';

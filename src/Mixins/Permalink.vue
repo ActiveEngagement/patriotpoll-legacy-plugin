@@ -10,6 +10,10 @@ export default {
                 });
             }
             else {
+                if(el.tagName === 'A' && !el.getAttribute('href')) {
+                    el.setAttribute('href', context.permalink(value));
+                }
+
                 el.addEventListener('click', e => {
                     context.onClickPermalink(value);
 
@@ -23,8 +27,8 @@ export default {
     props: {
         permalink: {
             type: Function,
-            default({ permalink }) {
-                return permalink;
+            default(poll) {
+                return poll && poll.permalink;
             }
         }
     },
@@ -41,7 +45,7 @@ export default {
         },
 
         onClickPermalink(poll) {
-            this.routeToPermalink(this.permalink(this.nextPoll));
+            this.routeToPermalink(this.permalink(poll));
         }
         
     }
