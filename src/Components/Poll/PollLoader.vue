@@ -246,6 +246,10 @@ export default {
     color: $body-color;
     text-align: left; // 3
     background-color: $body-bg; // 2
+
+    .btn {
+        height: auto;
+    }
 }
 
 .poll {
