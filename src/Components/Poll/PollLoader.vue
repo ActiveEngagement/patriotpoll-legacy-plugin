@@ -15,7 +15,7 @@
 
 <script>
 // import Vue from 'vue';
-import Poll from './PollCard';
+import Poll from './Poll';
 // import VueRouter from 'vue-router';
 import PatriotPoll from '../../Mixins/PatriotPoll';
 import unit from 'vue-interface/src/Helpers/Functions/unit';
@@ -27,8 +27,6 @@ import ActivityIndicator from 'vue-interface/src/Components/ActivityIndicator';
 export default {
 
     // router: new VueRouter(),
-
-    name: 'PollLoader',
 
     components: {
         Poll,

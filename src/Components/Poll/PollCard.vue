@@ -97,11 +97,8 @@ export default {
 @import 'node_modules/bootstrap/scss/variables';
 
 .poll-card {
-    border-radius: 0;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.04), 0 6px 20px 0 rgba(0, 0, 0, 0.04);
-    border-color: rgba(0, 0, 0, 0.05);
-    margin: 15px;
-    padding: 15px;
+    // margin: 15px;
+    // padding: 15px;
     
     .card-header, .card-footer {
         border: none;
