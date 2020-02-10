@@ -66,7 +66,7 @@
                     :errors="errors"
                     custom />
 
-                <animate-css name="fade" in delay="150ms">
+                <animate-css name="fade" in delay="175ms">
                     <input-field
                         v-if="showAddress"
                         v-model="form.phone"
