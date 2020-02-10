@@ -14,7 +14,7 @@
             </div>
 
             <div key="results">
-                <poll-results :poll="poll" :api-key="apiKey" @back="onClickBack" @next="poll => $emit('next', poll)" />
+                <poll-results :poll="poll" :api-key="apiKey" :permalink="permalink" @back="onClickBack" @next="poll => $emit('next', poll)" />
             </div>
         </slide-deck>
     </div>
@@ -25,6 +25,7 @@ import PollDate from './PollDate';
 import PollForm from './PollForm';
 import PollResults from './PollResults';
 import PollQuestion from './PollQuestion';
+import Permalink from '../../Mixins/Permalink';
 
 // import scrollTo from 'vue-interface/src/Helpers/ScrollTo';
 import SlideDeck from 'vue-interface/src/Components/SlideDeck';
@@ -40,6 +41,10 @@ export default {
         PollForm,
         SlideDeck
     },
+
+    mixins: [
+        Permalink
+    ],
 
     props: {
 

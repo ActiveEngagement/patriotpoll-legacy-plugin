@@ -14,7 +14,7 @@
                 <div class="col-sm-12">
                     <div class="card-columns">
                         <transition-group name="fade">
-                            <poll-card v-for="poll in polls" :key="poll.id" :poll="poll" />
+                            <poll-card v-for="poll in polls" :key="poll.id" :poll="poll" :permalink="permalink" />
                         </transition-group>
                     </div>
                 </div>
@@ -33,6 +33,7 @@
 
 <script>
 import PollCard from './PollCard';
+import Permalink from '../../Mixins/Permalink';
 import BtnActivity from 'vue-interface/src/Components/BtnActivity';
 import ActivityIndicator from 'vue-interface/src/Components/ActivityIndicator';
 
@@ -45,6 +46,10 @@ export default {
         BtnActivity,
         ActivityIndicator
     },
+
+    mixins: [
+        Permalink
+    ],
 	
     data() {
         return {

@@ -10,6 +10,7 @@
             :width="width"
             :class="{'loading': loading, 'mx-auto': center}"
             :style="styles"
+            :permalink="permalink"
             @step="onStep"
             @next="onNext"
             @slide-enter="onSlideEnter" />
@@ -20,6 +21,7 @@
 // import Vue from 'vue';
 import Poll from './Poll';
 // import VueRouter from 'vue-router';
+import Permalink from '../../Mixins/Permalink';
 import unit from 'vue-interface/src/Helpers/Functions/unit';
 import ActivityIndicator from 'vue-interface/src/Components/ActivityIndicator';
 import PatriotPollPlugin from '../../Plugins/PatriotPollPlugin';
@@ -35,6 +37,10 @@ export default {
         Poll,
         ActivityIndicator
     },
+
+    mixins: [
+        Permalink   
+    ],
 
     props: {
 
@@ -52,11 +58,6 @@ export default {
         maxWidth: {
             type: [Number, String],
             default: 520
-        },
-
-        path: {
-            type: String,
-            default: '/:id?/:step?'
         },
 
         poll: Object,

@@ -2,7 +2,7 @@
     <card class="poll-card">
         <card-header>{{ poll.published_at | date('MMMM D, YYYY') }}</card-header>
         <card-body>
-            <a :href="path || poll.permalink">
+            <a :href="permalink(poll)">
                 <card-title v-if="!hideQuestion && poll.question" v-html="poll.question" />
                 <div v-if="!hideContent && poll.html" v-html="poll.html" />
                 <div v-if="!hideImage && poll.image" :style="{'background': `url(${poll.image.url}) center / cover no-repeat`, height: '12rem'}" />
@@ -38,6 +38,7 @@
 
 <script>
 import randomcolor from 'randomcolor';
+import Permalink from '../../Mixins/Permalink';
 import Card from 'vue-interface/src/Components/Card';
 import DateFilter from 'vue-interface/src/Filters/Date/DateFilter';
 import CardBody from 'vue-interface/src/Components/Card/CardBody';
@@ -76,9 +77,11 @@ export default {
         'date': DateFilter
     },
 
-    props: {
+    mixins: [
+        Permalink
+    ],
 
-        path: String,
+    props: {
 
         poll: {
             type: Object,
