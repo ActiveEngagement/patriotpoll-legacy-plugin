@@ -1,5 +1,5 @@
 <template>
-    <div class="poll-date mt-2 pt-1 mb-3 pb-1">
+    <div class="poll-date mb-3 pb-1">
         {{ poll.published_at | date('MMMM D, YYYY') }}
     </div>
 </template>
