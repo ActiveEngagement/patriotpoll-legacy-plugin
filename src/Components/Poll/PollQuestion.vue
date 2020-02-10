@@ -12,7 +12,7 @@
             </animate-css>
         </div>
 
-        <div v-if="poll.answers" class="d-flex mb-5">
+        <div v-if="poll.answers" class="d-flex">
             <btn-group
                 v-responsive-blocks="{selector: 'span'}"
                 :vertical="vertical"

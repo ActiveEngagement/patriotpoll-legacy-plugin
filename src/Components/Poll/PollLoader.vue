@@ -18,7 +18,7 @@
 import Poll from './Poll';
 // import VueRouter from 'vue-router';
 import PatriotPoll from '../../Mixins/PatriotPoll';
-import { unit } from 'vue-interface/src/Helpers/Functions';
+import unit from 'vue-interface/src/Helpers/Functions/unit';
 import ActivityIndicator from 'vue-interface/src/Components/ActivityIndicator';
 
 // Vue.use(VueRouter);
