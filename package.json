@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "npm run build-wc",
     "build-lib": "vue-cli-service build --target lib --name PatriotPoll src/index.js",
-    "build-wc": "vue-cli-service build --target wc --name patriot-poll src/Components/Poll/PollLoader.vue",
+    "build-wc": "vue-cli-service build --inline-vue --target wc --name patriot-poll src/Components/Poll/PollLoader.vue",
     "lint": "vue-cli-service lint",
     "fix": "vue-cli-service lint --fix",
     "pre-release": "npm run build; git add . -A; git commit -m 'pre-release commit'",
@@ -20,7 +20,6 @@
     "@fortawesome/free-brands-svg-icons": "^5.12.1",
     "@fortawesome/free-solid-svg-icons": "^5.12.1",
     "@fortawesome/vue-fontawesome": "^0.1.9",
-    "@fullhuman/postcss-purgecss": "^2.0.6",
     "axios": "^0.19.2",
     "core-js": "^3.4.4",
     "d3": "^5.15.0",
@@ -31,6 +30,7 @@
     "vue-router": "^3.1.5"
   },
   "devDependencies": {
+    "@fullhuman/postcss-purgecss": "^2.0.6",
     "@vue/cli-plugin-babel": "^4.2.2",
     "@vue/cli-plugin-eslint": "^4.2.2",
     "@vue/cli-service": "^4.2.2",
