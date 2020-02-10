@@ -15,6 +15,7 @@
             </template>
             <!--<dounut-chart :data="poll.statistics.breakdown" />-->
         </card-body>
+        <!--
         <card-footer>
             <div class="icon social fb">
                 <font-awesome-icon :icon="['fab', 'facebook']" />
@@ -26,6 +27,7 @@
                 <font-awesome-icon icon="envelope" />
             </div>
         </card-footer>
+        -->
     </card>
 </template>
 
@@ -39,6 +41,7 @@ import CardTitle from 'vue-interface/src/Components/Card/CardTitle';
 import CardHeader from 'vue-interface/src/Components/Card/CardHeader';
 import CardFooter from 'vue-interface/src/Components/Card/CardFooter';
 
+/*
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
@@ -47,6 +50,7 @@ import { faTwitter, faFacebook } from '@fortawesome/free-brands-svg-icons';
 library.add(faTwitter);
 library.add(faFacebook);
 library.add(faEnvelope);
+*/
 
 export default {
 
@@ -57,10 +61,10 @@ export default {
         CardBody,
         CardTitle,
         CardHeader,
-        CardFooter,
+        //CardFooter,
         ProgressBar,
         //DounutChart
-        FontAwesomeIcon
+        //FontAwesomeIcon
     },
 
     filters: {
@@ -97,8 +101,7 @@ export default {
 @import 'node_modules/bootstrap/scss/variables';
 
 .poll-card {
-    // margin: 15px;
-    // padding: 15px;
+    border-radius: 0;
     
     .card-header, .card-footer {
         border: none;
