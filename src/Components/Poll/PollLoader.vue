@@ -17,11 +17,11 @@
 
 <script>
 // import Vue from 'vue';
-// import Poll from './Poll';
+import Poll from './Poll';
 // import VueRouter from 'vue-router';
 import PatriotPoll from '../../Mixins/PatriotPoll';
 import { unit } from 'vue-interface/src/Helpers/Functions';
-// import ActivityIndicator from 'vue-interface/src/Components/ActivityIndicator';
+import ActivityIndicator from 'vue-interface/src/Components/ActivityIndicator';
 
 // Vue.use(VueRouter);
 // Vue.use(PatriotPoll);
@@ -33,8 +33,8 @@ export default {
     name: 'PollLoader',
 
     components: {
-        Poll: () => import('./Poll'),
-        ActivityIndicator: () => import('vue-interface/src/Components/ActivityIndicator')
+        Poll,
+        ActivityIndicator
     },
 
     mixins: [
