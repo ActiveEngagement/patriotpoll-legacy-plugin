@@ -17,4 +17,4 @@ export default {
             el.dispatchEvent(event);
         }, options).observe(el);
     }
-}
+};

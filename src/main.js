@@ -7,10 +7,7 @@ import App from '@/App.vue';
 // import bugsnag from '@bugsnag/js';
 // import bugsnagVue from '@bugsnag/plugin-vue';
 
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-
 Vue.config.productionTip = false;
-Vue.component('icon', FontAwesomeIcon);
 
 /*
 if(process.env.NODE_ENV !== 'development') {

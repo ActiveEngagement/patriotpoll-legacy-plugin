@@ -1,5 +1,5 @@
 <template>
-    <div class="dounut-chart" :class="{'has-labels': !!labels}"/>
+    <div class="dounut-chart" :class="{'has-labels': !!labels}" />
 </template>
 
 <script>
@@ -11,12 +11,12 @@ import { select } from 'd3';
 import size from 'lodash/size';
 // import Popper from 'popper.js';
 import { interpolate } from 'd3';
-import { scaleOrdinal } from 'd3'
+import { scaleOrdinal } from 'd3';
 import randomcolor from 'randomcolor';
 
 export default {
 
-    name: 'dounut-chart',
+    name: 'DounutChart',
 
     props: {
         width: Number,
@@ -42,6 +42,50 @@ export default {
                 return (value instanceof Function) || !value;
             }
         }
+    },
+
+    data() {
+        return {
+            calculatedWidth: this.width,//this.$el.clientWidth,
+            calculatedHeight: this.height//this.$el.clientHeight
+        };
+    },
+
+    computed: {
+
+        formattedData() {
+            const data = [];
+
+            for(let i in this.data) {
+                const total = this.data[i].total;
+
+                if(total) {
+                    data.push({
+                        answer: i,
+                        total: total
+                    });
+                }
+            }
+
+            return data;
+        },
+
+        total() {
+            return this.formattedData.reduce((carry, data) => {
+                return carry += data.total;
+            }, 0);
+        }
+
+    },
+
+    beforeDestroy() {
+        window.removeEventListener('resize', this.resize);
+    },
+
+    mounted() {
+        window.addEventListener('resize', this.resize());
+
+        this.render();
     },
 
     methods: {
@@ -129,53 +173,9 @@ export default {
             return this.resize;
         }
 
-    },
-
-    computed: {
-
-        formattedData() {
-            const data = [];
-
-            for(let i in this.data) {
-                const total = this.data[i].total;
-
-                if(total) {
-                    data.push({
-                        answer: i,
-                        total: total
-                    });
-                }
-            }
-
-            return data;
-        },
-
-        total() {
-            return this.formattedData.reduce((carry, data) => {
-                return carry += data.total;
-            }, 0);
-        }
-
-    },
-
-    beforeDestroy() {
-        window.removeEventListener('resize', this.resize);
-    },
-
-    mounted() {
-        window.addEventListener('resize', this.resize());
-
-        this.render();
-    },
-
-    data() {
-        return {
-            calculatedWidth: this.width,//this.$el.clientWidth,
-            calculatedHeight: this.height//this.$el.clientHeight
-        }
     }
 
-}
+};
 </script>
 
 <style lang="scss">

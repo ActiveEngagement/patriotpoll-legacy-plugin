@@ -17,11 +17,11 @@
 
 <script>
 // import Vue from 'vue';
-import Poll from './Poll';
+// import Poll from './Poll';
 // import VueRouter from 'vue-router';
 import PatriotPoll from '../../Mixins/PatriotPoll';
 import { unit } from 'vue-interface/src/Helpers/Functions';
-import ActivityIndicator from 'vue-interface/src/Components/ActivityIndicator';
+// import ActivityIndicator from 'vue-interface/src/Components/ActivityIndicator';
 
 // Vue.use(VueRouter);
 // Vue.use(PatriotPoll);
@@ -33,8 +33,8 @@ export default {
     name: 'PollLoader',
 
     components: {
-        Poll,
-        ActivityIndicator
+        Poll: () => import('./Poll'),
+        ActivityIndicator: () => import('vue-interface/src/Components/ActivityIndicator')
     },
 
     mixins: [
@@ -141,13 +141,20 @@ export default {
     },
 
     mounted() {
+        const key = this.key();
+
         if(this.startingPoll) {
             // this.loading = false;
             // this.$emit('load', this.currentPoll = this.startingPoll);
             this.currentPoll = this.startingPoll;
         }
-        else {
+        else if(key) {
             this.load(this.key());
+        }
+        else {
+            this.search().then(({ data }) => {
+                this.currentPoll = data[0];
+            });
         }
     },
     
@@ -169,18 +176,27 @@ export default {
             this.$emit('step', this.currentStep = step);
         },
 
+        search() {
+            return this.$patriotpoll.get('polls')
+                .then(({ data }) => {
+                    return data;
+                }, e => {
+                    this.exception = e;
+
+                    return e;
+                });
+        },
+
         load(id) {
             this.loading = true;
             
-            return this.$patriotpoll.get(`polls/${id}`, {
-                header: {
-                    Authorization: `Bearer ${this.apiKey}`
-                }
-            })
+            return this.$patriotpoll.get(`polls/${id}`)
                 .then(({ data }) => {
-                    this.currentPoll = data;
+                    return this.currentPoll = data;
                 }, e => {
                     this.exception = e;
+
+                    return e;
                 });
         },
 
@@ -203,7 +219,22 @@ export default {
 };
 </script>
 
+
 <style lang="scss">
+@import 'bootstrap/scss/bootstrap';
+@import '@fortawesome/fontawesome-svg-core/styles';
+
+.poll-loader {
+    margin: 0; // 1
+    font-family: $font-family-base;
+    @include font-size($font-size-base);
+    font-weight: $font-weight-base;
+    line-height: $line-height-base;
+    color: $body-color;
+    text-align: left; // 3
+    background-color: $body-bg; // 2
+}
+
 .poll {
     max-width: 520px;
 

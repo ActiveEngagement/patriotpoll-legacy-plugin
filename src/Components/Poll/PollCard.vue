@@ -17,13 +17,13 @@
         </card-body>
         <card-footer>
             <div class="icon social fb">
-                <icon :icon="['fab', 'facebook']" />
+                <font-awesome-icon :icon="['fab', 'facebook']" />
             </div>
             <div class="icon social tw">
-                <icon :icon="['fab', 'twitter']" />
+                <font-awesome-icon :icon="['fab', 'twitter']" />
             </div>
             <div class="icon social em">
-                <icon icon="envelope" />
+                <font-awesome-icon icon="envelope" />
             </div>
         </card-footer>
     </card>
@@ -39,6 +39,7 @@ import CardTitle from 'vue-interface/src/Components/Card/CardTitle';
 import CardHeader from 'vue-interface/src/Components/Card/CardHeader';
 import CardFooter from 'vue-interface/src/Components/Card/CardFooter';
 
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { faTwitter, faFacebook } from '@fortawesome/free-brands-svg-icons';
@@ -59,6 +60,7 @@ export default {
         CardFooter,
         ProgressBar,
         //DounutChart
+        FontAwesomeIcon
     },
 
     filters: {

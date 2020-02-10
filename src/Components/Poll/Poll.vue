@@ -26,7 +26,7 @@ import PollForm from './PollForm';
 import PollResults from './PollResults';
 import PollQuestion from './PollQuestion';
 
-import scrollTo from 'vue-interface/src/Helpers/ScrollTo';
+// import scrollTo from 'vue-interface/src/Helpers/ScrollTo';
 import SlideDeck from 'vue-interface/src/Components/SlideDeck';
 
 export default {
@@ -50,9 +50,7 @@ export default {
             required: true
         },
 
-        scrollTo: {
-            type: [HTMLElement]
-        },
+        scrollTo: HTMLElement,
 
         step: [Number, String]
 
@@ -85,7 +83,7 @@ export default {
     methods: {
 
         onClickBack() {
-            scrollTo(this.scrollTo || this.$el, 100);
+            // scrollTo(this.scrollTo || this.$el, 100);
 
             this.$nextTick(() => {
                 this.active = null;
@@ -97,9 +95,11 @@ export default {
             this.answer = value;
             this.active = 'contact';
 
+            /*
             this.$nextTick(() => {
                 scrollTo(this.scrollTo || this.$el, 100);
             });
+            */
         }
 
     }

@@ -4,6 +4,7 @@ import PollCard from './PollCard';
 import PollDate from './PollDate';
 import PollEmbed from './PollEmbed';
 import PollForm from './PollForm';
+import PollLoader from './PollLoader';
 import PollQuestion from './PollQuestion';
 import PollResults from './PollResults';
 
@@ -18,4 +19,4 @@ export {
     PollResults,
 };
 
-export default Poll;
+export default PollLoader;

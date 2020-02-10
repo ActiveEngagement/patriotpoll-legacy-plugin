@@ -18,7 +18,8 @@
                                     class="d-inline-flex justify-content-center align-items-center"
                                     block
                                     @click="$emit('next', poll.next_poll)">
-                                    <icon icon="poll" size="2x" class="mr-3" /> Take Next Poll <icon icon="long-arrow-alt-right" class="ml-3" size="2x" />
+                                    <font-awesome-icon icon="poll" size="2x" class="mr-3" /> Take Next Poll
+                                    <font-awesome-icon icon="long-arrow-alt-right" class="ml-3" size="2x" />
                                 </btn>
                             </div>
                         </card-body>
@@ -35,6 +36,7 @@ import Card from 'vue-interface/src/Components/Card';
 import DounutChart from '../../Components/Charts/DounutChart';
 import CardBody from 'vue-interface/src/Components/Card/CardBody';
 
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faLongArrowAltLeft } from '@fortawesome/free-solid-svg-icons/faLongArrowAltLeft';
 import { faLongArrowAltRight } from '@fortawesome/free-solid-svg-icons/faLongArrowAltRight';
@@ -50,7 +52,8 @@ export default {
         Btn,
         Card,
         CardBody,
-        DounutChart
+        DounutChart,
+        FontAwesomeIcon
     },
 
     props: {

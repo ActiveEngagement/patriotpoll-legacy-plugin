@@ -8,14 +8,14 @@
                 outline
                 class="p-0"
                 @click="$emit('cancel')">
-                <icon icon="undo" class="mr-2" /> <em>Oops, choose another answer</em>
+                <font-awesome-icon icon="undo" class="mr-2" /> <em>Oops, choose another answer</em>
             </btn>
         </alert>
     
         <animate-css name="fade" in duration="250ms" leave-active-class="position-absolute">
             <div v-if="showCard" class="py-2 mx-3 mt-4 mb-5">
                 <div class="d-flex">
-                    <icon icon="user-circle" size="4x" class="text-secondary" />
+                    <font-awesome-icon icon="user-circle" size="4x" class="text-secondary" />
                     <div class="ml-3 text-dark">
                         <h4 class="font-weight-normal mb-0" v-html="`${form.first} ${form.last}`" />
                         <h5 class="font-weight-light mb-1" v-html="form.email" />
@@ -32,7 +32,7 @@
                 </div>
                 <div class="ml-5 pl-4">
                     <a href="#" class="btn btn-text btn-sm d-flex-inline align-items-center" @click.prevent="showCard = false">
-                        <icon :icon="['far', 'window-close']" class="mr-2" /> <small>Change Information</small>
+                        <font-awesome-icon :icon="['far', 'window-close']" class="mr-2" /> <small>Change Information</small>
                     </a>
                 </div>
             </div>
@@ -41,7 +41,7 @@
         <animate-css name="fade" in duration="250ms">
             <div v-if="!showCard">
                 <p><em>* Indicates the required fields.</em></p>
-
+            
                 <input-field
                     v-model="form.first"
                     name="first"
@@ -137,7 +137,7 @@
         </animate-css>
     
         <alert v-if="!poll.active" variant="danger">
-            <icon icon="exclamation-triangle" /> This poll is not active and cannot be submitted.
+            <font-awesome-icon icon="exclamation-triangle" /> This poll is not active and cannot be submitted.
         </alert>
 
         <btn-activity variant="primary"
@@ -156,12 +156,13 @@ import PatriotPoll from '../../Mixins/PatriotPoll';
 
 import Btn from 'vue-interface/src/Components/Btn';
 import Alert from 'vue-interface/src/Components/Alert';
-import scrollTo from 'vue-interface/src/Helpers/ScrollTo';
+// import scrollTo from 'vue-interface/src/Helpers/ScrollTo';
 import SlideDeck from 'vue-interface/src/Components/SlideDeck';
 import AnimateCss from 'vue-interface/src/Components/AnimateCss';
 import InputField from 'vue-interface/src/Components/InputField';
 import BtnActivity from 'vue-interface/src/Components/BtnActivity';
 
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faUndo, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { faWindowClose } from '@fortawesome/free-regular-svg-icons';
@@ -178,6 +179,7 @@ export default {
         AnimateCss,
         InputField,
         BtnActivity,
+        FontAwesomeIcon
     },
 
     mixins: [
@@ -205,6 +207,17 @@ export default {
             showCard: false,
             showAddress: false
         };
+    },
+
+    watch: {
+        form: {
+            deep: true,
+            handler() {
+                if(!this.showAddress) {
+                    this.showAddress = this.shouldShowAddress();
+                }
+            }
+        }
     },
 
     created() {
@@ -248,7 +261,7 @@ export default {
                     this.active = 'results';
                     
                     this.$nextTick(() => {
-                        scrollTo(this.scrollTo || this.$el, 100);
+                        // scrollTo(this.scrollTo || this.$el, 100);
 
                         this.$emit('submit-success', data);
                     });

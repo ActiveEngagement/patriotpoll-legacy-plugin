@@ -1,27 +1,15 @@
 <template>
     <div>
-        <poll-loader :poll="{}" />
+        <poll />
     </div>
 </template>
 
 <script>
-import PollLoader from './Components/Poll/PollLoader';
+import Poll from './Components/Poll';
 
 export default {
     components: {
-        PollLoader
+        Poll
     }
 };
 </script>
-
-<style lang="scss">
-@import 'bootstrap/scss/bootstrap.scss';
-
-/* Style.css overrides */
-.text-truncate {
-    max-width: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis
-}
-</style>
