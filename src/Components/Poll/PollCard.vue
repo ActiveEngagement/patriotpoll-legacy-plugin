@@ -2,7 +2,7 @@
     <card class="poll-card">
         <card-header>{{ poll.published_at | date('MMMM D, YYYY') }}</card-header>
         <card-body>
-            <a :href="poll.permalink">
+            <a :href="path || poll.permalink">
                 <card-title v-if="poll.question || poll.title" v-html="poll.question || poll.title" />
                 <div v-else-if="poll.html" v-html="poll.html" />
                 <div v-if="poll.image" :style="{'background': `url(${poll.image.url}) center / cover no-repeat`, height: '12rem'}" />
@@ -68,6 +68,8 @@ export default {
     },
 
     props: {
+
+        path: String,
 
         poll: {
             type: Object,
