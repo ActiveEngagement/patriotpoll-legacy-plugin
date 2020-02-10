@@ -1,7 +1,8 @@
 {
   "name": "patriotpoll",
   "version": "0.1.22",
-  "main": "dist/PatriotPoll.min.js",
+  "main": "src/index.js",
+  "browser": "dist/PatriotPoll.min.js",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "npm run build-lib && npm run build-wc -- --no-clean",
