@@ -62,7 +62,7 @@ export default {
     computed: {
         
         nextPoll() {
-            return this.poll.nextPoll || this.poll.prev_poll;
+            return this.poll.next_poll || this.poll.prev_poll;
         }
 
     }
