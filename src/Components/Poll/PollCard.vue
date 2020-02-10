@@ -163,12 +163,13 @@ export default {
 
     .progress {
         margin-bottom: 10px;
-        height: 2.5rem;
+        height: 2.25rem;
         border-radius: 0;
         overflow: scroll;
         background-color: #f6f6f6;
 
         span {
+            font-size: .85em;
             padding-left: .5rem;
         }
 
