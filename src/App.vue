@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="patriot-poll">
         <poll />
     </div>
 </template>

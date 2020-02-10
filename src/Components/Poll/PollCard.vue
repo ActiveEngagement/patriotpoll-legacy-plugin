@@ -89,3 +89,95 @@ export default {
 
 };
 </script>
+
+<style lang="scss">
+@import '../../assets/scss/mixins';
+@import '../../assets/scss/variables';
+@import 'node_modules/bootstrap/scss/functions';
+@import 'node_modules/bootstrap/scss/variables';
+
+.poll-card {
+    border-radius: 0;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.04), 0 6px 20px 0 rgba(0, 0, 0, 0.04);
+    border-color: rgba(0, 0, 0, 0.05);
+    margin: 15px;
+    padding: 15px;
+    
+    .card-header, .card-footer {
+        border: none;
+        background-color: white;
+    }
+
+    .card-header {
+        @include body-font;
+        background-color: transparent;
+        padding: none;
+        padding-bottom: 0px;
+        color: $primary-red;
+        font-size: 12px;
+        text-transform: uppercase;
+        text-align: right;
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
+
+    .card-title {
+        @include body-font;
+    }
+
+    .card-footer {
+        margin: 0px auto;
+        text-align: center;
+        padding: 0px 2px 5px 10px;
+    }
+
+    .poll-img {
+        margin-bottom: 15px;
+    }
+
+	.icon {
+		i {
+			font-size: 20px;
+			left: 9px;
+			top: 10px;
+			color: $primary-blue;
+		}
+
+		&.social {
+			float: right;
+			margin: 0 5px 8px 0;
+			cursor: pointer;
+			color: $primary-blue;
+			transition: 0.25s;
+			-moz-transition: 0.25s;
+			-webkit-transition: 0.25s;
+			-o-transition: 0.25s;
+			margin-right: 15px;
+		}
+    }
+
+    .progress {
+        margin-bottom: 10px;
+        height: 2.5rem;
+        border-radius: 0;
+        overflow: scroll;
+        background-color: #f6f6f6;
+
+        span {
+            padding-left: .5rem;
+        }
+
+        &.text-dark span {
+            color: $dark;
+        }
+
+        .progress-bar {
+            text-align: left;
+            background-color: $primary-red;
+            color: white;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+    }
+}
+</style>

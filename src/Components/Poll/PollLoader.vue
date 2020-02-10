@@ -1,5 +1,5 @@
 <template>
-    <div class="patriot-poll poll-loader" :class="{'loading': loading}" :style="style">
+    <div class="patriot-poll" :class="{'loading': loading}" :style="style">
         <activity-indicator v-if="loading" label="Loading..." type="spinner" center />
         <poll
             v-else-if="currentPoll"
@@ -15,7 +15,7 @@
 
 <script>
 // import Vue from 'vue';
-import Poll from './Poll';
+import Poll from './PollCard';
 // import VueRouter from 'vue-router';
 import PatriotPoll from '../../Mixins/PatriotPoll';
 import unit from 'vue-interface/src/Helpers/Functions/unit';
@@ -222,7 +222,7 @@ export default {
 @import 'node_modules/bootstrap/scss/bootstrap';
 @import 'node_modules/@fortawesome/fontawesome-svg-core/styles';
 
-.poll-loader {
+.patriot-poll {
     margin: 0; // 1
     font-family: $font-family-base;
     @include font-size($font-size-base);
