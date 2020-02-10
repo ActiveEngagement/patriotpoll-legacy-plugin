@@ -33,7 +33,6 @@
 
 <script>
 import PollCard from './PollCard';
-import PatriotPoll from '../../Mixins/PatriotPoll';
 import BtnActivity from 'vue-interface/src/Components/BtnActivity';
 import ActivityIndicator from 'vue-interface/src/Components/ActivityIndicator';
 
@@ -46,10 +45,6 @@ export default {
         BtnActivity,
         ActivityIndicator
     },
-	
-    mixins: [
-        PatriotPoll
-    ],
 	
     data() {
         return {
@@ -76,9 +71,6 @@ export default {
                     limit: 9,
                     expired: 1,
                     page: page
-                },
-                headers: {
-                    Authorization: 'Bearer ' + this.apiKey
                 }
             })
                 .then(({ data }) => {

@@ -155,8 +155,6 @@
 </template>
 
 <script>
-import PatriotPoll from '../../Mixins/PatriotPoll';
-
 import Btn from 'vue-interface/src/Components/Btn';
 import Alert from 'vue-interface/src/Components/Alert';
 // import scrollTo from 'vue-interface/src/Helpers/ScrollTo';
@@ -184,10 +182,6 @@ export default {
         BtnActivity,
         FontAwesomeIcon
     },
-
-    mixins: [
-        PatriotPoll
-    ],
 
     props: {
 
@@ -257,8 +251,6 @@ export default {
                         return carry || !el.value && el;
                     }, null);
 
-                    console.log(emptyField);
-
                     if(emptyField) {
                         emptyField.focus();
                     }
@@ -276,11 +268,7 @@ export default {
             this.activity = true;
             this.$emit('submit');
 
-            this.$patriotpoll.post(`polls/${this.poll.id}`, this.form, {
-                headers: {
-                    Authorization: 'Bearer ' + this.apiKey
-                }
-            })
+            this.$patriotpoll.post(`polls/${this.poll.id}`, this.form)
                 .then(({ data }) => {
                     window.localStorage.__poll__ = JSON.stringify(this.form);
 

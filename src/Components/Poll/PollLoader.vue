@@ -20,9 +20,9 @@
 // import Vue from 'vue';
 import Poll from './Poll';
 // import VueRouter from 'vue-router';
-import PatriotPoll from '../../Mixins/PatriotPoll';
 import unit from 'vue-interface/src/Helpers/Functions/unit';
 import ActivityIndicator from 'vue-interface/src/Components/ActivityIndicator';
+import PatriotPollPlugin from '../../Plugins/PatriotPollPlugin';
 
 // Vue.use(VueRouter);
 // Vue.use(PatriotPoll);
@@ -36,11 +36,11 @@ export default {
         ActivityIndicator
     },
 
-    mixins: [
-        PatriotPoll
-    ],
-
     props: {
+
+        apiKey: String,
+
+        baseUrl: String,
 
         center: {
             type: Boolean,
@@ -133,7 +133,10 @@ export default {
     },
 
     created() {
-        this.constructor.use(PatriotPoll);
+        this.$root.constructor.use(PatriotPollPlugin, {
+            apiKey: this.apiKey,
+            baseUrl: this.baseUrl
+        });
 
         /*
         this.initializeRoutes();
