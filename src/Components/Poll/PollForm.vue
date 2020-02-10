@@ -1,6 +1,6 @@
 <template>
     <form @submit.prevent="onSubmit">
-        <alert variant="success" class="w-100 my-3 text-center">
+        <alert variant="success" class="w-100 mb-3 text-center">
             <h2 class="font-weight-light" v-html="answer" />
             <btn type="button"
                 size="sm"
@@ -18,8 +18,8 @@
                     <font-awesome-icon icon="user-circle" size="4x" class="text-secondary" />
                     <div class="ml-3 text-dark">
                         <h4 class="font-weight-normal mb-0" v-html="`${form.first} ${form.last}`" />
-                        <h5 class="font-weight-light mb-1" v-html="form.email" />
-                        <div v-if="form.street || form.city || form.state || form.zip" class="font-weight-light small mt-1">
+                        <h5 class="font-weight-light mb-0" v-html="form.email" />
+                        <div v-if="form.street || form.city || form.state || form.zip" class="font-weight-light small mt-2">
                             {{ form.street }}
                             <template v-if="form.addr2">
                                 #{{ form.addr2 }}
@@ -28,18 +28,16 @@
                             {{ form.city }} {{ form.state }} {{ form.zip }}
                             <div v-if="form.phone" class="font-weight-light" v-html="form.phone.replace(/^1?(\d{3})(\d{3})(\d{4})$/, '($1) $2-$3')" />
                         </div>
+                        <a href="#" class="btn btn-text btn-sm d-flex-inline align-items-center" style="margin-left: -.5rem" @click.prevent="showCard = false">
+                            <font-awesome-icon :icon="['far', 'window-close']" class="mr-2" /> <small>Change Information</small>
+                        </a>
                     </div>
-                </div>
-                <div class="ml-5 pl-4">
-                    <a href="#" class="btn btn-text btn-sm d-flex-inline align-items-center" @click.prevent="showCard = false">
-                        <font-awesome-icon :icon="['far', 'window-close']" class="mr-2" /> <small>Change Information</small>
-                    </a>
                 </div>
             </div>
         </animate-css>
 
         <animate-css name="fade" in duration="250ms">
-            <div v-if="!showCard">
+            <div v-if="!showCard" class="mb-3">
                 <p><em>* Indicates the required fields.</em></p>
             
                 <input-field
@@ -47,6 +45,7 @@
                     name="first"
                     label="First Name*"
                     placeholder="First Name*"
+                    class="focusable"
                     :errors="errors"
                     custom />
 
@@ -55,6 +54,7 @@
                     name="last"
                     label="Last Name*"
                     placeholder="Last Name*"
+                    class="focusable"
                     :errors="errors"
                     custom />
 
@@ -63,6 +63,7 @@
                     name="email"
                     label="Email*"
                     placeholder="Email*"
+                    class="focusable"
                     :errors="errors"
                     custom />
 
@@ -71,7 +72,7 @@
                         v-if="showAddress"
                         v-model="form.phone"
                         name="phone"
-                        class="mb-0"
+                        class="mb-0 focusable"
                         label="Phone Number"
                         placeholder="Phone Number"
                         :errors="errors"
@@ -89,6 +90,7 @@
                                 <input-field v-model="form.street"
                                     name="street"
                                     label="Street Address"
+                                    class="focusable"
                                     placeholder="Street Address"
                                     :errors="errors"
                                     custom />
@@ -107,6 +109,7 @@
                                 <input-field v-model="form.city"
                                     name="city"
                                     label="City"
+                                    class="focusable"
                                     placeholder="City"
                                     :errors="errors"
                                     custom />
@@ -115,6 +118,7 @@
                                 <input-field v-model="form.state"
                                     name="state"
                                     label="State"
+                                    class="focusable"
                                     placeholder="State"
                                     maxlength="2"
                                     :errors="errors"
@@ -125,7 +129,7 @@
                                     name="zip"
                                     label="Zipcode"
                                     placeholder="Zipcode"
-                                    class="mb-0"
+                                    class="mb-0 focusable"
                                     maxlength="5"
                                     :errors="errors"
                                     custom />
@@ -142,7 +146,6 @@
 
         <btn-activity variant="primary"
             size="lg"
-            class="mt-3"
             block
             :activity="activity"
             :disabled="!poll.active || !showAddress">
@@ -210,6 +213,9 @@ export default {
     },
 
     watch: {
+        showCard() {
+            this.focusOnEmpty();
+        },
         form: {
             deep: true,
             handler() {
@@ -235,9 +241,30 @@ export default {
 
     mounted() {
         this.showAddress = this.shouldShowAddress();
+        this.focusOnEmpty();
     },
 
     methods: {
+
+        focusOnEmpty() {
+            this.$nextTick(() => {
+                const fields = Array.from(this.$el.querySelectorAll(
+                    '.focusable input, .focusable select, .focusable textarea'
+                ));
+
+                if(fields.length) {
+                    const emptyField = fields.reduce((carry, el) => {
+                        return carry || !el.value && el;
+                    }, null);
+
+                    console.log(emptyField);
+
+                    if(emptyField) {
+                        emptyField.focus();
+                    }
+                }
+            });
+        },
 
         shouldShowAddress() {
             return this.showAddress || !!(
