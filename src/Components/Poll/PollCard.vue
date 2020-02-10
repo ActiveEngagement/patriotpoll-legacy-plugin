@@ -8,11 +8,11 @@
                 <div v-if="poll.image" :style="{'background': `url(${poll.image.url}) center / cover no-repeat`, height: '12rem'}" />
                 <img v-if="poll.embed" :src="poll.embed.url" class="img-fluid poll-img">
             </a>
-            <template v-if="poll.statistics">
+            <div v-if="poll.statistics" class="mt-3">
                 <progress-bar v-for="(breakdown, answer) in poll.statistics.breakdown" :key="answer" :value="breakdown.percentage" :color="color()" :class="{'text-dark': breakdown.percentage === 0, 'text-light': breakdown.percentage > 0}">
                     {{ answer }} ({{ breakdown.total }})
                 </progress-bar>
-            </template>
+            </div>
             <!--<dounut-chart :data="poll.statistics.breakdown" />-->
         </card-body>
         <!--
@@ -101,7 +101,7 @@ export default {
 @import 'node_modules/bootstrap/scss/variables';
 
 .poll-card {
-    border-radius: 0;
+    border: 0;
     
     .card-header, .card-footer {
         border: none;
