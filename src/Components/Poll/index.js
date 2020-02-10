@@ -4,7 +4,6 @@ import PollCard from './PollCard';
 import PollDate from './PollDate';
 import PollEmbed from './PollEmbed';
 import PollForm from './PollForm';
-import PollFormFields from './PollFormFields';
 import PollQuestion from './PollQuestion';
 import PollResults from './PollResults';
 
@@ -15,7 +14,6 @@ export {
     PollDate,
     PollEmbed,
     PollForm,
-    PollFormFields,
     PollQuestion,
     PollResults,
 };

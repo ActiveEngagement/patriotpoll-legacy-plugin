@@ -152,11 +152,12 @@
 </template>
 
 <script>
-import scrollTo from 'vue-interface/src/Helpers/ScrollTo';
-import SlideDeck from 'vue-interface/src/Components/SlideDeck';
+import PatriotPoll from '../../Mixins/PatriotPoll';
 
 import Btn from 'vue-interface/src/Components/Btn';
 import Alert from 'vue-interface/src/Components/Alert';
+import scrollTo from 'vue-interface/src/Helpers/ScrollTo';
+import SlideDeck from 'vue-interface/src/Components/SlideDeck';
 import AnimateCss from 'vue-interface/src/Components/AnimateCss';
 import InputField from 'vue-interface/src/Components/InputField';
 import BtnActivity from 'vue-interface/src/Components/BtnActivity';
@@ -178,6 +179,10 @@ export default {
         InputField,
         BtnActivity,
     },
+
+    mixins: [
+        PatriotPoll
+    ],
 
     props: {
 
@@ -236,7 +241,7 @@ export default {
             this.activity = true;
             this.$emit('submit');
 
-            this.$axios.post(`polls/${this.poll.id}`, this.form, {
+            this.$patriotpoll.post(`polls/${this.poll.id}`, this.form, {
                 headers: {
                     Authorization: 'Bearer ' + this.apiKey
                 }

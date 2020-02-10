@@ -1,6 +1,6 @@
 <template>
     <div>
-        <poll-loader :api-key="apiKey" />
+        <poll-loader :id="39" :api-key="apiKey" />
     </div>
 </template>
 

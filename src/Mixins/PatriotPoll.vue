@@ -1,3 +1,4 @@
+<script>
 import Axios from 'axios';
 
 export const BASE_URL = 'https://api.patriotpoll.net/v1';
@@ -9,6 +10,11 @@ export const axios = Axios.create({
     }
 });
 
-export default Vue => {
-    Vue.prototype.$patriotpoll = axios;
+export default {
+    
+    created() {
+        this.$patriotpoll = axios;
+    }
+
 };
+</script>

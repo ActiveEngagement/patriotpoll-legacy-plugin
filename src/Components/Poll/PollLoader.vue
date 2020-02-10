@@ -16,19 +16,19 @@
 </template>
 
 <script>
-import Vue from 'vue';
+// import Vue from 'vue';
 import Poll from './Poll';
-import VueRouter from 'vue-router';
+// import VueRouter from 'vue-router';
+import PatriotPoll from '../../Mixins/PatriotPoll';
 import { unit } from 'vue-interface/src/Helpers/Functions';
-import PatriotPollPlugin from '../../Plugins/PatriotPollPlugin';
 import ActivityIndicator from 'vue-interface/src/Components/ActivityIndicator';
 
-Vue.use(VueRouter);
-Vue.use(PatriotPollPlugin);
+// Vue.use(VueRouter);
+// Vue.use(PatriotPoll);
 
 export default {
 
-    router: new VueRouter(),
+    // router: new VueRouter(),
 
     name: 'PollLoader',
 
@@ -36,6 +36,10 @@ export default {
         Poll,
         ActivityIndicator
     },
+
+    mixins: [
+        PatriotPoll
+    ],
 
     props: {
 
@@ -95,6 +99,7 @@ export default {
         },
 
         currentStep(step) {
+            /*
             if(this.$route.params.step !== step) {
                 this.$router.push({
                     name: 'poll', 
@@ -104,10 +109,12 @@ export default {
                     }
                 });
             }
+            */
         },
 
         currentPoll(value) {
             this.loading = !value;
+            this.$emit('load', value);
         },
 
         loading(value) {
@@ -122,6 +129,9 @@ export default {
     },
 
     created() {
+        this.constructor.use(PatriotPoll);
+
+        /*
         this.initializeRoutes();
 
         if(this.$route.params.step) {
@@ -132,6 +142,7 @@ export default {
                 }
             });
         }
+        */
     },
 
     mounted() {
@@ -148,7 +159,7 @@ export default {
     methods: {
         
         key() {
-            return this.$route && this.$route.params.id || this.id || this.slug;   
+            return this.id || this.slug;   
         },
 
         onNext(poll) {
@@ -166,7 +177,7 @@ export default {
         load(id) {
             this.loading = true;
             
-            return this.$axios.get(`polls/${id}`, {
+            return this.$patriotpoll.get(`polls/${id}`, {
                 header: {
                     Authorization: `Bearer ${this.apiKey}`
                 }
@@ -178,6 +189,7 @@ export default {
                 });
         },
 
+        /*
         initializeRoutes() {
             if(!this.routed) {
                 this.$router.addRoutes([{
@@ -189,6 +201,7 @@ export default {
                 this.routed = true;
             }
         }
+        */
 
     }
 
