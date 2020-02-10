@@ -1,5 +1,24 @@
 <script>
 export default {
+
+    directives: {
+
+        permalink(el, { value, native }, { context, componentInstance }) {
+            if(!native && componentInstance) {
+                componentInstance.$on('click', () => {
+                    context.onClickPermalink(value);
+                });
+            }
+            else {
+                el.addEventListener('click', e => {
+                    context.onClickPermalink(value);
+
+                    e.preventDefault();
+                });
+            }
+        }
+
+    },
     
     props: {
         permalink: {
@@ -11,16 +30,20 @@ export default {
     },
 
     methods: {
-        onClickPermalink(poll) {
-            const path = this.permalink(this.nextPoll);
-            
+
+        routeToPermalink(permalink) {
             if(this.$router) {
-                this.$router.push(path);
+                this.$router.push(permalink);
             }
             else {
-                window.location = path;
+                window.location = permalink;
             }
+        },
+
+        onClickPermalink(poll) {
+            this.routeToPermalink(this.permalink(this.nextPoll));
         }
+        
     }
 
 };

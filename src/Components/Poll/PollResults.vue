@@ -8,12 +8,12 @@
             </h4>
             <h3 v-if="nextPoll.question" class="mb-4 font-weight-light" v-html="nextPoll.question" />
             <btn
+                v-permalink.native="nextPoll"
                 type="button"
                 size="lg"
                 variant="success"
                 class="d-inline-flex justify-content-center align-items-center"
-                block
-                @click="onClickPermalink(nextPoll)">
+                block>
                 <font-awesome-icon icon="poll" size="2x" class="mr-3" /> Take Next Poll
                 <font-awesome-icon icon="long-arrow-alt-right" size="2x" class="ml-3" />
             </btn>
