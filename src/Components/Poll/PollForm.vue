@@ -66,7 +66,7 @@
                     :errors="errors"
                     custom />
 
-                <animate-css name="fade" in delay="250ms">
+                <animate-css name="fade" in delay="150ms">
                     <input-field
                         v-if="showAddress"
                         v-model="form.phone"
@@ -78,7 +78,7 @@
                         custom />
                 </animate-css>
 
-                <animate-css name="fade" in delay="500ms">
+                <animate-css name="fade" in delay="350ms">
                     <div v-if="showAddress" class="mt-4">
                         <h4 class="mb-1">
                             Mailing Address

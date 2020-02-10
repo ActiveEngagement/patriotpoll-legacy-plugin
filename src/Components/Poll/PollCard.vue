@@ -6,7 +6,7 @@
                 <card-title v-if="!hideQuestion && poll.question" v-html="poll.question" />
                 <div v-if="!hideContent && poll.html" v-html="poll.html" />
                 <div v-if="!hideImage && poll.image" :style="{'background': `url(${poll.image.url}) center / cover no-repeat`, height: '12rem'}" />
-                <img v-if="!hideEmbed && poll.embed" :src="poll.embed.url" class="img-fluid poll-img">
+                <div v-else-if="!hideImage && poll.embed" :style="{'background': `url(${poll.embed.url}) center / cover no-repeat`, height: '12rem'}" />
             </a>
             <div v-if="!hideStatistics && poll.statistics" class="mt-2">
                 <progress-bar v-for="(breakdown, answer) in poll.statistics.breakdown"
@@ -86,11 +86,6 @@ export default {
         },
 
         hideContent: {
-            type: Boolean,
-            default: false
-        },
-
-        hideEmbed: {
             type: Boolean,
             default: false
         },
