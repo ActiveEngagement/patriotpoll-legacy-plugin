@@ -1,6 +1,6 @@
 {
   "name": "patriotpoll",
-  "version": "0.1.14",
+  "version": "0.1.15",
   "main": "dist/PatriotPoll.min.js",
   "module": "src/index.js",
   "scripts": {
