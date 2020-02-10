@@ -5,7 +5,7 @@
             <a :href="poll.permalink">
                 <card-title v-if="poll.question || poll.title" v-html="poll.question || poll.title" />
                 <div v-else-if="poll.html" v-html="poll.html" />
-                <div style="" :style="{'background': `url(${poll.image.url}) center / cover no-repeat`, height: '12rem'}" />
+                <div v-if="poll.image" :style="{'background': `url(${poll.image.url}) center / cover no-repeat`, height: '12rem'}" />
                 <img v-if="poll.embed" :src="poll.embed.url" class="img-fluid poll-img">
             </a>
             <template v-if="poll.statistics">
@@ -32,7 +32,7 @@
 <script>
 import randomcolor from 'randomcolor';
 import Card from 'vue-interface/src/Components/Card';
-import { DateFilter } from 'vue-interface/src/Filters/Date';
+import DateFilter from 'vue-interface/src/Filters/Date/DateFilter';
 import CardBody from 'vue-interface/src/Components/Card/CardBody';
 import ProgressBar from 'vue-interface/src/Components/ProgressBar';
 import CardTitle from 'vue-interface/src/Components/Card/CardTitle';
