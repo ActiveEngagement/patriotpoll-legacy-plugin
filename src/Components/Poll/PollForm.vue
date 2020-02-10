@@ -155,8 +155,6 @@
 import scrollTo from 'vue-interface/src/Helpers/ScrollTo';
 import SlideDeck from 'vue-interface/src/Components/SlideDeck';
 
-import axios from '../../Helpers/axios';
-
 import Btn from 'vue-interface/src/Components/Btn';
 import Alert from 'vue-interface/src/Components/Alert';
 import AnimateCss from 'vue-interface/src/Components/AnimateCss';
@@ -238,7 +236,7 @@ export default {
             this.activity = true;
             this.$emit('submit');
 
-            axios.post(`polls/${this.poll.id}`, this.form, {
+            this.$axios.post(`polls/${this.poll.id}`, this.form, {
                 headers: {
                     Authorization: 'Bearer ' + this.apiKey
                 }

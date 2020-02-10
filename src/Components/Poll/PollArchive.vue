@@ -33,7 +33,6 @@
 
 <script>
 import PollCard from './PollCard';
-import axios from '../../Helpers/axios';
 import BtnActivity from 'vue-interface/src/Components/BtnActivity';
 import ActivityIndicator from 'vue-interface/src/Components/ActivityIndicator';
 
@@ -74,7 +73,7 @@ export default {
         load(page) {
             this.activity = true;
 			
-            return axios.get('polls', {
+            return this.$axios.get('polls', {
                 params: {
                     limit: 9,
                     expired: 1,

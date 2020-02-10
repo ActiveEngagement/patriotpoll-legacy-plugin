@@ -1,17 +1,15 @@
 <template>
     <div>
-        <poll-archive :api-key="apiKey" />
+        <poll-loader :api-key="apiKey" />
     </div>
 </template>
 
 <script>
-import router from './router';
-import PollArchive from './Components/Poll/PollArchive';
+import PollLoader from './Components/Poll/PollLoader';
 
 export default {
-    router,
     components: {
-        PollArchive
+        PollLoader
     },
     props: {
         apiKey: {

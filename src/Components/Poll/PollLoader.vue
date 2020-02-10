@@ -16,12 +16,19 @@
 </template>
 
 <script>
+import Vue from 'vue';
 import Poll from './Poll';
-import axios from '../../Helpers/axios';
+import VueRouter from 'vue-router';
 import { unit } from 'vue-interface/src/Helpers/Functions';
+import PatriotPollPlugin from '../../Plugins/PatriotPollPlugin';
 import ActivityIndicator from 'vue-interface/src/Components/ActivityIndicator';
 
+Vue.use(VueRouter);
+Vue.use(PatriotPollPlugin);
+
 export default {
+
+    router: new VueRouter(),
 
     name: 'PollLoader',
 
@@ -37,22 +44,22 @@ export default {
             required: true
         },
 
+        id: [Number, String],
+
+        maxWidth: [Number, String],
+
         path: {
             type: String,
             default: '/:id?/:step?'
         },
 
-        id: [Number, String],
-
-        slug: [Number, String],
-
-        step: [Number, String],
-
         poll: Object,
         
         scrollTo: HTMLElement,
 
-        maxWidth: [Number, String]
+        slug: [Number, String],
+
+        step: [Number, String],
 
     },
 
@@ -115,23 +122,15 @@ export default {
     },
 
     created() {
-        if(this.$router && !this.routed) {
-            this.$router.addRoutes([{
-                alias: '/',
+        this.initializeRoutes();
+
+        if(this.$route.params.step) {
+            this.$router.push({
                 name: 'poll',
-                path: this.path
-            }]);
-
-            if(this.$route.params.step) {
-                this.$router.push({
-                    name: 'poll',
-                    params: {
-                        id: this.key()
-                    }
-                });
-            }
-
-            this.routed = true;
+                params: {
+                    id: this.key()
+                }
+            });
         }
     },
 
@@ -167,7 +166,7 @@ export default {
         load(id) {
             this.loading = true;
             
-            return axios.get(`polls/${id}`, {
+            return this.$axios.get(`polls/${id}`, {
                 header: {
                     Authorization: `Bearer ${this.apiKey}`
                 }
@@ -177,6 +176,18 @@ export default {
                 }, e => {
                     this.exception = e;
                 });
+        },
+
+        initializeRoutes() {
+            if(!this.routed) {
+                this.$router.addRoutes([{
+                    alias: '/',
+                    name: 'poll',
+                    path: this.path
+                }]);
+
+                this.routed = true;
+            }
         }
 
     }
