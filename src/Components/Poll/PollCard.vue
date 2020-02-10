@@ -2,7 +2,7 @@
     <card class="poll-card">
         <card-header>{{ poll.published_at | date('MMMM D, YYYY') }}</card-header>
         <card-body>
-            <a :href="permalink(poll)">
+            <a :href="permalink(poll)" @click.prevent="onClickPermalink(poll)">
                 <card-title v-if="!hideQuestion && poll.question" v-html="poll.question" />
                 <div v-if="!hideContent && poll.html" v-html="poll.html" />
                 <div v-if="!hideImage && poll.image" :style="{'background': `url(${poll.image.url}) center / cover no-repeat`, height: '12rem'}" />

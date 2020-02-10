@@ -13,7 +13,7 @@
                 variant="success"
                 class="d-inline-flex justify-content-center align-items-center"
                 block
-                @click="onClick">
+                @click="onClickPermalink(nextPoll)">
                 <font-awesome-icon icon="poll" size="2x" class="mr-3" /> Take Next Poll
                 <font-awesome-icon icon="long-arrow-alt-right" size="2x" class="ml-3" />
             </btn>
@@ -65,19 +65,6 @@ export default {
             return this.poll.next_poll || this.poll.prev_poll;
         }
 
-    },
-
-    methods: {
-        onClick() {
-            const path = this.permalink(this.nextPoll);
-            
-            if(this.$router) {
-                this.$router.push(path);
-            }
-            else {
-                window.location = path;
-            }
-        }
     }
 
 };
