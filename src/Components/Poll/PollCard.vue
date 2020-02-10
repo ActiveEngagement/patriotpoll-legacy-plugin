@@ -3,12 +3,12 @@
         <card-header>{{ poll.published_at | date('MMMM D, YYYY') }}</card-header>
         <card-body>
             <a :href="path || poll.permalink">
-                <card-title v-if="poll.question || poll.title" v-html="poll.question || poll.title" />
-                <div v-else-if="poll.html" v-html="poll.html" />
-                <div v-if="poll.image" :style="{'background': `url(${poll.image.url}) center / cover no-repeat`, height: '12rem'}" />
-                <img v-if="poll.embed" :src="poll.embed.url" class="img-fluid poll-img">
+                <card-title v-if="!hideQuestion && poll.question" v-html="poll.question" />
+                <div v-if="!hideContent && poll.html" v-html="poll.html" />
+                <div v-if="!hideImage && poll.image" :style="{'background': `url(${poll.image.url}) center / cover no-repeat`, height: '12rem'}" />
+                <img v-if="!hideEmbed && poll.embed" :src="poll.embed.url" class="img-fluid poll-img">
             </a>
-            <div v-if="poll.statistics" class="mt-3">
+            <div v-if="!hideStatistics && poll.statistics" class="mt-2">
                 <progress-bar v-for="(breakdown, answer) in poll.statistics.breakdown"
                     :key="answer"
                     :value="breakdown.percentage"
@@ -83,6 +83,31 @@ export default {
         poll: {
             type: Object,
             required: true
+        },
+
+        hideContent: {
+            type: Boolean,
+            default: false
+        },
+
+        hideEmbed: {
+            type: Boolean,
+            default: false
+        },
+
+        hideImage: {
+            type: Boolean,
+            default: false
+        },
+
+        hideStatistics: {
+            type: Boolean,
+            default: false
+        },
+
+        hideQuestion: {
+            type: Boolean,
+            default: false
         }
 
     },

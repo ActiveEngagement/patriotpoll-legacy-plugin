@@ -7,6 +7,7 @@
             :poll="currentPoll"
             :step="currentStep"
             :scroll-to="scrollTo"
+            :width="width"
             @step="onStep"
             @next="onNext"
             @slide-enter="onSlideEnter" />
@@ -55,6 +56,8 @@ export default {
         slug: [Number, String],
 
         step: [Number, String],
+
+        width: [Number, String]
 
     },
 
@@ -240,7 +243,6 @@ export default {
     color: $body-color;
     text-align: left; // 3
     background-color: $body-bg; // 2
-    max-width: 520px;
 
     &:not(.loading) {
         position: relative;
