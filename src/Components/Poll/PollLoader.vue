@@ -1,5 +1,5 @@
 <template>
-    <div class="poll-loader" :class="{'loading': loading}" :style="style">
+    <div class="patriot-poll poll-loader" :class="{'loading': loading}" :style="style">
         <activity-indicator v-if="loading" label="Loading..." type="spinner" center />
         <div v-else class="poll">
             <poll
