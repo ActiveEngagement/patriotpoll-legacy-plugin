@@ -221,8 +221,8 @@ export default {
 
 
 <style lang="scss">
-@import 'bootstrap/scss/bootstrap';
-@import '@fortawesome/fontawesome-svg-core/styles';
+@import 'node_modules/bootstrap/scss/bootstrap';
+@import 'node_modules/@fortawesome/fontawesome-svg-core/styles';
 
 .poll-loader {
     margin: 0; // 1
