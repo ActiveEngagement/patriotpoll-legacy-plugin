@@ -9,7 +9,12 @@
                 <img v-if="poll.embed" :src="poll.embed.url" class="img-fluid poll-img">
             </a>
             <div v-if="poll.statistics" class="mt-3">
-                <progress-bar v-for="(breakdown, answer) in poll.statistics.breakdown" :key="answer" :value="breakdown.percentage" :color="color()" :class="{'text-dark': breakdown.percentage === 0, 'text-light': breakdown.percentage > 0}">
+                <progress-bar v-for="(breakdown, answer) in poll.statistics.breakdown"
+                    :key="answer"
+                    :value="breakdown.percentage"
+                    :color="color()"
+                    :class="{'text-dark': breakdown.percentage === 0, 'text-light': breakdown.percentage > 0}"
+                    class="mb-1">
                     {{ answer }} ({{ breakdown.total }})
                 </progress-bar>
             </div>
