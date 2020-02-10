@@ -184,11 +184,7 @@ export default {
     svg {
         overflow: visible;
     }
-
-    .arc:first-child path {
-
-    }
-
+    
     .arc {
         position: relative;
         z-index: 1;
