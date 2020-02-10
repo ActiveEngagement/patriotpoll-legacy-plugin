@@ -1,12 +1,12 @@
 <template>
-    <div class="poll">
+    <div class="poll" :style="{width: width && `${width}px`}">
         <poll-date :poll="poll" />
 
-        <h1 v-if="poll.question" class="poll-header font-weight-light text-center mt-2" v-html="poll.question" />
+        <h1 v-if="poll.question" class="poll-header font-weight-light text-center mt-2 mb-4" v-html="poll.question" />
 
         <slide-deck :active="active" @enter="slide => $emit('slide-enter', slide)">
             <div key="question">
-                <poll-question :poll="poll" @input="onSelectAnswer" />
+                <poll-question :poll="poll" :width="width" @input="onSelectAnswer" />
             </div>
 
             <div key="contact">
@@ -52,7 +52,9 @@ export default {
 
         scrollTo: HTMLElement,
 
-        step: [Number, String]
+        step: [Number, String],
+
+        width: Number
 
     },
 

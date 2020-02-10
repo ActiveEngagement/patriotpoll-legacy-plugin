@@ -60,11 +60,6 @@ export default {
         showText: {
             type: Boolean,
             default: false
-        },
-
-        width: {
-            type: Number,
-            default: 520
         }
 
     },

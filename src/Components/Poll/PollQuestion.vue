@@ -1,14 +1,14 @@
 <template>
-    <div class="poll-question">
-        <div class="mb-3">
+    <div class="poll-question" :style="{width: width && `${width}px`}">
+        <div v-if="poll.image || poll.embed || poll.html || poll.url" class="mb-3">
             <img v-if="poll.image" class="poll-img d-flex img-fluid mx-auto rounded shadow" :src="poll.image.url">
             
             <div v-if="poll.html" class="poll-content" v-html="poll.html" />
-
+ 
             <img v-if="poll.embed" class="poll-img d-flex img-fluid mx-auto" :src="poll.embed.url">
 
             <animate-css name="fade" in>
-                <poll-embed v-if="!poll.embed && poll.url" :key="poll.id" :poll="poll" />
+                <poll-embed v-if="!poll.embed && poll.url" :key="poll.id" :poll="poll" :width="width" />
             </animate-css>
         </div>
 
@@ -66,7 +66,9 @@ export default {
         poll: {
             type: Object,
             required: true
-        }
+        },
+
+        width: Number
 
     },
 

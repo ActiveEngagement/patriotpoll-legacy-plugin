@@ -1,6 +1,6 @@
 <template>
-    <div class="patriot-poll">
-        <poll />
+    <div>
+        <poll id="39" />
     </div>
 </template>
 

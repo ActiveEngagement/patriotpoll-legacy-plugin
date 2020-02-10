@@ -9,7 +9,10 @@ export default {
 
         poll: Object,
 
-        width: Number
+        width: {
+            type: Number,
+            default: 520
+        }
 
     },
 

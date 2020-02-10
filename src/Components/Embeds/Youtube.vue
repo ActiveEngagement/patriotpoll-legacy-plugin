@@ -38,11 +38,6 @@ export default {
 
         end: Number,
 
-        width: {
-            type: Number,
-            default: 520
-        },
-
         height: Number
 
     },

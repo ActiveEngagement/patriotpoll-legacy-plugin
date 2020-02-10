@@ -1,5 +1,5 @@
 <template>
-    <div class="patriot-poll" :class="{'loading': loading}" :style="style">
+    <div class="patriot-poll">
         <activity-indicator v-if="loading" label="Loading..." type="spinner" center />
         <poll
             v-else-if="currentPoll"
@@ -8,6 +8,8 @@
             :step="currentStep"
             :scroll-to="scrollTo"
             :width="width"
+            :class="{'loading': loading, 'mx-auto': center}"
+            :style="styles"
             @step="onStep"
             @next="onNext"
             @slide-enter="onSlideEnter" />
@@ -40,9 +42,17 @@ export default {
 
     props: {
 
+        center: {
+            type: Boolean,
+            default: true
+        },
+
         id: [Number, String],
 
-        maxWidth: [Number, String],
+        maxWidth: {
+            type: [Number, String],
+            default: 520
+        },
 
         path: {
             type: String,
@@ -74,7 +84,7 @@ export default {
 
     computed: {
 
-        style() {
+        styles() {
             return {
                 maxWidth: this.maxWidth ? unit(this.maxWidth) : null
             };
