@@ -7,12 +7,12 @@
 
             <img v-if="poll.embed" class="poll-img d-flex img-fluid mx-auto" :src="poll.embed.url">
 
-            <transition v-else-if="poll.options.include_embed" name="fade" mode="out-in">
-                <poll-embed :key="poll.id" :poll="poll" />
-            </transition>
+            <animate-css name="fade" in>
+                <poll-embed v-if="!poll.embed && poll.url" :key="poll.id" :poll="poll" />
+            </animate-css>
         </div>
 
-        <div class="d-flex mb-5">
+        <div v-if="poll.answers" class="d-flex mb-5">
             <btn-group
                 v-responsive-blocks="{selector: 'span'}"
                 :vertical="vertical"
@@ -41,6 +41,7 @@
 import PollEmbed from './PollEmbed';
 import Btn from 'vue-interface/src/Components/Btn';
 import BtnGroup from 'vue-interface/src/Components/BtnGroup';
+import AnimateCss from 'vue-interface/src/Components/AnimateCss';
 import ResponsiveBlocks from '../../Directives/ResponsiveBlocks';
 
 export default {
@@ -50,7 +51,8 @@ export default {
     components: {
         Btn,
         BtnGroup,
-        PollEmbed
+        PollEmbed,
+        AnimateCss
     },
 
     directives: {

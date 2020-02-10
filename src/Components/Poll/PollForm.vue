@@ -188,11 +188,6 @@ export default {
 
         answer: [String, Number],
 
-        apiKey: {
-            type: String,
-            required: true
-        },
-
         poll: {
             type: Object,
             required: true

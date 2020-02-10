@@ -43,10 +43,7 @@ export default {
 
     props: {
 
-        apiKey: {
-            type: String,
-            required: true
-        },
+        apiKey: String,
 
         poll: {
             type: Object,

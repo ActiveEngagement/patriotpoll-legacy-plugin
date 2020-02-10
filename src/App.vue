@@ -1,6 +1,6 @@
 <template>
     <div>
-        <poll-loader :id="39" :api-key="apiKey" />
+        <poll-loader :poll="{}" />
     </div>
 </template>
 
@@ -10,14 +10,6 @@ import PollLoader from './Components/Poll/PollLoader';
 export default {
     components: {
         PollLoader
-    },
-    props: {
-        apiKey: {
-            type: String,
-            default() {
-                return process.env.VUE_APP_API_KEY;
-            }
-        }
     }
 };
 </script>

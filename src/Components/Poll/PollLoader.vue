@@ -43,11 +43,6 @@ export default {
 
     props: {
 
-        apiKey: {
-            type: String,
-            required: true
-        },
-
         id: [Number, String],
 
         maxWidth: [Number, String],

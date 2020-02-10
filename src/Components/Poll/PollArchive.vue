@@ -51,13 +51,6 @@ export default {
         PatriotPoll
     ],
 	
-    props: {
-        apiKey: {
-            type: String,
-            required: true
-        }
-    },
-
     data() {
         return {
             page: 1,
