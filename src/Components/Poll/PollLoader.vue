@@ -22,7 +22,6 @@
 import Poll from './Poll';
 // import VueRouter from 'vue-router';
 import Permalink from '../../Mixins/Permalink';
-import unit from 'vue-interface/src/Helpers/Functions/unit';
 import ActivityIndicator from 'vue-interface/src/Components/ActivityIndicator';
 import PatriotPollPlugin from '../../Plugins/PatriotPollPlugin';
 
@@ -55,10 +54,7 @@ export default {
 
         id: [Number, String],
 
-        maxWidth: {
-            type: [Number, String],
-            default: 520
-        },
+        maxWidth: [Number, String],
 
         poll: Object,
         
@@ -81,16 +77,6 @@ export default {
             currentStep: this.step,
             startingPoll: this.poll,
         };
-    },
-
-    computed: {
-
-        styles() {
-            return {
-                maxWidth: this.maxWidth ? unit(this.maxWidth) : null
-            };
-        }
-
     },
 
     watch: {

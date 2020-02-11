@@ -1,5 +1,5 @@
 <template>
-    <div class="poll" :style="{width: width && `${width}px`}">
+    <div class="poll" :style="styles">
         <poll-date :poll="poll" />
 
         <h1 v-if="poll.question" class="poll-header font-weight-light text-center mt-2 mb-4" v-html="poll.question" />
@@ -21,14 +21,13 @@
 </template>
 
 <script>
+import SlideDeck from 'vue-interface/src/Components/SlideDeck';
+import Permalink from '../../Mixins/Permalink';
 import PollDate from './PollDate';
 import PollForm from './PollForm';
-import PollResults from './PollResults';
 import PollQuestion from './PollQuestion';
-import Permalink from '../../Mixins/Permalink';
-
-// import scrollTo from 'vue-interface/src/Helpers/ScrollTo';
-import SlideDeck from 'vue-interface/src/Components/SlideDeck';
+import PollResults from './PollResults';
+import unit from 'vue-interface/src/Helpers/Functions/unit';
 
 export default {
 
@@ -50,6 +49,11 @@ export default {
 
         apiKey: String,
 
+        maxWidth: {
+            type: [Number, String],
+            default: 520
+        },
+
         poll: {
             type: Object,
             required: true
@@ -59,7 +63,7 @@ export default {
 
         step: [Number, String],
 
-        width: Number
+        width: Number,
 
     },
 
@@ -68,6 +72,17 @@ export default {
             answer: null,
             active: this.step || null
         };
+    },
+
+    computed: {
+
+        styles() {
+            return {
+                width: this.width && unit(this.width),
+                maxWidth: this.maxWidth && unit(this.maxWidth)
+            };
+        }
+
     },
 
     watch: {
