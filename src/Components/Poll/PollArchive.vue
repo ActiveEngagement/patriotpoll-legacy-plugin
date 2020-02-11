@@ -56,7 +56,8 @@ export default {
             page: 1,
             polls: [],
             activity: true,
-            loadMore: false
+            loadMore: false,
+            exception: null,
         };
     },
 
@@ -83,7 +84,7 @@ export default {
                     this.page = data.current_page;
                     this.loadMore = data.current_page < data.last_page;
                 }, e => {
-                    console.log(e);
+                    this.exception = e;
                 })
                 .finally(() => {
                     this.activity = false;

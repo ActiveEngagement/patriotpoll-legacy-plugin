@@ -102,7 +102,7 @@ function resize(el, binding, vnode) {
         doesHaveLineBreaks: doesHaveLineBreaks(el, options.selector),
         doesCalculatedWidthExceedContainer: roundedCalculatedWidth > containerWidth
     });
-
+    
     el.dispatchEvent(event);
 
     return resize;

@@ -16,7 +16,7 @@
             <btn-group
                 v-responsive-blocks="{selector: 'span'}"
                 :vertical="vertical"
-                :style="{'grid-template-columns': `repeat(${poll.answers.length}, minmax(${100 / poll.answers.length}%, 1fr)`}"
+                :style="{'display': !vertical ? 'grid' : 'inherit', 'grid-template-columns': `repeat(${poll.answers.length}, minmax(${100 / poll.answers.length}%, 1fr)`}"
                 class="mx-auto w-100"
                 toggle
                 @resize.native="onResize">
