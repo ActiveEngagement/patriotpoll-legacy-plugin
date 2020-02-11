@@ -272,6 +272,8 @@ export default {
                 .then(({ data }) => {
                     window.localStorage.__poll__ = JSON.stringify(this.form);
 
+                    Object.assign(this.poll, data);
+                    
                     this.poll.statistics = data.statistics;
                     this.active = 'results';
                     

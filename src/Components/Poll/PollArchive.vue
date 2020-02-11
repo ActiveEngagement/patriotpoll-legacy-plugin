@@ -1,5 +1,5 @@
 <template>
-    <section class="poll-archive my-lg-5 py-lg-5">
+    <section class="poll-archive">
         <activity-indicator v-if="activity" label="Loading Archive..." type="spinner" min-height="200px" />
 
         <div v-else-if="!!polls.length" class="container">
