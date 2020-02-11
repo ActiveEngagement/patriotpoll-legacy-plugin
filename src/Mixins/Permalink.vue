@@ -36,8 +36,6 @@ export default {
     methods: {
 
         routeToPermalink(permalink) {
-            console.log(permalink.replace(window.location.domain, ''));
-
             if(this.$router && !permalink.match(/^http/)) {
                 this.$router.push(permalink);
             }
