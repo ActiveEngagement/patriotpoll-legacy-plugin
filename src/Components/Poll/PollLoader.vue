@@ -161,7 +161,7 @@ export default {
             // this.$emit('load', this.currentPoll = this.startingPoll);
             this.currentPoll = this.startingPoll;
         }
-        else if(key) {
+        else if(this.key()) {
             this.load(this.key());
         }
         else {

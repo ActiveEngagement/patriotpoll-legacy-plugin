@@ -24,7 +24,6 @@
                     v-for="key in poll.answers"
                     :key="key"
                     :active="key === value"
-                    :style="{width: `${100 / poll.answers.length}%`}"
                     size="lg"
                     type="button"
                     variant="primary"

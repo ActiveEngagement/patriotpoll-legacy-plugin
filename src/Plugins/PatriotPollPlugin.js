@@ -17,5 +17,15 @@ export default function(Vue, options = {}) {
         }
     });
 
+    if(window.localStorage.__poll__) {
+        const store = JSON.parse(window.localStorage.__poll__);
+        
+        delete store.answer;
+
+        for(let i in store) {
+            
+        }
+    }
+
     Vue.prototype.$patriotpoll = axios;
 }
