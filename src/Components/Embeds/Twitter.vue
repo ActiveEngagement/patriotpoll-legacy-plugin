@@ -4,7 +4,7 @@
             <activity-indicator size="sm" type="spinner" label="Loading..." :min-height="200" center />
         </div>
 
-        <blockquote v-if="loaded || image" v-instantiate v-bind="attributes" :style="{'visibility': !loaded ? 'hidden' : 'visible'}">
+        <blockquote v-if="!activity || image" v-bind="attributes" :style="{'visibility': !loaded ? 'hidden' : 'visible'}">
             <a :href="url">
                 <img v-if="image" :src="image.url || image" :alt="`Screenshot of ${image}.`" class="img-fluid">
             </a>
@@ -22,16 +22,6 @@ export default {
 
     components: {
         ActivityIndicator
-    },
-
-    directives: {
-        instantiate(el, binding, vnode) {
-            if(vnode.context.loaded) {
-                vnode.context.$twttr.widgets.load(el).then((a) => {
-                    vnode.context.loaded = true;
-                });
-            }
-        }
     },
 
     inheritAttrs: false,
@@ -94,6 +84,7 @@ export default {
 
     data() {
         return {
+            twttr: null,
             loaded: false,
             activity: false,
             calculatedWidth: this.width
@@ -134,11 +125,12 @@ export default {
     mounted() {
         script('https://platform.twitter.com/widgets.js').then(() => {
             window.twttr.ready(twttr => {
-                this.$twttr = twttr;
+                this.twttr = twttr;
                 this.activity = false;
-                
 
                 twttr.events.bind('loaded', (event) => {
+                    this.loaded = true;
+
                     event.widgets.forEach(widget => {
                         widget.style.marginTop = 0;
                         widget.style.marginBottom = 0;

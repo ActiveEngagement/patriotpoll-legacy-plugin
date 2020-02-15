@@ -18,7 +18,7 @@
 
 <script>
 // import Vue from 'vue';
-import Poll from './Poll';
+import Poll from './PollEmbed';
 // import VueRouter from 'vue-router';
 import Permalink from '../../Mixins/Permalink';
 import ActivityIndicator from 'vue-interface/src/Components/ActivityIndicator';
