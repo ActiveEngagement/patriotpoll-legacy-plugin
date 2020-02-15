@@ -87,6 +87,11 @@ export default {
             validate(value) {
                 return ['light', 'dark'].indexOf(value) !== -1;
             }
+        },
+
+        width: {
+            type: Number,
+            default: 520
         }
 
     },
