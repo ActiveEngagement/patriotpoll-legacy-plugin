@@ -1,10 +1,10 @@
 <template>
     <div class="twitter-embed w-100" :style="{maxWidth: `${calculatedWidth}px`}">
         <div v-if="(activity || !loaded) && !image" class="position-relative" :style="{'min-height': '300px'}">
-            <activity-indicator size="sm" type="spinner" label="Loading Twitter..." :min-height="200" center />
+            <activity-indicator size="sm" type="spinner" label="Loading..." :min-height="200" center />
         </div>
 
-        <blockquote v-if="!activity" v-instantiate v-bind="attributes" :style="{'visibility': !loaded ? 'hidden' : 'visible'}">
+        <blockquote v-if="loaded || image" v-instantiate v-bind="attributes" :style="{'visibility': !loaded ? 'hidden' : 'visible'}">
             <a :href="url">
                 <img v-if="image" :src="image.url || image" :alt="`Screenshot of ${image}.`" class="img-fluid">
             </a>
@@ -25,14 +25,10 @@ export default {
     },
 
     directives: {
-        instantiate: {
-            inserted(el, binding, vnode) {
-                vnode.context.$nextTick(() => {
-                    vnode.context.$twttr.widgets.load(el).then(() => {
-                        vnode.context.$el.querySelector('twitterwidget, .twitter-tweet').style.marginTop = 0;
-                        vnode.context.$el.querySelector('twitterwidget, .twitter-tweet').style.marginBottom = 0;
-                        vnode.context.loaded = true;
-                    });
+        instantiate(el, binding, vnode) {
+            if(vnode.context.loaded) {
+                vnode.context.$twttr.widgets.load(el).then((a) => {
+                    vnode.context.loaded = true;
                 });
             }
         }
@@ -99,7 +95,7 @@ export default {
     data() {
         return {
             loaded: false,
-            activity: true,
+            activity: false,
             calculatedWidth: this.width
         };
     },
@@ -140,7 +136,14 @@ export default {
             window.twttr.ready(twttr => {
                 this.$twttr = twttr;
                 this.activity = false;
-                this.$nextTick();
+                
+
+                twttr.events.bind('loaded', (event) => {
+                    event.widgets.forEach(widget => {
+                        widget.style.marginTop = 0;
+                        widget.style.marginBottom = 0;
+                    });
+                });
 
                 window.addEventListener('resize', this.resize());
             });

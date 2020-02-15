@@ -1,6 +1,6 @@
 <template>
     <div>
-        <poll id="39" />
+        <poll />
     </div>
 </template>
 
