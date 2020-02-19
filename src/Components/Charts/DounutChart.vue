@@ -22,7 +22,7 @@ export default {
         width: Number,
         height: Number,
         data: {
-            type: Object,
+            type: Array,
             required: true
         },
         offset: {
@@ -36,7 +36,9 @@ export default {
         labels: {
             type: [Boolean, Function],
             default() {
-                return d => `${d.data.answer} (${d.data.total})`;
+                return d => {
+                    return `${d.data.answer} (${d.data.total})`;
+                };
             },
             validate(value) {
                 return (value instanceof Function) || !value;

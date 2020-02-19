@@ -1,6 +1,6 @@
 <template>
     <div class="poll-results mt-4 p-3">
-        <dounut-chart :data="poll.statistics.breakdown" :height="300" />
+        <dounut-chart :data="poll.statistics.breakdown" :labels="labels" :height="300" />
 
         <div v-if="nextPoll" class="mt-5 mb-3 mx-3">
             <h4 class="mb-2">
@@ -63,6 +63,14 @@ export default {
         
         nextPoll() {
             return this.poll.next_poll || this.poll.prev_poll;
+        }
+
+    },
+
+    methods: {
+
+        labels({ data }, i) {
+            return `${this.poll.answers[i]} (${data.total})`;
         }
 
     }

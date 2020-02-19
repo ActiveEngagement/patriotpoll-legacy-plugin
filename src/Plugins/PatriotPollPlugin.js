@@ -22,8 +22,8 @@ export default function(Vue, options = {}) {
         
         delete store.answer;
 
-        for(let i in store) {
-            
+        for(let [key, value] of Object.entries(store)) {
+            axios.defaults.headers[`Contact-${key.charAt(0).toUpperCase() + key.slice(1)}`] = value;
         }
     }
 
