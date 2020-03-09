@@ -13,9 +13,7 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="card-columns">
-                        <transition-group name="fade">
-                            <poll-card v-for="poll in polls" :key="poll.id" :poll="poll" :permalink="permalink" />
-                        </transition-group>
+                        <poll-card v-for="poll in polls" :key="poll.id" :poll="poll" :permalink="permalink" />
                     </div>
                 </div>
             </div>
