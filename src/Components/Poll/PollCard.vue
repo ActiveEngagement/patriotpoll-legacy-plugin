@@ -5,8 +5,8 @@
             <a v-permalink="poll">
                 <card-title v-if="!hideQuestion && poll.question" v-html="poll.question" />
                 <div v-if="!hideContent && poll.html" v-html="poll.html" />
-                <div v-if="!hideImage && poll.image" :style="{'background': `url(${poll.image.url}) center / cover no-repeat`, height: '12rem'}" class="mb-2" />
-                <div v-else-if="!hideImage && poll.embed" :style="{'background': `url(${poll.embed.url}) center / cover no-repeat`, height: '12rem'}" class="mb-2" />
+                <div v-if="!hideImage && poll.image" :style="{'background': `url(${poll.image.url}) center / cover no-repeat`, height: '12rem'}" class="mb-3" />
+                <div v-else-if="!hideImage && poll.embed" :style="{'background': `url(${poll.embed.url}) center / cover no-repeat`, height: '12rem'}" class="mb-3" />
             </a>
             <div v-if="!hideStatistics && poll.statistics" class="mt-2">
                 <progress-bar v-for="(breakdown, answer) in poll.statistics.breakdown"
