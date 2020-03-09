@@ -108,8 +108,6 @@ export default {
 <style lang="scss">
 @import '../../assets/scss/mixins';
 @import '../../assets/scss/variables';
-@import '~bootstrap/scss/_functions.scss';
-@import '~bootstrap/scss/_variables.scss';
 
 .poll-question {
     @include body-font;

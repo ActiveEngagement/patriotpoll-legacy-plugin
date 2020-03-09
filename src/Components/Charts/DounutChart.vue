@@ -1,5 +1,5 @@
 <template>
-    <div class="dounut-chart" :class="{'has-labels': !!labels}" />
+    <div class="patriotpoll-dounut-chart" :class="{'has-labels': !!labels}" />
 </template>
 
 <script>
@@ -181,7 +181,7 @@ export default {
 </script>
 
 <style lang="scss">
-.dounut-chart {
+.patriotpoll-dounut-chart {
 
     svg {
         overflow: visible;

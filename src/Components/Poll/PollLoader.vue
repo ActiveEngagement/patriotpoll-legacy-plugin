@@ -219,8 +219,10 @@ export default {
 
 
 <style lang="scss">
-@import 'node_modules/bootstrap/scss/bootstrap';
-@import 'node_modules/@fortawesome/fontawesome-svg-core/styles';
+@import '../../assets/scss/mixins';
+@import '../../assets/scss/variables';
+@import '~bootstrap/scss/bootstrap';
+@import '~@fortawesome/fontawesome-svg-core/styles';
 
 .btn {
     height: auto;
@@ -229,7 +231,7 @@ export default {
 .patriot-poll {
     margin: 0; // 1
     font-family: $font-family-base;
-    @include font-size($font-size-base);
+    // @include font-size($font-size-base);
     font-weight: $font-weight-base;
     line-height: $line-height-base;
     color: $body-color;
