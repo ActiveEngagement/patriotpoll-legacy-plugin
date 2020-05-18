@@ -11,11 +11,10 @@
             <div v-if="!hideStatistics && poll.statistics" class="mt-2">
                 <progress-bar v-for="(breakdown, answer) in poll.statistics.breakdown"
                     :key="answer"
-                    :value="breakdown.percentage"
-                    :color="color()"
-                    :class="{'text-dark': breakdown.percentage === 0, 'text-light': breakdown.percentage > 0}"
-                    class="mb-1">
-                    {{ answer }} ({{ breakdown.total }})
+                    :value="breakdown.percentage || 100"
+                    :color="breakdown.percentage ? color() : 'transparent'"
+                    class="mb-1 text-dark">
+                    {{ answer }} ({{ Math.round(breakdown.percentage) }}%)
                 </progress-bar>
             </div>
             <!--<dounut-chart :data="poll.statistics.breakdown" />-->
@@ -114,7 +113,7 @@ export default {
         color(options) {
             return randomcolor(Object.assign({
                 count: 1,
-                luminosity: 'dark'
+                luminosity: 'light'
             }, options))[0];
         }
     }

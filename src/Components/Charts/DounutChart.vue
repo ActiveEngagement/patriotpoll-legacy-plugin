@@ -94,7 +94,7 @@ export default {
 
         colors(count, options) {
             return randomcolor(Object.assign({
-                luminosity: 'bright',
+                luminosity: 'light',
                 count: count
             }, options));
         },

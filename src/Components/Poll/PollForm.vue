@@ -8,7 +8,7 @@
                 outline
                 class="p-0"
                 @click="$emit('cancel')">
-                <font-awesome-icon icon="undo" class="mr-2" /> <em>Oops, choose another answer</em>
+                <font-awesome-icon icon="undo" class="mr-2" /> <em>Start over</em>
             </btn>
         </alert>
     

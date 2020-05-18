@@ -17,19 +17,12 @@
 </template>
 
 <script>
-// import Vue from 'vue';
 import Poll from './Poll';
-// import VueRouter from 'vue-router';
 import Permalink from '../../Mixins/Permalink';
 import ActivityIndicator from 'vue-interface/src/Components/ActivityIndicator';
 import PatriotPollPlugin from '../../Plugins/PatriotPollPlugin';
 
-// Vue.use(VueRouter);
-// Vue.use(PatriotPoll);
-
 export default {
-
-    // router: new VueRouter(),
 
     components: {
         Poll,
@@ -88,18 +81,8 @@ export default {
             this.load(value);
         },
 
-        currentStep(step) {
-            /*
-            if(this.$route.params.step !== step) {
-                this.$router.push({
-                    name: 'poll', 
-                    params: {
-                        step,
-                        id: this.key()
-                    }
-                });
-            }
-            */
+        step(value) {
+            this.currentStep = value;
         },
 
         currentPoll(value) {
@@ -123,19 +106,6 @@ export default {
             apiKey: this.apiKey,
             baseUrl: this.baseUrl
         });
-
-        /*
-        this.initializeRoutes();
-
-        if(this.$route.params.step) {
-            this.$router.push({
-                name: 'poll',
-                params: {
-                    id: this.key()
-                }
-            });
-        }
-        */
     },
 
     mounted() {
@@ -150,9 +120,7 @@ export default {
             this.load(this.key());
         }
         else {
-            this.search().then(({ data }) => {
-                this.currentPoll = data[0];
-            });
+            this.load();
         }
     },
     
@@ -187,6 +155,12 @@ export default {
 
         load(id) {
             this.loading = true;
+
+            if(!id) {
+                return this.search().then(({ data }) => {
+                    return this.currentPoll = data[0];
+                });
+            }
             
             return this.$patriotpoll.get(`polls/${id}`)
                 .then(({ data }) => {
@@ -196,21 +170,7 @@ export default {
 
                     return e;
                 });
-        },
-
-        /*
-        initializeRoutes() {
-            if(!this.routed) {
-                this.$router.addRoutes([{
-                    alias: '/',
-                    name: 'poll',
-                    path: this.path
-                }]);
-
-                this.routed = true;
-            }
         }
-        */
 
     }
 
