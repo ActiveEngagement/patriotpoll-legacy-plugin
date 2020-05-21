@@ -1,7 +1,5 @@
 <template>
     <div class="poll" :style="styles">
-        <poll-date :poll="poll" />
-
         <h1 v-if="poll.question" class="poll-header font-weight-light text-center mt-2 mb-4" v-html="poll.question" />
 
         <slide-deck :active="active" @enter="slide => $emit('slide-enter', slide)">
@@ -10,7 +8,7 @@
             </div>
 
             <div key="contact">
-                <poll-form :answer="answer" :poll="poll" :api-key="apiKey" @submit-success="active = 'results'" @cancel="onClickBack" />
+                <poll-form :answer="answer" :poll="poll" :api-key="apiKey" @submit-success="onSubmitSuccess" @cancel="onClickBack" />
             </div>
 
             <div key="results">
@@ -21,12 +19,7 @@
 </template>
 
 <script>
-import SlideDeck from 'vue-interface/src/Components/SlideDeck';
 import Permalink from '../../Mixins/Permalink';
-import PollDate from './PollDate';
-import PollForm from './PollForm';
-import PollQuestion from './PollQuestion';
-import PollResults from './PollResults';
 import unit from 'vue-interface/src/Helpers/Functions/unit';
 
 export default {
@@ -34,11 +27,10 @@ export default {
     name: 'Poll',
 
     components: {
-        PollDate,
-        PollResults,
-        PollQuestion,
-        PollForm,
-        SlideDeck
+        'slide-deck': () => import(/* webpackChunkName: 'slide-deck' */ 'vue-interface/src/Components/SlideDeck'),
+        'poll-results': () => import(/* webpackChunkName: 'poll-results' */ './PollResults'),
+        'poll-question': () => import(/* webpackChunkName: 'poll-question' */ './PollQuestion'),
+        'poll-form': () => import(/* webpackChunkName: 'poll-form' */ './PollForm'),
     },
 
     mixins: [
@@ -67,10 +59,13 @@ export default {
 
     },
 
-    data() {        
+    data() {      
+        const params = new URLSearchParams(window.location.search);
+        const answer = params.get('answer');
+
         return {
-            answer: null,
-            active: this.step || null
+            answer,
+            active: this.step || (answer && 'contact')
         };
     },
 
@@ -103,6 +98,15 @@ export default {
     },
 
     methods: {
+
+        onSubmitSuccess() {
+            if(!this.poll.options.redirect_url) {
+                this.active = 'results';
+            }
+            else {
+                window.location = this.poll.options.redirect_url;
+            }
+        },
 
         onClickBack() {
             // scrollTo(this.scrollTo || this.$el, 100);

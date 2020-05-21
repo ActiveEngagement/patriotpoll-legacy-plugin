@@ -13,11 +13,20 @@
             @step="onStep"
             @next="onNext"
             @slide-enter="onSlideEnter" />
+        <div v-else class="poll-exception-wrapper">
+            <div class="poll-exception">
+                <alert variant="warning">
+                    <h4>No Active Polls</h4>
+                    There are no active polls at this time. Please check back later.
+                </alert>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
 import Poll from './Poll';
+import Alert from '@vue-interface/alert';
 import Permalink from '../../Mixins/Permalink';
 import ActivityIndicator from 'vue-interface/src/Components/ActivityIndicator';
 import PatriotPollPlugin from '../../Plugins/PatriotPollPlugin';
@@ -26,6 +35,7 @@ export default {
 
     components: {
         Poll,
+        Alert,
         ActivityIndicator
     },
 
@@ -83,6 +93,10 @@ export default {
 
         step(value) {
             this.currentStep = value;
+        },
+
+        exception(e) {
+            this.loading = false;
         },
 
         currentPoll(value) {
@@ -157,9 +171,14 @@ export default {
             this.loading = true;
 
             if(!id) {
-                return this.search().then(({ data }) => {
-                    return this.currentPoll = data[0];
-                });
+                return this.search()
+                    .then(({ data }) => {
+                        if(data.length) {
+                            return this.currentPoll = data[0];
+                        }
+
+                        this.exception = new Error('test');
+                    });
             }
             
             return this.$patriotpoll.get(`polls/${id}`)
@@ -197,28 +216,38 @@ export default {
     color: $body-color;
     text-align: left; // 3
     background-color: $body-bg; // 2
-}
 
-.poll {
-    margin: 0; // 1
-    font-family: $font-family-base;
-    @include font-size($font-size-base);
-    font-weight: $font-weight-base;
-    line-height: $line-height-base;
-    color: $body-color;
-    text-align: left; // 3
-    background-color: $body-bg; // 2
+    .poll-exception-wrapper {
+        display: flex;
+        height: 100vh;
+        width: 100vw;
 
-    &:not(.loading) {
-        position: relative;
-        margin: 0 auto;
+        .poll-exception {
+            margin: auto;
+        }
     }
 
-    .fade-enter-active, .fade-leave-active {
-        transition: opacity .75s;
-    }
-    .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-        opacity: 0;
+    .poll {
+        margin: 0; // 1
+        font-family: $font-family-base;
+        @include font-size($font-size-base);
+        font-weight: $font-weight-base;
+        line-height: $line-height-base;
+        color: $body-color;
+        text-align: left; // 3
+        background-color: $body-bg; // 2
+
+        &:not(.loading) {
+            position: relative;
+            margin: 0 auto;
+        }
+
+        .fade-enter-active, .fade-leave-active {
+            transition: opacity .75s;
+        }
+        .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+            opacity: 0;
+        }
     }
 }
 </style>

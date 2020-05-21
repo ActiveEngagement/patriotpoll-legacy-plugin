@@ -1,11 +1,11 @@
 <template>
     <div class="poll-question" :style="{width: width && `${width}px`}">
         <div v-if="poll.image || poll.embed || poll.html || poll.url" class="mb-3">
-            <img v-if="poll.image" class="poll-img d-flex w-100 rounded shadow" :src="poll.image.url">
+            <img v-if="poll.image" v-lazy :data-src="poll.image.url" class="poll-img d-flex w-100 rounded shadow">
             
             <div v-if="poll.html" class="poll-content" v-html="poll.html" />
  
-            <img v-if="poll.embed" class="poll-img d-flex w-100" :src="poll.embed.url">
+            <img v-if="poll.embed" v-lazy :data-src="poll.embed.url" class="poll-img d-flex w-100">
 
             <animate-css name="fade" in>
                 <poll-embed v-if="!poll.embed && poll.url" :key="poll.id" :poll="poll" :width="width" />
@@ -38,6 +38,7 @@
 
 <script>
 import PollEmbed from './PollEmbed';
+import Lazy from '@vue-interface/lazy';
 import Btn from 'vue-interface/src/Components/Btn';
 import BtnGroup from 'vue-interface/src/Components/BtnGroup';
 import AnimateCss from 'vue-interface/src/Components/AnimateCss';
@@ -55,6 +56,7 @@ export default {
     },
 
     directives: {
+        Lazy,
         ResponsiveBlocks
     },
 

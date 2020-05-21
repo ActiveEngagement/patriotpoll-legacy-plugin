@@ -39,104 +39,15 @@
         <animate-css name="fade" in duration="250ms">
             <div v-if="!showCard" class="mb-3">
                 <p><em>* Indicates the required fields.</em></p>
-            
-                <input-field
-                    v-model="form.first"
-                    name="first"
-                    label="First Name*"
-                    placeholder="First Name*"
-                    class="focusable"
-                    :errors="errors"
-                    custom />
 
-                <input-field
-                    v-model="form.last"
-                    name="last"
-                    label="Last Name*"
-                    placeholder="Last Name*"
-                    class="focusable"
-                    :errors="errors"
-                    custom />
-
-                <input-field
-                    v-model="form.email"
-                    name="email"
-                    label="Email*"
-                    placeholder="Email*"
-                    class="focusable"
-                    :errors="errors"
-                    custom />
-
-                <animate-css name="fade" in delay="175ms">
-                    <input-field
-                        v-if="showAddress"
-                        v-model="form.phone"
-                        name="phone"
-                        class="mb-0 focusable"
-                        label="Phone Number"
-                        placeholder="Phone Number"
+                <template v-for="([is, field], name) in fields">
+                    <components :is="is"
+                        :key="name"
+                        :name="name"
+                        :form="form"
                         :errors="errors"
-                        custom />
-                </animate-css>
-
-                <animate-css name="fade" in delay="350ms">
-                    <div v-if="showAddress" class="mt-4">
-                        <h4 class="mb-1">
-                            Mailing Address
-                        </h4>
-                        <p><em>Your mailing address is optional.</em></p>
-                        <div class="row">
-                            <div class="col-sm-8">
-                                <input-field v-model="form.street"
-                                    name="street"
-                                    label="Street Address"
-                                    class="focusable"
-                                    placeholder="Street Address"
-                                    :errors="errors"
-                                    custom />
-                            </div>
-                            <div class="col-sm-4">
-                                <input-field v-model="form.addr2"
-                                    name="addr2"
-                                    label="Unit #"
-                                    placeholder="Unit #"
-                                    :errors="errors"
-                                    custom />
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <input-field v-model="form.city"
-                                    name="city"
-                                    label="City"
-                                    class="focusable"
-                                    placeholder="City"
-                                    :errors="errors"
-                                    custom />
-                            </div>
-                            <div class="col-sm-3">
-                                <input-field v-model="form.state"
-                                    name="state"
-                                    label="State"
-                                    class="focusable"
-                                    placeholder="State"
-                                    maxlength="2"
-                                    :errors="errors"
-                                    custom />
-                            </div>
-                            <div class="col-sm-3">
-                                <input-field v-model="form.zip"
-                                    name="zip"
-                                    label="Zipcode"
-                                    placeholder="Zipcode"
-                                    class="mb-0 focusable"
-                                    maxlength="5"
-                                    :errors="errors"
-                                    custom />
-                            </div>
-                        </div>
-                    </div>
-                </animate-css>
+                        v-bind="field" />
+                </template>
             </div>
         </animate-css>
     
@@ -148,19 +59,21 @@
             size="lg"
             block
             :activity="activity"
-            :disabled="!poll.active || !showAddress">
+            :disabled="disabled">
             Submit Poll
         </btn-activity>
     </form>
 </template>
 
 <script>
+import InputField from './Fields/InputField';
+import SelectField from './Fields/SelectField';
+
 import Btn from 'vue-interface/src/Components/Btn';
 import Alert from 'vue-interface/src/Components/Alert';
 // import scrollTo from 'vue-interface/src/Helpers/ScrollTo';
 import SlideDeck from 'vue-interface/src/Components/SlideDeck';
 import AnimateCss from 'vue-interface/src/Components/AnimateCss';
-import InputField from 'vue-interface/src/Components/InputField';
 import BtnActivity from 'vue-interface/src/Components/BtnActivity';
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
@@ -179,6 +92,7 @@ export default {
         Alert,
         AnimateCss,
         InputField,
+        SelectField,
         BtnActivity,
         FontAwesomeIcon
     },
@@ -195,15 +109,81 @@ export default {
     },
 
     data() {
+        const params = new URLSearchParams(window.location.search);
+
+        const form = Array.from(params.entries())
+            .reduce((carry, [key, value]) => Object.assign({
+                [key]: value
+            }, carry), {
+                answer: this.answer,
+                query: window.location.search,
+                mailing_id: params.get('mailing_id') || params.get('mailingid'),
+                source: params.get('source') || params.get('src') || params.get('utm_source'),
+                transaction_id: params.get('transaction_id') || params.get('transactionid') || params.get('trans_id'),
+            });
+
         return {
-            form: {
-                answer: this.answer
-            },
+            form,
             errors: null,
             activity: false,
             showCard: false,
             showAddress: false
         };
+    },
+
+    computed: {
+        disabled() {
+            return Object.entries(this.fields)
+                .filter(([name, [is, obj]]) => {
+                    return obj.required && !this.form[name];
+                })
+                .length > 0;
+        },
+        fields() {
+            const entries = Object.entries({
+                first: ['input-field', {
+                    label: 'First Name'
+                }],
+                last: ['input-field', {
+                    label: 'Last Name'
+                }],
+                email: ['input-field', {
+                    label: 'Email Address'
+                }],
+                phone: ['input-field', {
+                    label: 'Phone Number'
+                }],
+                street: ['input-field', {
+                    label: 'Street'
+                }],
+                addr2: ['input-field', {
+                    label: 'Unit #'
+                }],
+                city: ['input-field', {
+                    label: 'City'
+                }],
+                state: ['select-field', {
+                    label: 'State',
+                    options: [{
+                        1: 'Label 1'
+                    }]
+                }],
+                zip: ['input-field', {
+                    label: 'Postal Code',
+                    maxlength: 5
+                }]
+            })
+                .map(([key, [is, obj]]) => {
+                    obj.required = this.poll.options.required_fields[key];
+
+                    return [key, [is, obj]];
+                })
+                .filter(([key, value]) => {
+                    return this.poll.options.show_fields[key];
+                });
+
+            return Object.fromEntries(entries);
+        }
     },
 
     watch: {
@@ -278,15 +258,16 @@ export default {
                     this.active = 'results';
                     
                     this.$nextTick(() => {
-                        // scrollTo(this.scrollTo || this.$el, 100);
-
                         this.$emit('submit-success', data);
                     });
                 }, ({ response }) => {
                     this.$emit('submit-failed', this.errors = response.data.errors);
                 })
                 .finally(() => {
-                    this.activity = false;
+                    if(!this.poll.options.redirect_url) {
+                        this.activity = false;
+                    }
+
                     this.$emit('submit-complete');
                 });
         }

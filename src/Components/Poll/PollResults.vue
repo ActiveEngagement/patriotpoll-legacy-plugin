@@ -9,6 +9,7 @@
             <h3 v-if="nextPoll.question" class="mb-4 font-weight-light" v-html="nextPoll.question" />
             <btn
                 v-permalink.native="nextPoll"
+                :redirect="poll.options.redirect_url"
                 type="button"
                 size="lg"
                 variant="success"
