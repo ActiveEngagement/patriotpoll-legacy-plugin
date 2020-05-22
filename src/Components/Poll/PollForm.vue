@@ -119,7 +119,7 @@ export default {
                 query: window.location.search,
                 mailing_id: params.get('mailing_id') || params.get('mailingid'),
                 source: params.get('source') || params.get('src') || params.get('utm_source'),
-                transaction_id: params.get('transaction_id') || params.get('transactionid') || params.get('trans_id'),
+                tracking_id: params.get('tracking_id') || params.get('trackingid')
             });
 
         return {
