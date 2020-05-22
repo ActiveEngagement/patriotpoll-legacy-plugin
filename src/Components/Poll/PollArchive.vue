@@ -13,7 +13,16 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="card-columns">
-                        <poll-card v-for="poll in polls" :key="poll.id" :poll="poll" :permalink="permalink" />
+                        <poll-card
+                            v-for="poll in polls"
+                            :key="poll.id"
+                            :poll="poll"
+                            :permalink="permalink"
+                            :hide-content="hideContent"
+                            :hide-date="hideDate"
+                            :hide-image="hideImage"
+                            :hide-question="hideQuestion"
+                            :hide-statistics="hideStatistics" />
                     </div>
                 </div>
             </div>
@@ -48,7 +57,36 @@ export default {
     mixins: [
         Permalink
     ],
-	
+    
+    props: {
+
+        hideContent: {
+            type: Boolean,
+            default: false
+        },
+
+        hideImage: {
+            type: Boolean,
+            default: false
+        },
+
+        hideStatistics: {
+            type: Boolean,
+            default: false
+        },
+
+        hideQuestion: {
+            type: Boolean,
+            default: false
+        },
+
+        hideDate: {
+            type: Boolean,
+            default: false
+        }
+
+    },
+    
     data() {
         return {
             page: 1,

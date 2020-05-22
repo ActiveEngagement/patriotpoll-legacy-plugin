@@ -1,6 +1,6 @@
 <template>
     <card class="poll-card">
-        <card-header v-if="hideDate">
+        <card-header v-if="!hideDate">
             {{ poll.published_at | date('MMMM D, YYYY') }}
         </card-header>
         <card-body>

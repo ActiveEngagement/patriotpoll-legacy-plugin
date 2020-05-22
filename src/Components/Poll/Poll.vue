@@ -1,6 +1,6 @@
 <template>
     <div class="poll" :style="styles">
-        <poll-date v-if="hideDate" :poll="poll" />
+        <poll-date v-if="!hideDate" :poll="poll" />
 
         <h1 v-if="poll.question" class="poll-header font-weight-light text-center mt-2 mb-4" v-html="poll.question" />
 
@@ -21,6 +21,7 @@
 </template>
 
 <script>
+import PollDate from './PollDate';
 import Permalink from '../../Mixins/Permalink';
 import unit from 'vue-interface/src/Helpers/Functions/unit';
 
@@ -29,6 +30,7 @@ export default {
     name: 'Poll',
 
     components: {
+        PollDate,
         'slide-deck': () => import(/* webpackChunkName: 'slide-deck' */ 'vue-interface/src/Components/SlideDeck'),
         'poll-results': () => import(/* webpackChunkName: 'poll-results' */ './PollResults'),
         'poll-question': () => import(/* webpackChunkName: 'poll-question' */ './PollQuestion'),
