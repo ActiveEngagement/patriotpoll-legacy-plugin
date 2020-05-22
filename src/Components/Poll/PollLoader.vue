@@ -16,10 +16,17 @@
             @slide-enter="onSlideEnter" />
         <div v-else class="poll-exception-wrapper">
             <div class="poll-exception">
-                <alert variant="warning">
-                    <h4>No Active Polls</h4>
-                    There are no active polls at this time. Please check back later.
-                </alert>
+                <h2 class="text-center">
+                    Ooops!
+                </h2>
+                <h3 class="text-center font-weight-light mb-4">
+                    There are no polls at this time.
+                </h3>
+                <animated-icon icon="clock"
+                    :size="100"
+                    :speed="1"
+                    autoplay
+                    :loop="1" />
             </div>
         </div>
     </div>
@@ -29,14 +36,22 @@
 import Poll from './Poll';
 import Alert from '@vue-interface/alert';
 import Permalink from '../../Mixins/Permalink';
-import ActivityIndicator from 'vue-interface/src/Components/ActivityIndicator';
+import AnimatedIcon from '@vue-interface/animated-icon';
 import PatriotPollPlugin from '../../Plugins/PatriotPollPlugin';
+import ActivityIndicator from 'vue-interface/src/Components/ActivityIndicator';
+
+import { register } from '@vue-interface/animated-icon';
+import { clock } from '@vue-interface/animated-icon/icons';
+
+register({
+    clock
+});
 
 export default {
 
     components: {
         Poll,
-        Alert,
+        AnimatedIcon,
         ActivityIndicator
     },
 
@@ -225,8 +240,8 @@ export default {
 
     .poll-exception-wrapper {
         display: flex;
-        height: 100vh;
-        width: 100vw;
+        max-width: 100vw;
+        max-height: 100vh;
 
         .poll-exception {
             margin: auto;
