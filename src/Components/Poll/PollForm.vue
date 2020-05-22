@@ -174,7 +174,8 @@ export default {
                 }]
             })
                 .map(([key, [is, obj]]) => {
-                    obj.required = this.poll.options.required_fields[key];
+                    obj.required = this.poll.options.required_fields && 
+                        this.poll.options.required_fields[key];
 
                     return [key, [is, obj]];
                 })
