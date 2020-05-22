@@ -1,5 +1,7 @@
 <template>
     <div class="poll" :style="styles">
+        <poll-date v-if="hideDate" :poll="poll" />
+
         <h1 v-if="poll.question" class="poll-header font-weight-light text-center mt-2 mb-4" v-html="poll.question" />
 
         <slide-deck :active="active" @enter="slide => $emit('slide-enter', slide)">
@@ -41,6 +43,11 @@ export default {
 
         apiKey: String,
 
+        hideDate: {
+            type: Boolean,
+            default: false
+        },
+
         maxWidth: {
             type: [Number, String],
             default: 520
@@ -55,7 +62,7 @@ export default {
 
         step: [Number, String],
 
-        width: Number,
+        width: Number
 
     },
 

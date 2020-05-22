@@ -1,6 +1,8 @@
 <template>
     <card class="poll-card">
-        <card-header>{{ poll.published_at | date('MMMM D, YYYY') }}</card-header>
+        <card-header v-if="hideDate">
+            {{ poll.published_at | date('MMMM D, YYYY') }}
+        </card-header>
         <card-body>
             <a v-permalink="poll">
                 <card-title v-if="!hideQuestion && poll.question" v-html="poll.question" />
@@ -103,6 +105,11 @@ export default {
         },
 
         hideQuestion: {
+            type: Boolean,
+            default: false
+        },
+
+        hideDate: {
             type: Boolean,
             default: false
         }

@@ -10,6 +10,7 @@
             :width="width"
             :class="{'loading': loading}"
             :permalink="permalink"
+            :hide-date="hideDate"
             @step="onStep"
             @next="onNext"
             @slide-enter="onSlideEnter" />
@@ -46,6 +47,11 @@ export default {
     props: {
 
         apiKey: String,
+
+        hideDate: {
+            type: Boolean,
+            default: false
+        },
 
         baseUrl: String,
 
