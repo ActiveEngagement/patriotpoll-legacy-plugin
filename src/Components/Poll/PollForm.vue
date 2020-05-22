@@ -69,8 +69,8 @@
 import InputField from './Fields/InputField';
 import SelectField from './Fields/SelectField';
 
+import Alert from '@vue-interface/alert';
 import Btn from 'vue-interface/src/Components/Btn';
-import Alert from 'vue-interface/src/Components/Alert';
 // import scrollTo from 'vue-interface/src/Helpers/ScrollTo';
 import SlideDeck from 'vue-interface/src/Components/SlideDeck';
 import AnimateCss from 'vue-interface/src/Components/AnimateCss';
@@ -180,7 +180,8 @@ export default {
                     return [key, [is, obj]];
                 })
                 .filter(([key, value]) => {
-                    return this.poll.options.show_fields[key];
+                    return this.poll.options.show_fields &&
+                        this.poll.options.show_fields[key];
                 });
 
             return Object.fromEntries(entries);
