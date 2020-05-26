@@ -22,37 +22,22 @@
                 <h3 class="text-center font-weight-light mb-4">
                     There are no polls at this time.
                 </h3>
-                <animated-icon icon="clock"
-                    :size="100"
-                    :speed="1"
-                    autoplay
-                    :loop="1" />
+                <animated-clock />
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import Poll from './Poll';
-import Alert from '@vue-interface/alert';
 import Permalink from '../../Mixins/Permalink';
-import AnimatedIcon from '@vue-interface/animated-icon';
 import PatriotPollPlugin from '../../Plugins/PatriotPollPlugin';
-import ActivityIndicator from 'vue-interface/src/Components/ActivityIndicator';
-
-import { register } from '@vue-interface/animated-icon';
-import { clock } from '@vue-interface/animated-icon/icons';
-
-register({
-    clock
-});
 
 export default {
 
     components: {
-        Poll,
-        AnimatedIcon,
-        ActivityIndicator
+        Poll: () => import(/* webpackChunkName: 'poll' */ './Poll'),
+        ActivityIndicator: () => import(/* webpackChunkName: 'activity-indicator' */ 'vue-interface/src/Components/ActivityIndicator'),
+        AnimatedClock: () => import(/* webpackChunkName: 'animated-clock' */ '../AnimatedClock'),
     },
 
     mixins: [

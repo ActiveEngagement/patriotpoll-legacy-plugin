@@ -1,4 +1,4 @@
-import result from 'lodash/result';
+import { result } from 'lodash';
 
 export default {
     inserted(el, binding, vnode) {

@@ -1,4 +1,4 @@
-import PollLoader from './Components/Poll';
+import { PollLoader } from './Components/Poll';
 
 export * from './Components';
 export * from './Directives';

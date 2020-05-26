@@ -13,8 +13,7 @@ export {
     PollCard,
     PollEmbed,
     PollForm,
+    PollLoader,
     PollQuestion,
     PollResults,
 };
-
-export default PollLoader;

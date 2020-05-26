@@ -8,7 +8,7 @@ import { pie } from 'd3';
 //import { event } from 'd3';
 import { mouse } from 'd3';
 import { select } from 'd3';
-import size from 'lodash/size';
+import { size } from 'lodash';
 // import Popper from 'popper.js';
 import { interpolate } from 'd3';
 import { scaleOrdinal } from 'd3';
