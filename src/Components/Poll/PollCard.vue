@@ -198,6 +198,7 @@ export default {
         span {
             font-size: .85em;
             padding-left: .5rem;
+            line-height: 1em;
         }
 
         &.text-dark span {
@@ -210,6 +211,7 @@ export default {
             color: white;
             font-size: 1rem;
             font-weight: 500;
+            overflow: visible;
         }
     }
 }

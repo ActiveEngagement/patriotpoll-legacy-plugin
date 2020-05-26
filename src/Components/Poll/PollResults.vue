@@ -70,8 +70,8 @@ export default {
 
     methods: {
 
-        labels({ data }, i) {
-            return `${this.poll.answers[i]} (${Math.round(this.poll.statistics.breakdown[i].percentage)}%)`;
+        labels({ data: { answer, percentage } }) {
+            return `${answer} (${Math.round(percentage)}%)`;
         }
 
     }

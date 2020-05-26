@@ -22,7 +22,7 @@ export default {
         width: Number,
         height: Number,
         data: {
-            type: Array,
+            type: Object,
             required: true
         },
         offset: {
@@ -58,15 +58,12 @@ export default {
         formattedData() {
             const data = [];
 
-            for(let i in this.data) {
-                const total = this.data[i].total;
-
-                if(total) {
-                    data.push({
-                        answer: i,
-                        total: total
-                    });
-                }
+            for(let [answer, { total, percentage }] of Object.entries(this.data)) {
+                data.push({
+                    percentage,
+                    answer,
+                    total
+                });
             }
 
             return data;
