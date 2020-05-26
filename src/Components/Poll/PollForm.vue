@@ -42,7 +42,7 @@
 
                 <template v-for="([is, field], name) in fields">
                     <components :is="is"
-                        :key="name"
+                        :key="`field-${name}`"
                         :name="name"
                         :form="form"
                         :errors="errors"
@@ -217,9 +217,12 @@ export default {
 
     mounted() {
         this.showAddress = this.shouldShowAddress();
-        this.focusOnEmpty();
     },
 
+    mounted() {
+        setTimeout(this.focusOnEmpty, 333);
+    },
+    
     methods: {
 
         focusOnEmpty() {

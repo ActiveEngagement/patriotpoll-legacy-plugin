@@ -1,15 +1,15 @@
 <template>
     <div>
-        <poll />
+        <poll-loader />
     </div>
 </template>
 
 <script>
-import Poll from './Components/Poll';
+import { PollLoader } from './Components/Poll';
 
 export default {
     components: {
-        Poll
+        PollLoader
     }
 };
 </script>
