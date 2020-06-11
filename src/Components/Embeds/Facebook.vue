@@ -20,7 +20,7 @@
 
 <script>
 import script from 'vue-interface/src/Helpers/Script';
-import ActivityIndicator from 'vue-interface/src/Components/ActivityIndicator';
+import ActivityIndicator from '@vue-interface/activity-indicator';
 
 export default {
 

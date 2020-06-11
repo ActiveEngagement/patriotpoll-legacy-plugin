@@ -1,6 +1,6 @@
 <template>
     <div class="patriot-poll">
-        <activity-indicator v-if="loading" label="Loading..." type="spinner" center />
+        <activity-indicator v-if="loading" label="Loading..." type="spinner" center absolute />
         <poll
             v-else-if="currentPoll"
             :api-key="apiKey"
@@ -31,12 +31,13 @@
 <script>
 import Permalink from '../../Mixins/Permalink';
 import PatriotPollPlugin from '../../Plugins/PatriotPollPlugin';
+import ActivityIndicator from '@vue-interface/activity-indicator';
 
 export default {
 
     components: {
+        ActivityIndicator,
         Poll: () => import(/* webpackChunkName: 'poll' */ './Poll'),
-        ActivityIndicator: () => import(/* webpackChunkName: 'activity-indicator' */ 'vue-interface/src/Components/ActivityIndicator'),
         AnimatedClock: () => import(/* webpackChunkName: 'animated-clock' */ '../AnimatedClock'),
     },
 

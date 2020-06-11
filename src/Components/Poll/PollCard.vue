@@ -19,21 +19,7 @@
                     {{ answer }} ({{ Math.round(breakdown.percentage) }}%)
                 </progress-bar>
             </div>
-            <!--<dounut-chart :data="poll.statistics.breakdown" />-->
         </card-body>
-        <!--
-        <card-footer>
-            <div class="icon social fb">
-                <font-awesome-icon :icon="['fab', 'facebook']" />
-            </div>
-            <div class="icon social tw">
-                <font-awesome-icon :icon="['fab', 'twitter']" />
-            </div>
-            <div class="icon social em">
-                <font-awesome-icon icon="envelope" />
-            </div>
-        </card-footer>
-        -->
     </card>
 </template>
 

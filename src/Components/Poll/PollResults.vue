@@ -1,6 +1,5 @@
 <template>
     <div class="poll-results mt-4 p-3">
-        {{ chartData }}
         <dounut-chart :data="chartData" :labels="labels" :height="300" />
 
         <div v-if="nextPoll" class="mt-5 mb-3 mx-3">
@@ -66,7 +65,7 @@ export default {
         chartData() {
             const items = Array.from(Object.entries(this.poll.statistics.breakdown))
                 .filter(([label, { percentage, total }]) => {
-                    return total > 1;
+                    return percentage > 1;
                 });
 
             return Object.fromEntries(items);
