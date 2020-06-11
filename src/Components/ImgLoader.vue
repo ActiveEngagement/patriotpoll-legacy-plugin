@@ -47,7 +47,7 @@ export default {
     }
 };
 </script>
-<style lang="postcss">
+<style>
 .img-loader.is-loading img {
     opacity: 0;
     position: absolute;

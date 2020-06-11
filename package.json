@@ -5,7 +5,7 @@
   "module": "src/index.js",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "npm run build-lib && npm run build-wc -- --no-clean",
+    "build": "npm run build-lib",
     "build-lib": "vue-cli-service build --inline-vue --target lib --name PatriotPoll src/Components/Poll/PollLoader.vue",
     "build-wc": "vue-cli-service build --inline-vue --target wc --name patriot-poll src/Components/Poll/PollLoader.vue",
     "lint": "vue-cli-service lint",
