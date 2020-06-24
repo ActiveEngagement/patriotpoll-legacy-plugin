@@ -207,10 +207,6 @@ export default {
 @import '../../assets/scss/variables';
 @import '~@fortawesome/fontawesome-svg-core/styles';
 
-.btn {
-    height: auto;
-}
-
 .patriot-poll {
     @import '~bootstrap/scss/bootstrap';
 
@@ -222,6 +218,10 @@ export default {
     color: $body-color;
     text-align: left; // 3
     background-color: $body-bg; // 2
+
+    .btn {
+        height: auto;
+    }
 
     .poll-exception-wrapper {
         display: flex;
