@@ -89,10 +89,6 @@ export default {
 
     methods: {
 
-        onLoad() {
-            console.log(124);
-        },
-
         onClickAnswer(answer) {
             this.answer = answer;
         },

@@ -34,9 +34,6 @@ export default {
             isShowingImage: !this.loading
         };
     },
-    created() {
-        console.log(this);
-    },
     methods: {
         hide() {
             this.isLoading = true;

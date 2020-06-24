@@ -31,12 +31,11 @@
 <script>
 import Permalink from '../../Mixins/Permalink';
 import PatriotPollPlugin from '../../Plugins/PatriotPollPlugin';
-import ActivityIndicator from '@vue-interface/activity-indicator';
 
 export default {
 
     components: {
-        ActivityIndicator,
+        ActivityIndicator: () => import(/* webpackChunkName: 'activity-indicator' */ '@vue-interface/activity-indicator'),
         Poll: () => import(/* webpackChunkName: 'poll' */ './Poll'),
         AnimatedClock: () => import(/* webpackChunkName: 'animated-clock' */ '../AnimatedClock'),
     },
@@ -202,7 +201,6 @@ export default {
 
 };
 </script>
-
 
 <style lang="scss">
 @import '../../assets/scss/mixins';

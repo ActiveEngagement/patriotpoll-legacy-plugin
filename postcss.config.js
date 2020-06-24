@@ -11,10 +11,8 @@ module.exports = {
                 path.resolve('./**/*.html'),
             ]
         }),
-        /*
         prefixer({
             prefix: '.patriot-poll'
         })
-        */
     ])
 };
