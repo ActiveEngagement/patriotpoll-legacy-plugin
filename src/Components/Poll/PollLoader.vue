@@ -205,7 +205,6 @@ export default {
 <style lang="scss">
 @import '../../assets/scss/mixins';
 @import '../../assets/scss/variables';
-@import '~bootstrap/scss/bootstrap';
 @import '~@fortawesome/fontawesome-svg-core/styles';
 
 .btn {
@@ -213,6 +212,8 @@ export default {
 }
 
 .patriot-poll {
+    @import '~bootstrap/scss/bootstrap';
+
     margin: 0; // 1
     font-family: $font-family-base;
     // @include font-size($font-size-base);
