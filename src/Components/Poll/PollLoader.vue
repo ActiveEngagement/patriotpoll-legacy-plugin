@@ -30,8 +30,10 @@
 
 <script>
 import Permalink from '../../Mixins/Permalink';
+import VueSocialSharing from 'vue-social-sharing';
 import PatriotPollPlugin from '../../Plugins/PatriotPollPlugin';
 
+ 
 export default {
 
     components: {
@@ -122,6 +124,7 @@ export default {
     },
 
     created() {
+        this.$root.constructor.use(VueSocialSharing);
         this.$root.constructor.use(PatriotPollPlugin, {
             apiKey: this.apiKey,
             baseUrl: this.baseUrl

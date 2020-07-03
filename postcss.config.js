@@ -1,9 +1,9 @@
 const path = require('path');
-const purgecss = require('@fullhuman/postcss-purgecss');
+const Color = require('color');
 
 module.exports = {
     plugins: [].concat(process.env.NODE_ENV === 'production' && [
-        purgecss({
+        require('@fullhuman/postcss-purgecss')({
             content: [
                 path.resolve('./**/*.scss'),
                 path.resolve('./**/*.vue'),
