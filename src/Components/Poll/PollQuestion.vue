@@ -32,6 +32,8 @@
                 </btn>
             </btn-group>
         </div>
+
+        <poll-social-buttons :poll="poll" />
     </div>
 </template>
 
@@ -52,7 +54,8 @@ export default {
         BtnGroup,
         ImgLoader,
         PollEmbed,
-        AnimateCss
+        AnimateCss,
+        PollSocialButtons: () => import(/* webpackChunkName: 'poll-social-buttons' */'./PollSocialButtons')
     },
 
     directives: {
