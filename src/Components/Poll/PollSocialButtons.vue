@@ -11,7 +11,7 @@
                 :url="poll.permalink"
                 :title="poll.title"
                 :description="poll.content"
-                :icon="require('@/Components/Icons/Facebook').default" />
+                :icon="require('../Icons/Facebook').default" />
 
             <poll-social-button
                 network="Twitter"
@@ -19,7 +19,7 @@
                 :url="poll.permalink"
                 :title="poll.title"
                 :description="poll.content"
-                :icon="require('@/Components/Icons/Twitter').default" />
+                :icon="require('../Icons/Twitter').default" />
 
             <poll-social-button
                 network="Email"
@@ -27,7 +27,7 @@
                 :url="poll.permalink"
                 :title="poll.title"
                 :description="poll.content"
-                :icon="require('@/Components/Icons/Email').default" />
+                :icon="require('../Icons/Email').default" />
         </div>
     </div>
 </template>
