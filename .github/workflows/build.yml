@@ -69,7 +69,6 @@ jobs:
         git add -A
 
         git commit -a -m "Build: ${{ github.sha }}"
-        git checkout master
         git push
 
     - name: Publish to NPM
