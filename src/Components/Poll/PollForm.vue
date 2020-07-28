@@ -12,29 +12,29 @@
             </btn>
         </alert>
     
-        <animate-css name="fade" in duration="250ms" leave-active-class="position-absolute">
-            <div v-if="showCard" class="py-2 mx-3 mt-4 mb-5">
-                <div class="d-flex">
-                    <font-awesome-icon icon="user-circle" size="4x" class="text-secondary" />
-                    <div class="ml-3 text-dark">
-                        <h4 class="font-weight-normal mb-0" v-html="`${form.first} ${form.last}`" />
-                        <h5 class="font-weight-light mb-0" v-html="form.email" />
-                        <div v-if="form.street || form.city || form.state || form.zip" class="font-weight-light small mt-2">
-                            {{ form.street }}
-                            <template v-if="form.addr2">
-                                #{{ form.addr2 }}
-                            </template>
-                            <br>
-                            {{ form.city }} {{ form.state }} {{ form.zip }}
-                            <div v-if="form.phone" class="font-weight-light" v-html="form.phone.replace(/^1?(\d{3})(\d{3})(\d{4})$/, '($1) $2-$3')" />
-                        </div>
-                        <a href="#" class="btn btn-text btn-sm d-flex-inline align-items-center" style="margin-left: -.5rem" @click.prevent="showCard = false">
-                            <font-awesome-icon :icon="['far', 'window-close']" class="mr-2" /> <small>Change Information</small>
-                        </a>
+        <div v-if="showCard" class="py-2 mx-3 mt-4 mb-5">
+            <div class="d-flex">
+                <font-awesome-icon icon="user-circle" size="4x" class="text-secondary" />
+                <div class="ml-3 text-dark">
+                    <h4 class="font-weight-normal mb-0">
+                        {{ form.first }} {{ form.lastl }}
+                    </h4>
+                    <h5 class="font-weight-light mb-0" v-html="form.email" />
+                    <div v-if="form.street || form.city || form.state || form.zip" class="font-weight-light small mt-2">
+                        {{ form.street }}
+                        <template v-if="form.addr2">
+                            #{{ form.addr2 }}
+                        </template>
+                        <br>
+                        {{ form.city }} {{ form.state }} {{ form.zip }}
+                        <div v-if="form.phone" class="font-weight-light" v-html="form.phone.replace(/^1?(\d{3})(\d{3})(\d{4})$/, '($1) $2-$3')" />
                     </div>
+                    <a href="#" class="btn btn-text btn-sm d-flex-inline align-items-center" style="margin-left: -.5rem" @click.prevent="resetContact">
+                        <font-awesome-icon :icon="['far', 'window-close']" class="mr-2" /> <small>Change Information</small>
+                    </a>
                 </div>
             </div>
-        </animate-css>
+        </div>
 
         <animate-css name="fade" in duration="250ms">
             <div v-if="!showCard" class="mb-3">
@@ -112,9 +112,11 @@ export default {
         const params = new URLSearchParams(window.location.search);
 
         const form = Array.from(params.entries())
-            .reduce((carry, [key, value]) => Object.assign({
-                [key]: value
-            }, carry), {
+            .reduce((carry, [key, value]) => {
+                return Object.assign(carry, {
+                    [key]: value
+                });
+            }, {
                 answer: this.answer,
                 query: window.location.search,
                 mailing_id: params.get('mailing_id') || params.get('mailingid'),
@@ -204,14 +206,14 @@ export default {
 
     created() {
         if(window.localStorage.__poll__) {
+            const contact = JSON.parse(window.localStorage.__poll__);
+            
             this.form = Object.assign(
-                JSON.parse(window.localStorage.__poll__),
+                contact,
                 this.form
             );
 
-            this.showCard = !!(
-                this.form.first && this.form.last && this.form.email
-            );
+            this.showCard = !!contact.hash;
         }
     },
 
@@ -243,6 +245,12 @@ export default {
             });
         },
 
+        resetContact() {
+            delete window.localStorage.__poll__;
+
+            this.showCard = false;
+        },
+
         shouldShowAddress() {
             return this.showAddress || !!(
                 this.form.first && this.form.last && this.form.email
@@ -255,7 +263,13 @@ export default {
 
             this.$patriotpoll.post(`polls/${this.poll.id}`, this.form)
                 .then(({ data }) => {
-                    window.localStorage.__poll__ = JSON.stringify(this.form);
+                    const contact = Object.entries(data.response.contact)
+                        .filter(([ key, value ]) => !!value)
+                        .reduce((carry, [ key, value ]) => {
+                            return Object.assign(carry, { [key]: value });
+                        }, {});
+
+                    window.localStorage.__poll__ = JSON.stringify(contact);
 
                     Object.assign(this.poll, data);
                     

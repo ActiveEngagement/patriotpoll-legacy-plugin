@@ -34,7 +34,7 @@ export default {
         'slide-deck': () => import(/* webpackChunkName: 'slide-deck' */ 'vue-interface/src/Components/SlideDeck'),
         'poll-results': () => import(/* webpackChunkName: 'poll-results' */ './PollResults'),
         'poll-question': () => import(/* webpackChunkName: 'poll-question' */ './PollQuestion'),
-        'poll-form': () => import(/* webpackChunkName: 'poll-form' */ './PollForm'),
+        'poll-form': () => import(/* webpackChunkName: 'poll-form' */ './PollForm')
     },
 
     mixins: [
