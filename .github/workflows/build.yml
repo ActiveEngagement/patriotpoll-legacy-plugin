@@ -52,8 +52,8 @@ jobs:
     - name: Install Dependencies
       run: npm install
 
-    - name: Build Bundle
-      run: npm run build
+    # - name: Build Bundle
+    #   run: npm run build
 
     - name: Commit Changes
       if: success()
@@ -69,9 +69,8 @@ jobs:
         git add -A
 
         git commit -a -m "Build: ${{ github.sha }}"
-        git checkout ${{ github.ref }}
-        git merge "build-${{ github.sha }}"
-        git push origin master
+        git checkout master
+        git push
 
     - name: Publish to NPM
       run: npm publish --access public
