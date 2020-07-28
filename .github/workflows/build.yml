@@ -41,6 +41,7 @@ jobs:
         git config user.name "${{ github.actor }}"
 
         git checkout -b "build-${{ github.sha }}"
+        git fetch
 
     - name: Extract Version
       id: extract-version

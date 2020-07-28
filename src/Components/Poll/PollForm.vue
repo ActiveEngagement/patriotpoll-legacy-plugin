@@ -17,7 +17,7 @@
                 <font-awesome-icon icon="user-circle" size="4x" class="text-secondary" />
                 <div class="ml-3 text-dark">
                     <h4 class="font-weight-normal mb-0">
-                        {{ form.first }} {{ form.lastl }}
+                        {{ form.first }} {{ form.last }}
                     </h4>
                     <h5 class="font-weight-light mb-0" v-html="form.email" />
                     <div v-if="form.street || form.city || form.state || form.zip" class="font-weight-light small mt-2">
