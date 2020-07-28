@@ -49,8 +49,8 @@ jobs:
 
         echo "::set-output name=version::$PACKAGE_VERSION"
     
-    - name: Install Dependencies
-      run: npm install
+    # - name: Install Dependencies
+    #   run: npm install
 
     # - name: Build Bundle
     #   run: npm run build
