@@ -32,12 +32,49 @@ jobs:
     - name: Setup Node
       uses: actions/setup-node@v1
       with:
-        node-version: '10.x'
+        node-version: '12.x'
+        registry-url: 'https://registry.npmjs.org'
 
-    - run: npm install
-    - run: npm run build
+    - name: Create Branch
+      if: github.ref == 'refs/heads/master'
+      run: |
+        git config user.email "${{ github.actor }}@users.noreply.github.com"
+        git config user.name "${{ github.actor }}"
+
+        git checkout -b "build-${{ github.sha }}"
+
+    - name: Extract Version
+      id: extract-version
+      run: |
+        PACKAGE_VERSION=$(cat package.json | grep version | head -1 | awk -F= "{ print $2 }" | sed 's/[version:,\",]//g' | tr -d '[[:space:]]')
+
+        echo "::set-output name=version::$PACKAGE_VERSION"
     
+    - name: 'Install Dependencies'
+      run: npm install
+
+    - name: Build Bundle
+      run: npm run build
+
+    - name: Commit Changes
+      if: success() && github.ref == 'refs/heads/master'
+      run: |
+        cat > manifest.txt << EOF
+        By: ${{ github.actor }}
+        Commit: ${{ github.sha }}
+        Version: ${{ steps.extract-version.outputs.version }}
+        EOF
+
+        echo $PACKAGE_VERSION
+
+        git add -A
+
+        git commit -a -m "Build: ${{ github.sha }}"
+        git checkout master
+        git merge "build-${{ github.sha }}"
+        git push
+
     - name: Publish to NPM
-      uses: pascalgn/npm-publish-action@1.3.3
-      with:
-        tag_name: "v%s"
+      run: npm publish --access public
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
