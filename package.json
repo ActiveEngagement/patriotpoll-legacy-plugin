@@ -1,6 +1,6 @@
 {
   "name": "patriotpoll",
-  "version": "0.1.91",
+  "version": "0.1.99",
   "main": "src/index.js",
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -9,11 +9,11 @@
     "build-wc": "vue-cli-service build --inline-vue --target wc --name patriot-poll src/Components/Poll/PollLoader.vue",
     "lint": "vue-cli-service lint",
     "fix": "vue-cli-service lint --fix",
-    "pre-release": "npm run build; git add . -A; git commit -m 'pre-release commit'",
-    "release-patch": "npm run pre-release && npm version patch && npm run release;",
-    "release-minor": "npm run pre-release && npm version minor && npm run release;",
-    "release-major": "npm run pre-release && npm version major && npm run release;",
-    "release": "npm publish; git add . -A; git commit -m 'post-release commit'; git push --tags origin"
+    "pre-release": "git add . -A; git commit -m 'pre-release commit';",
+    "release-patch": "npm run pre-release; npm version patch && npm run release;",
+    "release-minor": "npm run pre-release; npm version minor && npm run release;",
+    "release-major": "npm run pre-release; npm version major && npm run release;",
+    "release": "git push --tags origin"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.30",
@@ -25,6 +25,7 @@
     "@vue-interface/animated-icon": "^0.1.5",
     "@vue-interface/lazy": "^1.0.0",
     "axios": "^0.19.2",
+    "chart.js": "^2.9.3",
     "color": "^3.1.2",
     "core-js": "^3.6.5",
     "d3": "^5.16.0",
