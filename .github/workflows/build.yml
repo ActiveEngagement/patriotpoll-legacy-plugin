@@ -69,7 +69,7 @@ jobs:
         git add -A
 
         git commit -a -m "Build: ${{ github.sha }}"
-        git push
+        git checkout origin/master
 
     - name: Publish to NPM
       run: npm publish --access public
