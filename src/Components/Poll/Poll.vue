@@ -2,7 +2,7 @@
     <div class="poll" :style="styles">
         <poll-date v-if="!hideDate" :poll="poll" />
 
-        <h1 v-if="poll.question" class="poll-header font-weight-light text-center mt-2 mb-4" v-html="poll.question" />
+        <h1 v-if="poll.question" class="poll-header text-center mt-2 mb-4" v-html="poll.question" />
 
         <slide-deck :active="active" @enter="slide => $emit('slide-enter', slide)">
             <div key="question">
