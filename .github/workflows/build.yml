@@ -49,11 +49,11 @@ jobs:
 
         echo "::set-output name=version::$PACKAGE_VERSION"
     
-    - name: Install Dependencies
-      run: npm install
+    # - name: Install Dependencies
+    #   run: npm install
 
-    - name: Build Bundle
-      run: npm run build
+    # - name: Build Bundle
+    #   run: npm run build
 
     - name: Commit Changes
       if: success()
@@ -69,7 +69,7 @@ jobs:
         git add -A
 
         git commit -a -m "Build: ${{ github.sha }}"
-        git checkout master
+        git checkout ${{ github.ref }}
         git fetch
         git merge "build-${{ github.sha }}"
         git push
