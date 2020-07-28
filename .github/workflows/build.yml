@@ -35,6 +35,4 @@ jobs:
         node-version: '10.x'
     
     - name: Publish to NPM
-      uses: pascalgn/npm-publish-action@1.3.3
-      with:
-        tag_name: "v%s"
+      run: npm publish
