@@ -5,7 +5,6 @@ name: "Build"
 # events but only for the master branch
 on:
   push:
-    branches: [ master ]
     tags:
       - '*'
 
