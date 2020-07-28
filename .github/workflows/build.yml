@@ -71,6 +71,7 @@ jobs:
         git commit -a -m "Build: ${{ github.sha }}"
         git checkout ${{ github.ref }}
         git merge "build-${{ github.sha }}"
+        git push origin master
 
     - name: Publish to NPM
       run: npm publish --access public
