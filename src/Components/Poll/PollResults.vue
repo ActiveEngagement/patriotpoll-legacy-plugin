@@ -1,6 +1,6 @@
 <template>
     <div class="poll-results mt-4 p-3">
-        <dounut-chart :data="chartData" :labels="labels" :height="300" />
+        <poll-doughnut-chart v-if="mounted" :poll="poll" />
 
         <poll-social-buttons :poll="poll" />
 
@@ -28,9 +28,8 @@
 import Permalink from '../../Mixins/Permalink';
 import Btn from 'vue-interface/src/Components/Btn';
 import Card from 'vue-interface/src/Components/Card';
-import DounutChart from '../../Components/Charts/DounutChart';
 import CardBody from 'vue-interface/src/Components/Card/CardBody';
-
+import PollSocialButtons from './PollSocialButtons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faLongArrowAltLeft, faLongArrowAltRight, faPoll } from '@fortawesome/free-solid-svg-icons';
@@ -43,9 +42,9 @@ export default {
 
     components: {
         Btn,
-        DounutChart,
         FontAwesomeIcon,
-        PollSocialButtons: () => import(/* webpackChunkName: 'poll-social-buttons' */'./PollSocialButtons')
+        PollSocialButtons,
+        PollDoughnutChart: () => import(/* webpackChunkName: 'poll-doughnut-chart' */'./PollDoughnutChart'),
     },
 
     mixins: [
@@ -63,21 +62,22 @@ export default {
 
     },
 
+    data() {
+        return {
+            mounted: false
+        };
+    },
+
     computed: {
 
-        chartData() {
-            const items = Array.from(Object.entries(this.poll.statistics.breakdown))
-                .filter(([label, { percentage, total }]) => {
-                    return percentage > 1;
-                });
-
-            return Object.fromEntries(items);
-        },
-        
         nextPoll() {
             return this.poll.next_poll || this.poll.prev_poll;
         }
 
+    },
+
+    mounted() {
+        setTimeout(() => this.mounted = true, 250);
     },
 
     methods: {
