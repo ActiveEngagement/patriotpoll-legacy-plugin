@@ -6,7 +6,10 @@
 
         <slide-deck :active="active" @enter="slide => $emit('slide-enter', slide)">
             <div key="question">
+                <poll-dounut-chart :poll="poll" />
+                <!--
                 <poll-question :poll="poll" :width="width" @input="onSelectAnswer" />
+                -->
             </div>
 
             <div key="contact">
@@ -23,6 +26,7 @@
 <script>
 import PollDate from './PollDate';
 import Permalink from '../../Mixins/Permalink';
+import PollDounutChart from './PollDounutChart';
 import unit from 'vue-interface/src/Helpers/Functions/unit';
 
 export default {
@@ -31,9 +35,10 @@ export default {
 
     components: {
         PollDate,
+        PollDounutChart,
         'slide-deck': () => import(/* webpackChunkName: 'slide-deck' */ 'vue-interface/src/Components/SlideDeck'),
         'poll-results': () => import(/* webpackChunkName: 'poll-results' */ './PollResults'),
-        'poll-question': () => import(/* webpackChunkName: 'poll-question' */ './PollQuestion'),
+        // 'poll-question': () => import(/* webpackChunkName: 'poll-question' */ './PollQuestion'),
         'poll-form': () => import(/* webpackChunkName: 'poll-form' */ './PollForm'),
     },
 
