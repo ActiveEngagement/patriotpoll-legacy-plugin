@@ -1,6 +1,6 @@
 {
   "name": "patriotpoll",
-  "version": "0.1.96",
+  "version": "0.1.97",
   "main": "src/index.js",
   "scripts": {
     "serve": "vue-cli-service serve",
