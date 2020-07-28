@@ -70,7 +70,6 @@ jobs:
 
         git commit -a -m "Build: ${{ github.sha }}"
         git checkout ${{ github.ref }}
-        git fetch
         git merge "build-${{ github.sha }}"
         git push
 
