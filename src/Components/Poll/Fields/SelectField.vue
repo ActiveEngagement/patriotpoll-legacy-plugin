@@ -16,8 +16,8 @@
 </template>
 
 <script>
-import InputField from './InputField';
-import SelectField from 'vue-interface/src/Components/SelectField';
+import InputField from '@vue-interface/input-field';
+import SelectField from '@vue-interface/select-field';
 
 export default {
     components: {
