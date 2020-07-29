@@ -43,7 +43,7 @@ jobs:
         git fetch
         git clean -fd
         git checkout master
-        git rebase origin master
+        git rebase origin/master
         git checkout -b "build-${{ github.sha }}"
 
     - name: Extract Version
