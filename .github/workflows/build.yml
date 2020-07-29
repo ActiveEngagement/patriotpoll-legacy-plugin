@@ -55,11 +55,11 @@ jobs:
 
     - run: echo $PACKAGE_VERSION
 
-    # - name: Install Dependencies
-    #   run: npm install
+    - name: Install Dependencies
+      run: npm install
 
-    # - name: Build Bundle
-    #   run: npm run build
+    - name: Build Bundle
+      run: npm run build
 
     - name: Commit Changes
       if: success()
@@ -77,7 +77,7 @@ jobs:
         git merge "build-${{ github.sha }}"
         git push
 
-    # - name: Publish to NPM
-    #   run: npm publish --access public
-    #   env:
-    #     NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
+    - name: Publish to NPM
+      run: npm publish --access public
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
