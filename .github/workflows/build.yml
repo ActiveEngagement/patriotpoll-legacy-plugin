@@ -17,6 +17,9 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v2
+
     - name: Initializing Cache
       id: npm-cache
       uses: actions/cache@v2
@@ -25,9 +28,6 @@ jobs:
         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
         restore-keys: |
           ${{ runner.os }}-node-
-
-    - name: Checkout Repo
-      uses: actions/checkout@v2
       
     - name: Setup Node
       uses: actions/setup-node@v1
@@ -41,6 +41,7 @@ jobs:
         git config user.name "${{ github.actor }}"
 
         git fetch
+        git pull origin master
         git checkout master
         git reset --hard HEAD
         git checkout -b "build-${{ github.sha }}"
