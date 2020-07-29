@@ -1,11 +1,11 @@
 <template>
-    <card class="poll-card">
-        <card-header v-if="!hideDate">
+    <div class="card poll-card">
+        <div v-if="!hideDate" class="card-header">
             {{ poll.published_at | date('MMMM D, YYYY') }}
-        </card-header>
-        <card-body>
+        </div>
+        <div class="card-body">
             <a v-permalink="poll">
-                <card-title v-if="!hideQuestion && poll.question" v-html="poll.question" />
+                <div v-if="!hideQuestion && poll.question" class="card-title" v-html="poll.question" />
                 <div v-if="!hideContent && poll.html" v-html="poll.html" />
                 <div v-if="!hideImage && poll.image" :style="{'background': `url(${poll.image.url}) center / cover no-repeat`, height: '12rem'}" class="mb-3" />
                 <div v-else-if="!hideImage && poll.embed" :style="{'background': `url(${poll.embed.url}) center / cover no-repeat`, height: '12rem'}" class="mb-3" />
@@ -19,20 +19,15 @@
                     {{ answer }} ({{ Math.round(breakdown.percentage) }}%)
                 </progress-bar>
             </div>
-        </card-body>
-    </card>
+        </div>
+    </div>
 </template>
 
 <script>
 import randomcolor from 'randomcolor';
 import Permalink from '../../Mixins/Permalink';
-import Card from 'vue-interface/src/Components/Card';
 import DateFilter from 'vue-interface/src/Filters/Date/DateFilter';
-import CardBody from 'vue-interface/src/Components/Card/CardBody';
 import ProgressBar from 'vue-interface/src/Components/ProgressBar';
-import CardTitle from 'vue-interface/src/Components/Card/CardTitle';
-import CardHeader from 'vue-interface/src/Components/Card/CardHeader';
-import CardFooter from 'vue-interface/src/Components/Card/CardFooter';
 
 /*
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
@@ -50,14 +45,7 @@ export default {
     name: 'PollCard',
 
     components: {
-        Card,
-        CardBody,
-        CardTitle,
-        CardHeader,
-        //CardFooter,
-        ProgressBar,
-        //DounutChart
-        //FontAwesomeIcon
+        ProgressBar
     },
 
     filters: {
@@ -121,12 +109,12 @@ export default {
 .poll-card {
     border: 0;
     
-    .card-header, .card-footer {
+    .div, .card-footer {
         border: none;
         background-color: white;
     }
 
-    .card-header {
+    .div {
         @include body-font;
         background-color: transparent;
         padding: none;

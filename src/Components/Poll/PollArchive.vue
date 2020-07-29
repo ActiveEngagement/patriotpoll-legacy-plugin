@@ -1,6 +1,6 @@
 <template>
     <section class="poll-archive">
-        <activity-indicator v-if="activity" label="Loading Archive..." type="spinner" min-height="200px" />
+        <activity-indicator v-if="!loaded" label="Loading..." type="pulse" center min-height="200" />
 
         <div v-else-if="!!polls.length" class="container">
             <div class="row">
@@ -42,7 +42,7 @@
 import PollCard from './PollCard';
 import Permalink from '../../Mixins/Permalink';
 import BtnActivity from 'vue-interface/src/Components/BtnActivity';
-import ActivityIndicator from '@vue-interface/activity-indicator';
+import { ActivityIndicator } from '@vue-interface/activity-indicator';
 
 export default {
 
@@ -91,6 +91,7 @@ export default {
         return {
             page: 1,
             polls: [],
+            loaded: false,
             activity: true,
             loadMore: false,
             exception: null,
@@ -99,7 +100,7 @@ export default {
 
     mounted() {
         if(!this.polls.length) {
-            this.load(this.page);
+            this.load(this.page).then(() => this.loaded = true);
         }
     },
 
@@ -107,7 +108,7 @@ export default {
 
         load(page) {
             this.activity = true;
-			
+            
             return this.$patriotpoll.get('polls', {
                 params: {
                     limit: 9,
@@ -116,7 +117,7 @@ export default {
                 }
             })
                 .then(({ data }) => {
-                    this.polls = data.data;
+                    this.polls = this.polls.concat(data.data);
                     this.page = data.current_page;
                     this.loadMore = data.current_page < data.last_page;
                 }, e => {

@@ -1,7 +1,7 @@
 <template>
     <div class="w-100" :style="{maxWidth: `${calculatedWidth}px`}">
         <div v-if="(activity || !loaded) && !image" class="position-relative" :style="{'min-height': '300px'}">
-            <activity-indicator size="sm" type="spinner" label="Loading Post..." center />
+            <activity-indicator size="sm" type="pulse" label="Loading Post..." center />
         </div>
 
         <img v-if="!loaded" :src="image.url || image" :alt="`Screenshot of ${image}.`" class="img-fluid">
@@ -20,7 +20,7 @@
 
 <script>
 import script from 'vue-interface/src/Helpers/Script';
-import ActivityIndicator from '@vue-interface/activity-indicator';
+import { ActivityIndicator } from '@vue-interface/activity-indicator';
 
 export default {
 

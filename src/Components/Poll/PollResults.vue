@@ -26,7 +26,7 @@
 
 <script>
 import Permalink from '../../Mixins/Permalink';
-import Btn from 'vue-interface/src/Components/Btn';
+import Btn from '@vue-interface/btn';
 import Card from 'vue-interface/src/Components/Card';
 import CardBody from 'vue-interface/src/Components/Card/CardBody';
 import PollSocialButtons from './PollSocialButtons';

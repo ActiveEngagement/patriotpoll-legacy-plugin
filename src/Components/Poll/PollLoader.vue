@@ -1,6 +1,6 @@
 <template>
     <div class="patriot-poll">
-        <activity-indicator v-if="loading" label="Loading..." type="spinner" center absolute />
+        <activity-indicator v-if="loading" label="Loading..." type="pulse" center absolute />
         <poll
             v-else-if="currentPoll"
             :api-key="apiKey"
@@ -33,11 +33,18 @@ import Permalink from '../../Mixins/Permalink';
 import VueSocialSharing from 'vue-social-sharing';
 import PatriotPollPlugin from '../../Plugins/PatriotPollPlugin';
 
- 
+import { ActivityIndicator, register } from '@vue-interface/activity-indicator';
+
+import Pulse from '@vue-interface/activity-indicator/src/types/Pulse';
+
+register({
+    pulse: Pulse
+});
+
 export default {
 
     components: {
-        ActivityIndicator: () => import(/* webpackChunkName: 'activity-indicator' */ '@vue-interface/activity-indicator'),
+        ActivityIndicator,
         Poll: () => import(/* webpackChunkName: 'poll' */ './Poll'),
         AnimatedClock: () => import(/* webpackChunkName: 'animated-clock' */ '../AnimatedClock'),
     },
