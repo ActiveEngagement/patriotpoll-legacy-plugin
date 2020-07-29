@@ -35,48 +35,6 @@ jobs:
         node-version: '12.x'
         registry-url: 'https://registry.npmjs.org'
 
-    - name: Create Branch
-      run: |
-        git config user.email "${{ github.actor }}@users.noreply.github.com"
-        git config user.name "${{ github.actor }}"
-
-        git fetch
-        git clean -fd
-        git checkout master
-        git rebase origin/master
-        git checkout -b "build-${{ github.sha }}"
-
-    - name: Extract Version
-      id: extract-version
-      run: |
-        PACKAGE_VERSION=$(cat package.json | grep version | head -1 | awk -F= "{ print $2 }" | sed 's/[version:,\",]//g' | tr -d '[[:space:]]')
-
-        echo "::set-output name=version::$PACKAGE_VERSION"
-
-    - run: echo $PACKAGE_VERSION
-
-    - name: Install Dependencies
-      run: npm install
-
-    - name: Build Bundle
-      run: npm run build
-
-    - name: Commit Changes
-      if: success()
-      run: |
-        cat > manifest.txt << EOF
-        By: ${{ github.actor }}
-        Commit: ${{ github.sha }}
-        Version: ${{ steps.extract-version.outputs.version }}
-        EOF
-
-        git add -A
-
-        git commit -a -m "Build: ${{ github.sha }}"
-        git checkout master
-        git merge "build-${{ github.sha }}"
-        git push
-
     - name: Publish to NPM
       run: npm publish --access public
       env:

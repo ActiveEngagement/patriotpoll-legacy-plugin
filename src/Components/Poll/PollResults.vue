@@ -25,11 +25,10 @@
 </template>
 
 <script>
-import Permalink from '../../Mixins/Permalink';
 import Btn from '@vue-interface/btn';
-import Card from 'vue-interface/src/Components/Card';
-import CardBody from 'vue-interface/src/Components/Card/CardBody';
+import Permalink from '../../Mixins/Permalink';
 import PollSocialButtons from './PollSocialButtons';
+
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faLongArrowAltLeft, faLongArrowAltRight, faPoll } from '@fortawesome/free-solid-svg-icons';

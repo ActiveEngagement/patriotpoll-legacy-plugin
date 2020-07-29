@@ -1,7 +1,7 @@
 <template>
     <div class="twitter-embed w-100" :style="{maxWidth: `${calculatedWidth}px`}">
         <div v-if="(activity || !loaded) && !image" class="position-relative" :style="{'min-height': '300px'}">
-            <activity-indicator size="sm" type="pulse" label="Loading..." :min-height="200" center />
+            <activity-indicator size="sm" type="pulse" :min-height="300" center />
         </div>
 
         <blockquote v-if="!activity || image" v-bind="attributes" :style="{'visibility': !loaded ? 'hidden' : 'visible'}">
