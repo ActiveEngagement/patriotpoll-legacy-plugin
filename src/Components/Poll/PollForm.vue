@@ -70,10 +70,12 @@ import InputField from './Fields/InputField';
 import SelectField from './Fields/SelectField';
 
 import Alert from '@vue-interface/alert';
-import Btn from 'vue-interface/src/Components/Btn';
+import AnimateCss from '@vue-interface/animate-css';
+import Btn from '@vue-interface/btn';
+
 // import scrollTo from 'vue-interface/src/Helpers/ScrollTo';
+
 import SlideDeck from 'vue-interface/src/Components/SlideDeck';
-import AnimateCss from 'vue-interface/src/Components/AnimateCss';
 import BtnActivity from 'vue-interface/src/Components/BtnActivity';
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';

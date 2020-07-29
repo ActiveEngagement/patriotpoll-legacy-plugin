@@ -7,7 +7,7 @@
 
 <script>
 import Lazy from '@vue-interface/lazy';
-import ActivityIndicator from '@vue-interface/activity-indicator';
+import { ActivityIndicator } from '@vue-interface/activity-indicator';
 
 export default {
     components: {
