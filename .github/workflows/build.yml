@@ -41,6 +41,7 @@ jobs:
         git config user.name "${{ github.actor }}"
 
         git fetch
+        git reset --hard HEAD
         git rebase origin/master
         git checkout -b "build-${{ github.sha }}"
 
