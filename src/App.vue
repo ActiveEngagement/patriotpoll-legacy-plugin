@@ -1,23 +1,15 @@
 <template>
     <div>
-        <poll-archive />
+        <poll-loader />
     </div>
 </template>
 
 <script>
-import { PollArchive } from './Components/Poll';
-import PatriotPollPlugin from './Plugins/PatriotPollPlugin';
+import { PollLoader } from './Components/Poll';
 
 export default {
     components: {
-        PollArchive
-    },
-    created() {
-        this.$root.constructor.use(PatriotPollPlugin, {
-            apiKey: this.apiKey,
-            baseUrl: this.baseUrl
-        });
-    },
-
+        PollLoader
+    }
 };
 </script>
