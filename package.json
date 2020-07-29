@@ -28,6 +28,7 @@
     "@vue-interface/input-field": "^0.9.0",
     "@vue-interface/lazy": "^1.0.0",
     "@vue-interface/progress-bar": "^0.9.6",
+    "@vue-interface/select-field": "^0.9.0",
     "axios": "^0.19.2",
     "chart.js": "^2.9.3",
     "color": "^3.1.2",

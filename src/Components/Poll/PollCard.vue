@@ -26,19 +26,8 @@
 <script>
 import randomcolor from 'randomcolor';
 import Permalink from '../../Mixins/Permalink';
+import ProgressBar from '@vue-interface/progress-bar';
 import DateFilter from 'vue-interface/src/Filters/Date/DateFilter';
-import ProgressBar from 'vue-interface/src/Components/ProgressBar';
-
-/*
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
-import { faTwitter, faFacebook } from '@fortawesome/free-brands-svg-icons';
-
-library.add(faTwitter);
-library.add(faFacebook);
-library.add(faEnvelope);
-*/
 
 export default {
 
