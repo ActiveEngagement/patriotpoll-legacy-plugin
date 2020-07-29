@@ -41,8 +41,7 @@ jobs:
         git config user.name "${{ github.actor }}"
 
         git fetch
-        git checkout origin/master
-        git reset --hard HEAD
+        git pull origin master
         git checkout -b "build-${{ github.sha }}"
 
     - name: Extract Version
