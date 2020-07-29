@@ -51,7 +51,9 @@ jobs:
         PACKAGE_VERSION=$(cat package.json | grep version | head -1 | awk -F= "{ print $2 }" | sed 's/[version:,\",]//g' | tr -d '[[:space:]]')
 
         echo "::set-output name=version::$PACKAGE_VERSION"
-    
+
+    - run: echo $PACKAGE_VERSION
+
     # - name: Install Dependencies
     #   run: npm install
 
@@ -66,8 +68,6 @@ jobs:
         Commit: ${{ github.sha }}
         Version: ${{ steps.extract-version.outputs.version }}
         EOF
-
-        echo $PACKAGE_VERSION
 
         git add -A
 
