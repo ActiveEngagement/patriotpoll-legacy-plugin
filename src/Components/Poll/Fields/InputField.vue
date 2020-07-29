@@ -7,12 +7,11 @@
         :value="form[name]"
         :errors="errors"
         v-bind="$attrs"
-        class="focusable"
-        custom />
+        class="focusable" />
 </template>
 
 <script>
-import InputField from 'vue-interface/src/Components/InputField';
+import InputField from '@vue-interface/input-field';
 
 export default {
     components: {

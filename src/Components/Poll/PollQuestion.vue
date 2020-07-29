@@ -44,11 +44,13 @@
 </template>
 
 <script>
+import AnimateCss from '@vue-interface/animate-css';
+import Btn from '@vue-interface/btn';
+
 import ImgLoader from '../ImgLoader';
 import PollEmbed from './PollEmbed';
-import Btn from 'vue-interface/src/Components/Btn';
+
 import BtnGroup from 'vue-interface/src/Components/BtnGroup';
-import AnimateCss from 'vue-interface/src/Components/AnimateCss';
 import ResponsiveBlocks from '../../Directives/ResponsiveBlocks';
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';

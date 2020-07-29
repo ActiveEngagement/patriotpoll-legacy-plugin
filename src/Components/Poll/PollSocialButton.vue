@@ -20,7 +20,7 @@
 
 <script>
 import Color from 'color';
-import Btn from 'vue-interface/src/Components/Btn';
+import Btn from '@vue-interface/btn';
 
 export default {
     components: {
