@@ -33,6 +33,12 @@
             </btn-group>
         </div>
 
+        <div v-if="poll.sponsor && poll.options.hide_sponsor !== '1'" class="text-center mt-4 d-flex justify-content-center align-items-center">
+            <font-awesome-icon icon="star" class="mr-2 text-secondary" />
+            <em>This poll is sponsored by <a v-if="poll.sponsor.url" :href="poll.sponsor.url">{{ poll.sponsor.name }}</a><template v-else>{{ poll.sponsor.name }}</template></em>
+            <font-awesome-icon icon="star" class="ml-2 text-secondary" />
+        </div>
+
         <poll-social-buttons :poll="poll" />
     </div>
 </template>
@@ -45,6 +51,12 @@ import BtnGroup from 'vue-interface/src/Components/BtnGroup';
 import AnimateCss from 'vue-interface/src/Components/AnimateCss';
 import ResponsiveBlocks from '../../Directives/ResponsiveBlocks';
 
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
+
+library.add(faStar);
+
 export default {
 
     name: 'PollQuestion',
@@ -55,6 +67,7 @@ export default {
         ImgLoader,
         PollEmbed,
         AnimateCss,
+        FontAwesomeIcon,
         PollSocialButtons: () => import(/* webpackChunkName: 'poll-social-buttons' */'./PollSocialButtons')
     },
 
