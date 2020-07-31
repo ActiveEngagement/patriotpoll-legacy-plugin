@@ -41,8 +41,8 @@
 <script>
 import PollCard from './PollCard';
 import Permalink from '../../Mixins/Permalink';
-import BtnActivity from 'vue-interface/src/Components/BtnActivity';
 import { ActivityIndicator } from '@vue-interface/activity-indicator';
+import BtnActivity from '@vue-interface/btn-activity';
 
 export default {
 

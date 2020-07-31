@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import script from 'vue-interface/src/Helpers/Script';
+import { script } from '@vue-interface/utils';
 import { ActivityIndicator } from '@vue-interface/activity-indicator';
 
 export default {

@@ -27,7 +27,7 @@
 import randomcolor from 'randomcolor';
 import Permalink from '../../Mixins/Permalink';
 import ProgressBar from '@vue-interface/progress-bar';
-import DateFilter from 'vue-interface/src/Filters/Date/DateFilter';
+import DateFilter from '@vue-interface/date-filter';
 
 export default {
 

@@ -46,11 +46,11 @@
 <script>
 import AnimateCss from '@vue-interface/animate-css';
 import Btn from '@vue-interface/btn';
+import { BtnGroup } from '@vue-interface/btn-group';
 
 import ImgLoader from '../ImgLoader';
 import PollEmbed from './PollEmbed';
 
-import BtnGroup from 'vue-interface/src/Components/BtnGroup';
 import ResponsiveBlocks from '../../Directives/ResponsiveBlocks';
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';

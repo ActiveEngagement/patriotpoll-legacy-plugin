@@ -23,7 +23,8 @@
 <script>
 import PollDate from './PollDate';
 import Permalink from '../../Mixins/Permalink';
-import unit from 'vue-interface/src/Helpers/Functions/unit';
+import { unit } from '@vue-interface/utils';
+import { SlideDeck } from '@vue-interface/slide-deck';
 
 export default {
 
@@ -31,7 +32,7 @@ export default {
 
     components: {
         PollDate,
-        'slide-deck': () => import(/* webpackChunkName: 'slide-deck' */ 'vue-interface/src/Components/SlideDeck'),
+        SlideDeck,
         'poll-results': () => import(/* webpackChunkName: 'poll-results' */ './PollResults'),
         'poll-question': () => import(/* webpackChunkName: 'poll-question' */ './PollQuestion'),
         'poll-form': () => import(/* webpackChunkName: 'poll-form' */ './PollForm')

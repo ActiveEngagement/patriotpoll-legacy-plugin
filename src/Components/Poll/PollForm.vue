@@ -69,14 +69,11 @@
 import InputField from './Fields/InputField';
 import SelectField from './Fields/SelectField';
 
-import Alert from '@vue-interface/alert';
+import { Alert } from '@vue-interface/alert';
 import AnimateCss from '@vue-interface/animate-css';
 import Btn from '@vue-interface/btn';
-
-// import scrollTo from 'vue-interface/src/Helpers/ScrollTo';
-
-import SlideDeck from 'vue-interface/src/Components/SlideDeck';
-import BtnActivity from 'vue-interface/src/Components/BtnActivity';
+import BtnActivity from '@vue-interface/btn-activity';
+import { SlideDeck } from '@vue-interface/slide-deck';
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';

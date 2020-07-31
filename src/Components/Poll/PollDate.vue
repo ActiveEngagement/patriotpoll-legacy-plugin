@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import DateFilter from 'vue-interface/src/Filters/Date/DateFilter';
+import DateFilter from '@vue-interface/date-filter';
 
 export default {
 
