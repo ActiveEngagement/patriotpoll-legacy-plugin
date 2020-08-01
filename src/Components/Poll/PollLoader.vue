@@ -219,7 +219,9 @@ export default {
 @import '~@fortawesome/fontawesome-svg-core/styles';
 
 .patriot-poll {
-    @import '~bootstrap/scss/bootstrap';
+    @import '~bootstrap/scss/_variables';
+    @import '~bootstrap/scss/_functions';
+    @import '~bootstrap/scss/_mixins';
 
     margin: 0; // 1
     font-family: $font-family-base;
