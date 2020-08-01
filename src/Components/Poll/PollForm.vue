@@ -55,9 +55,11 @@
             <font-awesome-icon icon="exclamation-triangle" /> This poll is not active and cannot be submitted.
         </alert>
 
-        <btn-activity variant="primary"
+        <btn-activity
+            variant="primary"
             size="lg"
             block
+            indicator="dots"
             :activity="activity"
             :disabled="disabled">
             Submit Poll
@@ -87,13 +89,13 @@ export default {
     name: 'PollForm',
 
     components: {
-        Btn,
         Alert,
         AnimateCss,
+        Btn,
+        BtnActivity,
+        FontAwesomeIcon,
         InputField,
         SelectField,
-        BtnActivity,
-        FontAwesomeIcon
     },
 
     props: {
