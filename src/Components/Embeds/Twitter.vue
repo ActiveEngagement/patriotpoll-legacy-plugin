@@ -1,5 +1,5 @@
 <template>
-    <div class="twitter-embed w-100" :style="{maxWidth: `${calculatedWidth}px`}">
+    <div class="twitter-embed" :style="{maxWidth: `${calculatedWidth}px`}">
         <div v-if="(activity || !loaded) && !image" class="position-relative" :style="{'min-height': '300px'}">
             <activity-indicator size="sm" type="pulse" :min-height="300" center />
         </div>
@@ -161,7 +161,11 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style>
+.twitter-embed {
+    width: 100%;
+}
+
 .twitter-embed > div {
     margin-left: auto;
     margin-right: auto;

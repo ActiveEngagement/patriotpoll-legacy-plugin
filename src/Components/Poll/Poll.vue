@@ -14,7 +14,13 @@
             </div>
 
             <div key="results">
-                <poll-results :poll="poll" :api-key="apiKey" :permalink="permalink" @back="onClickBack" @next="poll => $emit('next', poll)" />
+                <poll-results
+                    :poll="poll"
+                    :api-key="apiKey"
+                    :permalink="permalink"
+                    :share-buttons="shareButtons"
+                    @back="onClickBack"
+                    @next="poll => $emit('next', poll)" />
             </div>
         </slide-deck>
     </div>
@@ -59,6 +65,11 @@ export default {
         poll: {
             type: Object,
             required: true
+        },
+
+        shareButtons: {
+            type: Boolean,
+            default: true
         },
 
         scrollTo: HTMLElement,

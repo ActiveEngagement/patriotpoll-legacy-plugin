@@ -12,6 +12,7 @@
             :class="{'loading': loading}"
             :permalink="permalink"
             :hide-date="hideDate"
+            :share-buttons="shareButtons"
             @step="onStep"
             @next="onNext"
             @slide-enter="onSlideEnter" />
@@ -75,6 +76,11 @@ export default {
         maxWidth: [Number, String],
 
         poll: Object,
+
+        shareButtons: {
+            type: Boolean,
+            default: true
+        },
         
         scrollTo: HTMLElement,
 

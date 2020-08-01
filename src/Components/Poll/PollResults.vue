@@ -2,7 +2,7 @@
     <div class="poll-results mt-4 p-3">
         <poll-doughnut-chart v-if="mounted" :poll="poll" />
 
-        <poll-social-buttons :poll="poll" />
+        <poll-social-buttons v-if="shareButtons" :poll="poll" />
 
         <div v-if="nextPoll" class="mt-5 mb-3 mx-3">
             <h4 class="mb-2">
@@ -57,6 +57,11 @@ export default {
         poll: {
             type: Object,
             required: true
+        },
+
+        shareButtons: {
+            type: Boolean,
+            default: true
         }
 
     },
