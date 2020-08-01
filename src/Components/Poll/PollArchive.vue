@@ -1,6 +1,6 @@
 <template>
     <section class="poll-archive">
-        <activity-indicator v-if="!loaded" label="Loading..." type="pulse" center min-height="200" />
+        <activity-indicator v-if="!loaded" type="pulse" center min-height="200" />
 
         <div v-else-if="!!polls.length" class="container">
             <div class="row">

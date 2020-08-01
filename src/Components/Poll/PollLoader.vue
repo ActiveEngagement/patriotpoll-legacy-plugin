@@ -1,6 +1,7 @@
 <template>
     <div class="patriot-poll">
-        <activity-indicator v-if="loading" label="Loading..." type="pulse" center absolute />
+        <activity-indicator v-if="loading" type="pulse" min-height="350" center />
+
         <poll
             v-else-if="currentPoll"
             :api-key="apiKey"
