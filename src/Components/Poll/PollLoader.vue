@@ -224,6 +224,7 @@ export default {
 @import '../../assets/scss/mixins';
 @import '../../assets/scss/variables';
 @import '~@fortawesome/fontawesome-svg-core/styles';
+@import '~@vue-interface/form-control/src/scss/CustomFields.scss';
 
 .patriot-poll {
     @import '~bootstrap/scss/_variables';
