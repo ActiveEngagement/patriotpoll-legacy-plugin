@@ -57,6 +57,11 @@ export default {
                 }]
             },
             options: {
+                legend: {
+                    labels: {
+                        fontSize: 16
+                    }
+                },
                 tooltips: {
                     callbacks: {
                         label: function(tooltipItem, data) {
