@@ -46,7 +46,8 @@
                         :name="name"
                         :form="form"
                         :errors="errors"
-                        v-bind="field" />
+                        v-bind="field"
+                        custom />
                 </template>
             </div>
         </animate-css>

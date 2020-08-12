@@ -16,6 +16,7 @@
             @step="onStep"
             @next="onNext"
             @slide-enter="onSlideEnter" />
+            
         <div v-else class="poll-exception-wrapper">
             <div class="poll-exception">
                 <h2 class="text-center">
