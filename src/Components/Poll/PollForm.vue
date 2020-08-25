@@ -65,6 +65,10 @@
             :disabled="disabled">
             Submit Poll
         </btn-activity>
+
+        <p v-if="poll.sponsor" class="text-center mt-2">
+            <small><em>By submitting this poll, I agree to receive updates from <a v-if="poll.sponsor.url" :href="poll.sponsor.url">{{ poll.sponsor.name }}</a><template v-else>{{ poll.sponsor.name }}</template>.</em></small>
+        </p>
     </form>
 </template>
 

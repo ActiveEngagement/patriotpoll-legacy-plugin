@@ -38,7 +38,7 @@
             <em>This poll is sponsored by <a v-if="poll.sponsor.url" :href="poll.sponsor.url">{{ poll.sponsor.name }}</a><template v-else>{{ poll.sponsor.name }}</template></em>
             <font-awesome-icon icon="star" class="ml-2 text-secondary" />
         </div>
-
+        
         <poll-social-buttons :poll="poll" />
     </div>
 </template>
