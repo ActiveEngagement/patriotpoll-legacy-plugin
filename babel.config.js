@@ -1,12 +1,6 @@
 module.exports = {
     presets: [
-        ['@vue/app', {
-            targets: {
-                node: "current"
-            }
-        }]
-    ],
-    plugins: [
-        "lodash"
+        '@vue/cli-plugin-babel/preset'
     ]
 };
+  

@@ -3,7 +3,7 @@ module.exports = {
     entry: './src/index.js',
     output: {
         filename: '[name].js',
-        path: __dirname + '/test'
+        libraryTarget: 'umd',
     },
     optimization: {
         // We no not want to minimize our code.

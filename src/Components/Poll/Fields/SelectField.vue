@@ -1,13 +1,13 @@
 <template>
     <select-field
-        v-model="form[name]"
         :name="name"
         :label="fieldLabel"
         :placeholder="fieldLabel"
-        :value="form[name]"
+        :value="value"
         :errors="errors"
         class="focusable"
-        custom>
+        custom
+        @input="value => $emit('input', value)">
         <option />
         <option v-for="[value, label] in options" :key="value" :value="value">
             {{ label }}

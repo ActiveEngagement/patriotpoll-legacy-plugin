@@ -38,9 +38,11 @@ import PatriotPollPlugin from '../../Plugins/PatriotPollPlugin';
 
 import { ActivityIndicator, register } from '@vue-interface/activity-indicator';
 
+import Dots from '@vue-interface/activity-indicator/src/types/Dots';
 import Pulse from '@vue-interface/activity-indicator/src/types/Pulse';
 
 register({
+    dots: Dots,
     pulse: Pulse
 });
 

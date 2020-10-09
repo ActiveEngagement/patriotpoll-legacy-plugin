@@ -117,14 +117,13 @@ export default {
                 }
             })
                 .then(({ data }) => {
+                    this.activity = false;
                     this.polls = this.polls.concat(data.data);
                     this.page = data.current_page;
                     this.loadMore = data.current_page < data.last_page;
                 }, e => {
-                    this.exception = e;
-                })
-                .finally(() => {
                     this.activity = false;
+                    this.exception = e;
                 });
         }
 

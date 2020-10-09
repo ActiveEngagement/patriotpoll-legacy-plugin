@@ -43,9 +43,10 @@
                 <template v-for="([is, field], name) in fields">
                     <components :is="is"
                         :key="`field-${name}`"
+                        v-model="form[name]"
                         :name="name"
-                        :form="form"
                         :errors="errors"
+                        :value="form[name]"
                         v-bind="field"
                         custom />
                 </template>
@@ -277,18 +278,18 @@ export default {
 
                     window.localStorage.__poll__ = JSON.stringify(contact);
 
-                    Object.assign(this.poll, data);
-                    
-                    this.poll.statistics = data.statistics;
+                    Object.assign(this.poll, data, {
+                        statistics: data.statistics
+                    });
+
                     this.active = 'results';
-                    
                     this.$nextTick(() => {
                         this.$emit('submit-success', data);
                     });
                 }, ({ response }) => {
                     this.$emit('submit-failed', this.errors = response.data.errors);
                 })
-                .finally(() => {
+                .then(() => {
                     if(!this.poll.options.redirect_url) {
                         this.activity = false;
                     }

@@ -8,8 +8,7 @@
 </template>
 
 <script>
-import AnimatedIcon from '@vue-interface/animated-icon';
-import { register } from '@vue-interface/animated-icon';
+import AnimatedIcon, { register } from '@vue-interface/animated-icon';
 import { clock } from '@vue-interface/animated-icon/icons';
 
 register({

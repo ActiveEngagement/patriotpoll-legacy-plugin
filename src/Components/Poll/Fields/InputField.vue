@@ -1,22 +1,27 @@
 <template>
     <input-field
-        v-model="form[name]"
         :name="name"
         :label="fieldLabel"
         :placeholder="fieldLabel"
-        :value="form[name]"
+        :value="value"
         :errors="errors"
         v-bind="$attrs"
-        class="focusable" />
+        class="focusable"
+        custom
+        @input="value => $emit('input', value)" />
 </template>
 
 <script>
+import FormControl from '@vue-interface/form-control';
 import InputField from '@vue-interface/input-field';
 
 export default {
     components: {
         InputField
     },
+    mixins: [
+        FormControl
+    ],
     props: {
         label: String,
         required: Boolean,
@@ -29,10 +34,6 @@ export default {
             default() {
                 return {};
             }
-        },
-        form: {
-            type: Object,
-            required: true
         }
     },
     computed: {
