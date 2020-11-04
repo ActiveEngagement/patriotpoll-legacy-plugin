@@ -199,11 +199,11 @@ export default {
             if(!id) {
                 return this.search()
                     .then(({ data }) => {
-                        if(data.length) {
+                        if(data && data.length) {
                             return this.currentPoll = data[0];
                         }
-
-                        this.exception = new Error('test');
+                    }, e => {
+                        this.exception = e;
                     });
             }
             
