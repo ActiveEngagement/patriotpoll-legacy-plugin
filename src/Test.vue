@@ -1,8 +1,15 @@
+<template>
+    <div>
+        <animated-clock />
+    </div>
+</template>
 <script>
+import AnimatedClock from './Components/AnimatedClock';
+
 export default {
 
     components: {
-        AnimatedClock: () => import(/* webpackChunkName: 'animated-clock' */ './Components/AnimatedClock'),
+        AnimatedClock
     },
 
 };
