@@ -1,7 +1,6 @@
 <template>
     <div class="patriot-poll">
-        <activity-indicator v-if="loading" type="pulse" min-height="350" center />
-
+    <activity-indicator v-if="loading" type="pulse" min-height="350" center />
         <poll
             v-else-if="currentPoll"
             :api-key="apiKey"
@@ -32,10 +31,11 @@
 </template>
 
 <script>
+import Axios from 'axios';
 import Permalink from '../../Mixins/Permalink';
 import VueSocialSharing from 'vue-social-sharing';
 import PatriotPollPlugin from '../../Plugins/PatriotPollPlugin';
-
+ 
 import { ActivityIndicator, register } from '@vue-interface/activity-indicator';
 
 import Dots from '@vue-interface/activity-indicator/src/types/Dots';
@@ -45,6 +45,9 @@ register({
     dots: Dots,
     pulse: Pulse
 });
+
+const BASE_URL = 'https://api.patriotpoll.net/v1';
+
 
 export default {
 

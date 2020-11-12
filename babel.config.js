@@ -1,12 +1,11 @@
 module.exports = {
     presets: [
         ['@vue/app', {
+            corejs: 3,
+            useBuiltIns: "usage", // or "entry"
             targets: {
-                node: "current",
-                "ie": "10",
-                browsers: "> 0.25%, not dead",
+                browsers: "> .25%, not dead",
             }
         }]
     ]
 };
-  
