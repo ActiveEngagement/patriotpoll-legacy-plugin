@@ -1,9 +1,11 @@
 const webpack = require('webpack');
 
 module.exports = {
+    /*
     transpileDependencies: [
         /@vue-interface\/.+/
     ],
+    */
     configureWebpack: {
         optimization: {
             sideEffects: false
