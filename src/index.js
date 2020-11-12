@@ -1,3 +1,1 @@
-import PollLoader from './Components/Poll/PollLoader';
-
-export default PollLoader;
+export * from './Components/Poll';
