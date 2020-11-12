@@ -155,7 +155,6 @@ export default {
         margin-bottom: 10px;
         height: 2.25rem;
         border-radius: 0;
-        overflow: scroll;
         background-color: #f6f6f6;
 
         span {
@@ -174,7 +173,6 @@ export default {
             color: white;
             font-size: 1rem;
             font-weight: 500;
-            overflow: visible;
         }
     }
 }
