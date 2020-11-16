@@ -22,7 +22,7 @@ export default function(Vue, options = {}) {
         
         delete store.answer;
         
-        for(item of Object.entries(store)) {
+        for(let item of Object.entries(store)) {
             const key = item[0], value = item[1];
             
             axios.defaults.headers[`Contact-${key.charAt(0).toUpperCase() + key.slice(1)}`] = value;

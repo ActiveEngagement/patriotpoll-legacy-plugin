@@ -1,6 +1,6 @@
 <template>
     <div class="patriot-poll">
-    <activity-indicator v-if="loading" type="pulse" min-height="350" center />
+        <activity-indicator v-if="loading" type="pulse" min-height="350" center />
         <poll
             v-else-if="currentPoll"
             :api-key="apiKey"
@@ -41,6 +41,8 @@ import { ActivityIndicator, register } from '@vue-interface/activity-indicator';
 import Dots from '@vue-interface/activity-indicator/src/types/Dots';
 import Pulse from '@vue-interface/activity-indicator/src/types/Pulse';
 
+import Poll from './Poll';
+
 register({
     dots: Dots,
     pulse: Pulse
@@ -48,12 +50,11 @@ register({
 
 const BASE_URL = 'https://api.patriotpoll.net/v1';
 
-
 export default {
 
     components: {
         ActivityIndicator,
-        Poll: () => import(/* webpackChunkName: 'poll' */ './Poll'),
+        Poll,
         AnimatedClock: () => import(/* webpackChunkName: 'animated-clock' */ '../AnimatedClock'),
     },
 

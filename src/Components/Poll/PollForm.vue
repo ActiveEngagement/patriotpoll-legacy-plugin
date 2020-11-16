@@ -2,14 +2,16 @@
     <form @submit.prevent="onSubmit">
         <alert variant="success" class="w-100 mb-3 text-center">
             <h2 class="font-weight-light" v-html="answer" />
-            <btn type="button"
-                size="sm"
-                variant="text"
-                outline
-                class="p-0"
-                @click="$emit('cancel')">
-                <font-awesome-icon icon="undo" class="mr-2" /> <em>Start over</em>
-            </btn>
+            <div>
+                <btn type="button"
+                    size="sm"
+                    variant="text"
+                    outline
+                    class="p-0"
+                    @click="$emit('cancel')">
+                    <font-awesome-icon icon="undo" class="mr-2" /> <em>Start over</em>
+                </btn>
+            </div>
         </alert>
     
         <div v-if="showCard" class="py-2 mx-3 mt-4 mb-5">

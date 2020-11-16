@@ -1,5 +1,5 @@
 <template>
-    <div class="poll-question" :style="{width: width && `${width}px`}">
+    <div class="poll-question" :style="{width: width && `${width}px`}" :class="{'ie': ie}">
         <div v-if="poll.image || poll.embed || poll.html || poll.url" class="mb-3">
             <img-loader v-if="poll.image" :src="poll.image.url" height="350px" class="poll-img" />
             <img-loader v-else-if="poll.embed" :src="poll.embed.url" height="350px" class="poll-img" />
@@ -11,9 +11,9 @@
             </animate-css>
         </div>
 
-        <div v-if="poll.answers" class="d-flex">
+        <div v-if="poll.answers" class="d-flex text-center poll-buttons">
             <btn-group
-                v-responsive-blocks="{selector: 'span'}"
+                v-responsive-blocks="!ie && {selector: 'span'}"
                 :vertical="vertical"
                 :style="{'display': !vertical ? 'grid' : 'inherit', 'grid-template-columns': `repeat(${poll.answers.length}, minmax(${100 / poll.answers.length}%, 1fr)`}"
                 class="mx-auto w-100"
@@ -97,6 +97,12 @@ export default {
         };
     },
 
+    computed: {
+        ie() {
+            return !!window.document.documentMode;
+        }
+    },
+
     watch: {
 
         answer(value) {
@@ -133,6 +139,13 @@ export default {
 
     .poll-content {
         font-size: 18px;
+    }
+
+    &.ie .poll-buttons button {
+        display: block;
+        width: 100%;
+        border-radius: .25rem !important;
+        margin-bottom: .5rem;
     }
 }
 </style>

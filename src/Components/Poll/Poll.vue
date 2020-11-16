@@ -39,8 +39,8 @@ export default {
     components: {
         PollDate,
         SlideDeck,
-        'poll-results': () => import(/* webpackChunkName: 'poll-results' */ './PollResults'),
         'poll-question': () => import(/* webpackChunkName: 'poll-question' */ './PollQuestion'),
+        'poll-results': () => import(/* webpackChunkName: 'poll-results' */ './PollResults'),
         'poll-form': () => import(/* webpackChunkName: 'poll-form' */ './PollForm')
     },
 

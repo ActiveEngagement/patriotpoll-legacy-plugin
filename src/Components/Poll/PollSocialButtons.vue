@@ -4,10 +4,11 @@
             Share this poll!
         </h5>
         
-        <div class="poll-social-buttons">
+        <div class="d-flex p-3 justify-content-center text-center">
             <poll-social-button
                 network="Facebook"
                 background="#3b5998"
+                class="mr-2"
                 :url="poll.permalink"
                 :title="poll.title"
                 :description="poll.content"
@@ -16,6 +17,7 @@
             <poll-social-button
                 network="Twitter"
                 background="#1da1f2"
+                class="mr-2"
                 :url="poll.permalink"
                 :title="poll.title"
                 :description="poll.content"
@@ -47,15 +49,3 @@ export default {
     }
 };
 </script>
-
-<style>
-.poll-social-buttons {
-    display: flex;
-    padding: 1rem;
-    justify-content: center;
-}
-
-.poll-social-buttons > :not(:last-child) {
-    margin-right: .5rem;
-}
-</style>
