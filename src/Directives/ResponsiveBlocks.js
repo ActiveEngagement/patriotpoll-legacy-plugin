@@ -7,8 +7,6 @@ const attrs = [
     'margin-right'
 ];
 
-console.log(123);
-
 function unit(value) {
     return parseFloat(value.replace('px', ''));
 }
