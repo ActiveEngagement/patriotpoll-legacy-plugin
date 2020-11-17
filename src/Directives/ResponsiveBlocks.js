@@ -7,6 +7,8 @@ const attrs = [
     'margin-right'
 ];
 
+console.log(123);
+
 function unit(value) {
     return parseFloat(value.replace('px', ''));
 }
@@ -111,21 +113,19 @@ function resize(el, binding, vnode) {
 export default {
 
     bind(el, binding, vnode) {
-        /*
         if(!!binding.value) {
             window.addEventListener('resize', () => {
                 vnode.context.$nextTick(() => resize(el, binding, vnode));
             });
         }
-        */
     },
 
     inserted() {
-        //window.dispatchEvent(new CustomEvent('resize'));
+        window.dispatchEvent(new CustomEvent('resize'));
     },
 
     unbind() {
-        //window.removeEventListener('resize', resize);
+        window.removeEventListener('resize', resize);
     }
 
 };
