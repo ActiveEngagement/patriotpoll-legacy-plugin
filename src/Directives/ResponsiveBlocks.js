@@ -118,12 +118,16 @@ export default {
         }
     },
 
-    inserted() {
-        window.dispatchEvent(new CustomEvent('resize'));
+    inserted(el, binding, vnode) {
+        if(!!binding.value) {
+            window.dispatchEvent(new Event('resize'));
+        }
     },
 
-    unbind() {
-        window.removeEventListener('resize', resize);
-    }
+    unbind(el, binding, vnode) {
+        if(!!binding.value) {
+            window.removeEventListener('resize', resize);
+        }
+    },
 
 };
