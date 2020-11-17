@@ -11,11 +11,11 @@
             </animate-css>
         </div>
 
-        <div v-if="poll.answers" class="d-flex text-center poll-buttons">
+        <div v-if="poll.answers" class="poll-buttons">
             <btn-group
                 v-responsive-blocks="!ie && {selector: 'span'}"
                 :vertical="vertical"
-                :style="{'display': !vertical ? 'grid' : 'inherit', 'grid-template-columns': `repeat(${poll.answers.length}, minmax(${100 / poll.answers.length}%, 1fr)`}"
+                :style="!ie && {'display': !vertical ? 'grid' : 'inherit', 'grid-template-columns': `repeat(${poll.answers.length}, minmax(${100 / poll.answers.length}%, 1fr)`}"
                 class="mx-auto w-100"
                 toggle
                 @resize.native="onResize">
@@ -140,12 +140,32 @@ export default {
     .poll-content {
         font-size: 18px;
     }
-
-    &.ie .poll-buttons button {
+    
+    &:not(.ie) .poll-buttons .btn-group {
+        display: flex;
+    }
+    
+    &.ie .poll-buttons .btn-group {
         display: block;
-        width: 100%;
-        border-radius: .25rem !important;
-        margin-bottom: .5rem;
+
+        .btn {
+            display: block;
+            width: 100%;
+            margin: 0;
+            border-radius: 0;
+        }
+
+        .btn:first-child {
+            border-radius: .25rem .25rem 0 0 !important;
+        }
+
+        .btn:last-child {
+            border-radius: 0 0 .25rem .25rem !important;
+        }
+
+        .btn:not(:last-child) {
+            border-bottom: 0;
+        }
     }
 }
 </style>
