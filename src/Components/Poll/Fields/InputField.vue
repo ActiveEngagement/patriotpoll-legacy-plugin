@@ -3,7 +3,7 @@
         :name="name"
         :label="fieldLabel"
         :placeholder="fieldLabel"
-        :value="value"
+        :value="currentValue"
         :errors="errors"
         v-bind="$attrs"
         class="focusable"
