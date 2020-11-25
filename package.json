@@ -29,7 +29,7 @@
     "@vue-interface/btn-activity": "^0.9.8",
     "@vue-interface/btn-group": "^0.9.3",
     "@vue-interface/date-filter": "^0.8.2",
-    "@vue-interface/form-control": "^0.10.0",
+    "@vue-interface/form-control": "^0.10.1",
     "@vue-interface/input-field": "^0.11.0",
     "@vue-interface/lazy": "^1.0.1",
     "@vue-interface/progress-bar": "^0.9.15",
