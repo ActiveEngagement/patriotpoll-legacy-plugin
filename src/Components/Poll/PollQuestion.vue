@@ -105,8 +105,8 @@ export default {
 
     watch: {
 
-        answer(value) {
-            this.$emit('input', value);
+        value(value) {
+            console.log(value);
         }
 
     },
@@ -115,6 +115,8 @@ export default {
 
         onClickAnswer(answer) {
             this.answer = answer;
+            this.$emit('input', answer);
+            this.$emit('update:value', answer);
         },
 
         onResize(event) {

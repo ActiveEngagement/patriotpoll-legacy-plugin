@@ -6,7 +6,7 @@
 
         <slide-deck :active="active" @enter="slide => $emit('slide-enter', slide)">
             <div key="question">
-                <poll-question :poll="poll" :width="width" @input="onSelectAnswer" />
+                <poll-question v-model="answer" :poll="poll" :width="width" :value="answer" />
             </div>
 
             <div key="contact">
@@ -103,6 +103,10 @@ export default {
 
     watch: {
 
+        answer(value) {
+            this.active = value ? 'contact' : 'question';
+        },
+
         active(value) {
             this.$emit('step', value);
         },
@@ -130,23 +134,8 @@ export default {
         },
 
         onClickBack() {
-            // scrollTo(this.scrollTo || this.$el, 100);
-
-            this.$nextTick(() => {
-                this.active = null;
-                this.answer = null;
-            });
-        },
-
-        onSelectAnswer(value) {
-            this.answer = value;
-            this.active = 'contact';
-
-            /*
-            this.$nextTick(() => {
-                scrollTo(this.scrollTo || this.$el, 100);
-            });
-            */
+            this.answer = null;
+            this.active = null;
         }
 
     }
