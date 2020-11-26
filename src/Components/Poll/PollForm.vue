@@ -60,12 +60,13 @@
         </alert>
 
         <btn-activity
+            v-else
             variant="primary"
             size="lg"
             block
             indicator="dots"
             :activity="activity"
-            :disabled="!poll.active || disabled">
+            :disabled="disabled">
             Submit Poll
         </btn-activity>
 
