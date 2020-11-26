@@ -1,6 +1,6 @@
 <template>
     <div class="poll" :style="styles">
-        <poll-date v-if="!hideDate" :poll="poll" />
+        <poll-date v-if="showDate && poll.published_at" :poll="poll" />
 
         <h1 v-if="poll.question" class="poll-header text-center mt-2 mb-4" v-html="poll.question" />
 
@@ -52,7 +52,7 @@ export default {
 
         apiKey: String,
 
-        hideDate: {
+        showDate: {
             type: Boolean,
             default: false
         },
