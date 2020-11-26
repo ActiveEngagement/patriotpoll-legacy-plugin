@@ -65,7 +65,7 @@
             block
             indicator="dots"
             :activity="activity"
-            :disabled="disabled">
+            :disabled="!poll.active || disabled">
             Submit Poll
         </btn-activity>
 
