@@ -61,8 +61,10 @@ export default {
     mounted() {
         this.$patriotpoll.get(`/polls/${this.poll.id}/next`)
             .then(({ data }) => {
-                this.activity = false;
                 this.nextPoll = data; 
+            })
+            .finally(() => {
+                this.activity = false;
             });
     }
 };

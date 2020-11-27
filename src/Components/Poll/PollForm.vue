@@ -88,10 +88,10 @@ import { SlideDeck } from '@vue-interface/slide-deck';
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faUndo, faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import { faExclamationTriangle, faUndo, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { faWindowClose } from '@fortawesome/free-regular-svg-icons';
 
-library.add(faUndo, faUserCircle, faWindowClose);
+library.add(faUndo, faUserCircle, faWindowClose, faExclamationTriangle);
 
 export default {
 
