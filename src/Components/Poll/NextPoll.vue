@@ -62,6 +62,8 @@ export default {
         this.$patriotpoll.get(`/polls/${this.poll.id}/next`)
             .then(({ data }) => {
                 this.nextPoll = data; 
+            }, e => {
+                // Ignore the error
             })
             .finally(() => {
                 this.activity = false;
