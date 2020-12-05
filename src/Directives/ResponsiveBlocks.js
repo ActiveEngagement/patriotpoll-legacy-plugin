@@ -113,7 +113,7 @@ export default {
     bind(el, binding, vnode) {
         if(!!binding.value) {
             window.addEventListener('resize', () => {
-                vnode.context.$nextTick(() => resize(el, binding, vnode));
+                vnode.context.$nextTick(() => el && resize(el, binding, vnode));
             });
         }
     },
