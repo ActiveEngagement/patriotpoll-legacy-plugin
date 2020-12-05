@@ -289,8 +289,18 @@ export default {
                     this.$nextTick(() => {
                         this.$emit('submit-success', data);
                     });
-                }, ({ response }) => {
-                    this.$emit('submit-failed', this.errors = response.data.errors);
+                }, e => {
+                    this.errors = e.response
+                        && e.response.data
+                        && e.response.data.errors;
+
+                    if(this.errors) {
+                        this.$emit('submit-failed', this.errors);
+
+                        return;
+                    }
+                    
+                    throw e;
                 })
                 .then(() => {
                     if(!this.poll.options.redirect_url) {
