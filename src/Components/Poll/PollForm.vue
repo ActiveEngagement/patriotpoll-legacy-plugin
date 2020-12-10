@@ -38,6 +38,12 @@
             </div>
         </div>
 
+        <!--
+        @todo: need to make animate css compatible with purgecss by making
+                an alt syntax from `<animate-css name="fade" in>` to 
+                `<animate-css fadeIn>`, so that the regex can match the css
+                names.
+
         <animate-css name="fade" in duration="250ms">
             <div v-if="!showCard" class="mb-3">
                 <p><em>* Indicates the required fields.</em></p>
@@ -54,6 +60,22 @@
                 </template>
             </div>
         </animate-css>
+        -->
+
+        <div v-if="!showCard" class="mb-3">
+            <p><em>* Indicates the required fields.</em></p>
+
+            <template v-for="([is, field], name) in fields">
+                <components :is="is"
+                    :key="`field-${name}`"
+                    v-model="form[name]"
+                    :name="name"
+                    :errors="errors"
+                    :value="form[name]"
+                    v-bind="field"
+                    custom />
+            </template>
+        </div>
     
         <alert v-if="!poll.active" variant="danger">
             <font-awesome-icon icon="exclamation-triangle" /> This poll is not active and cannot be submitted.
@@ -81,7 +103,7 @@ import InputField from './Fields/InputField';
 import SelectField from './Fields/SelectField';
 
 import { Alert } from '@vue-interface/alert';
-import AnimateCss from '@vue-interface/animate-css';
+// import AnimateCss from '@vue-interface/animate-css';
 import Btn from '@vue-interface/btn';
 import BtnActivity from '@vue-interface/btn-activity';
 import { SlideDeck } from '@vue-interface/slide-deck';
@@ -99,7 +121,7 @@ export default {
 
     components: {
         Alert,
-        AnimateCss,
+        // AnimateCss,
         Btn,
         BtnActivity,
         FontAwesomeIcon,

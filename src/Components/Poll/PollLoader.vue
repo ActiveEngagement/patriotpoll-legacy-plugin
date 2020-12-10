@@ -1,5 +1,5 @@
 <template>
-    <div class="patriot-poll">
+    <div class="patriot-poll form-group">
         <activity-indicator v-if="loading" type="pulse" min-height="350" center />
         <poll
             v-else-if="currentPoll"
