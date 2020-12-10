@@ -6,9 +6,18 @@
         
             <div v-if="poll.html" class="poll-content" v-html="poll.html" />
  
+            <!--
+            @todo: need to make animate css compatible with purgecss by making
+                   an alt syntax from `<animate-css name="fade" in>` to 
+                   `<animate-css fadeIn>`, so that the regex can match the css
+                   names.
+
             <animate-css name="fade" in>
                 <poll-embed v-if="!poll.embed && poll.url" :key="poll.id" :poll="poll" :width="width" />
             </animate-css>
+            -->
+
+            <poll-embed v-if="!poll.embed && poll.url" :key="poll.id" :poll="poll" :width="width" />
         </div>
 
         <div v-if="poll.answers" class="poll-buttons">
@@ -44,7 +53,7 @@
 </template>
 
 <script>
-import AnimateCss from '@vue-interface/animate-css';
+// import AnimateCss from '@vue-interface/animate-css';
 import Btn from '@vue-interface/btn';
 import { BtnGroup } from '@vue-interface/btn-group';
 
@@ -68,7 +77,7 @@ export default {
         BtnGroup,
         ImgLoader,
         PollEmbed,
-        AnimateCss,
+        // AnimateCss,
         FontAwesomeIcon,
         PollSocialButtons: () => import(/* webpackChunkName: 'poll-social-buttons' */'./PollSocialButtons')
     },
@@ -101,14 +110,6 @@ export default {
         ie() {
             return !!window.document.documentMode;
         }
-    },
-
-    watch: {
-
-        value(value) {
-            console.log(value);
-        }
-
     },
 
     methods: {
