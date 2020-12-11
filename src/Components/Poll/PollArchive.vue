@@ -39,19 +39,19 @@
 </template>
 
 <script>
-import PollCard from './PollCard';
-import Permalink from '../../Mixins/Permalink';
 import { ActivityIndicator } from '@vue-interface/activity-indicator';
 import BtnActivity from '@vue-interface/btn-activity';
+import Permalink from '../../Mixins/Permalink';
+import PollCard from './PollCard';
 
 export default {
 
     name: 'PollArchive',
 
     components: {
-        PollCard,
+        ActivityIndicator,
         BtnActivity,
-        ActivityIndicator
+        PollCard,
     },
 
     mixins: [

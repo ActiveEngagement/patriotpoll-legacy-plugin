@@ -79,7 +79,7 @@ export default {
         PollEmbed,
         // AnimateCss,
         FontAwesomeIcon,
-        PollSocialButtons: () => import(/* webpackChunkName: 'poll-social-buttons' */'./PollSocialButtons')
+        PollSocialButtons: () => import(/* webpackChunkName: 'poll-social-buttons', webpackPrefetch: true */'./PollSocialButtons')
     },
 
     directives: {
