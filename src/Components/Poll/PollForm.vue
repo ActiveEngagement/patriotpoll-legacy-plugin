@@ -99,14 +99,13 @@
 </template>
 
 <script>
-import InputField from './Fields/InputField';
-import SelectField from './Fields/SelectField';
 
 import { Alert } from '@vue-interface/alert';
 // import AnimateCss from '@vue-interface/animate-css';
 import Btn from '@vue-interface/btn';
 import BtnActivity from '@vue-interface/btn-activity';
-import { SlideDeck } from '@vue-interface/slide-deck';
+import InputField from './Fields/InputField';
+import SelectField from './Fields/SelectField';
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';

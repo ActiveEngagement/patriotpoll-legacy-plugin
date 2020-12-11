@@ -29,7 +29,11 @@
 
             <div v-if="loadMore" class="row">
                 <div class="col-sm-12 load-more">
-                    <btn-activity :activity="activity" indicator="dots" size="md" @click="load(page + 1)">
+                    <btn-activity
+                        :activity="activity"
+                        indicator="dots"
+                        size="md"
+                        @click="load(page + 1)">
                         Load More
                     </btn-activity>
                 </div>
@@ -39,10 +43,17 @@
 </template>
 
 <script>
-import { ActivityIndicator } from '@vue-interface/activity-indicator';
+import { ActivityIndicator, Dots, Pulse } from '@vue-interface/activity-indicator';
 import BtnActivity from '@vue-interface/btn-activity';
 import Permalink from '../../Mixins/Permalink';
 import PollCard from './PollCard';
+
+register({
+    dots: Dots,
+    pulse: Pulse
+});
+
+import Poll from './Poll';
 
 export default {
 
