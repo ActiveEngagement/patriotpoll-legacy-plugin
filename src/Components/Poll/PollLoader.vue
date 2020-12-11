@@ -55,7 +55,7 @@ export default {
     components: {
         ActivityIndicator,
         Poll,
-        AnimatedClock: () => import(/* webpackChunkName: 'animated-clock' */ '../AnimatedClock'),
+        AnimatedClock: () => import(/* webpackChunkName: 'animated-clock', webpackPrefetch: true */ '../AnimatedClock'),
     },
 
     mixins: [
@@ -227,12 +227,11 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../../assets/scss/mixins';
-@import '../../assets/scss/variables';
-@import '~@fortawesome/fontawesome-svg-core/styles';
-@import '~@vue-interface/form-control/src/scss/CustomFields.scss';
-
 .patriot-poll {
+    @import '~@fortawesome/fontawesome-svg-core/styles';
+    @import '~@vue-interface/form-control/src/scss/CustomFields.scss';
+    @import '../../assets/scss/mixins';
+    @import '../../assets/scss/variables';
     @import '~bootstrap/scss/_variables';
     @import '~bootstrap/scss/_functions';
     @import '~bootstrap/scss/_mixins';

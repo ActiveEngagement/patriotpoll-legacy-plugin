@@ -18,8 +18,8 @@ export default {
 
     components: {
         NextPoll,
-        PollDoughnutChart: () => import(/* webpackChunkName: 'poll-doughnut-chart' */'./PollDoughnutChart'),
-        PollSocialButtons: () => import(/* webpackChunkName: 'poll-social-buttons' */'./PollSocialButtons'),
+        PollDoughnutChart: () => import(/* webpackChunkName: 'poll-doughnut-chart', webpackPrefetch: true */'./PollDoughnutChart'),
+        PollSocialButtons: () => import(/* webpackChunkName: 'poll-social-buttons', webpackPrefetch: true */'./PollSocialButtons'),
     },
 
     mixins: [

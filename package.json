@@ -2,6 +2,7 @@
   "name": "patriotpoll",
   "version": "0.5.12",
   "main": "./index.js",
+  "sideEffects": false,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "npm run build-lib",
