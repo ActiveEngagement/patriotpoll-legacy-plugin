@@ -35,11 +35,7 @@ import Axios from 'axios';
 import Permalink from '../../Mixins/Permalink';
 import VueSocialSharing from 'vue-social-sharing';
 import PatriotPollPlugin from '../../Plugins/PatriotPollPlugin';
- 
-import { ActivityIndicator, register } from '@vue-interface/activity-indicator';
-
-import Dots from '@vue-interface/activity-indicator/src/types/Dots';
-import Pulse from '@vue-interface/activity-indicator/src/types/Pulse';
+import { ActivityIndicator, register, Dots, Pulse } from '@vue-interface/activity-indicator';
 
 import Poll from './Poll';
 
