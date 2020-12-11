@@ -55,7 +55,7 @@ export default {
     components: {
         ActivityIndicator,
         Poll,
-        AnimatedClock: () => import(/* webpackChunkName: 'animated-clock', webpackPreload: true */ '../AnimatedClock'),
+        AnimatedClock: () => import(/* webpackChunkName: 'animated-clock', webpackPrefetch: true */ '../AnimatedClock'),
     },
 
     mixins: [
