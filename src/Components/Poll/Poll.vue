@@ -39,9 +39,9 @@ export default {
     components: {
         PollDate,
         SlideDeck,
-        'poll-question': () => import(/* webpackChunkName: 'poll-question', webpackPrefetch: true */ './PollQuestion'),
-        'poll-results': () => import(/* webpackChunkName: 'poll-results', webpackPrefetch: true */ './PollResults'),
-        'poll-form': () => import(/* webpackChunkName: 'poll-form', webpackPrefetch: true */ './PollForm')
+        'poll-question': () => import(/* webpackChunkName: 'poll-question', webpackPreload: true */ './PollQuestion'),
+        'poll-results': () => import(/* webpackChunkName: 'poll-results', webpackPreload: true */ './PollResults'),
+        'poll-form': () => import(/* webpackChunkName: 'poll-form', webpackPreload: true */ './PollForm')
     },
 
     mixins: [
