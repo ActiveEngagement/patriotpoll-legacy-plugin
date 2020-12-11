@@ -1,16 +1,27 @@
 <template>
     <div class="poll" :style="styles">
+        <!--
         <poll-date v-if="showDate && poll.published_at" :poll="poll" />
+        -->
 
         <h1 v-if="poll.question" class="poll-header text-center mt-2 mb-4" v-html="poll.question" />
 
         <slide-deck :active="active" @enter="slide => $emit('slide-enter', slide)">
             <div key="question">
-                <poll-question v-model="answer" :poll="poll" :width="width" :value="answer" />
+                <poll-question
+                    v-model="answer"
+                    :poll="poll"
+                    :width="width"
+                    :value="answer" />
             </div>
 
             <div key="contact">
-                <poll-form :answer="answer" :poll="poll" :api-key="apiKey" @submit-success="onSubmitSuccess" @cancel="onClickBack" />
+                <poll-form
+                    :answer="answer"
+                    :poll="poll"
+                    :api-key="apiKey"
+                    @submit-success="onSubmitSuccess"
+                    @cancel="onClickBack" />
             </div>
 
             <div key="results">
@@ -27,7 +38,7 @@
 </template>
 
 <script>
-import PollDate from './PollDate';
+// import PollDate from './PollDate';
 import Permalink from '../../Mixins/Permalink';
 import { unit } from '@vue-interface/utils';
 import { SlideDeck } from '@vue-interface/slide-deck';
@@ -37,7 +48,7 @@ export default {
     name: 'Poll',
 
     components: {
-        PollDate,
+        // PollDate,
         SlideDeck,
         'poll-question': () => import(/* webpackChunkName: 'poll-question', webpackPrefetch: true */ './PollQuestion'),
         'poll-results': () => import(/* webpackChunkName: 'poll-results', webpackPrefetch: true */ './PollResults'),
