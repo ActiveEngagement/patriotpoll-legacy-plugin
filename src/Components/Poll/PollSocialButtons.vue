@@ -1,8 +1,8 @@
 <template>
     <div class="mt-5">
-        <h5 class="text-center font-weight-light mb-1">
+        <div class="h5 text-center font-weight-light mb-1">
             Share this poll!
-        </h5>
+        </div>
         
         <div class="d-flex p-3 justify-content-center text-center">
             <poll-social-button
