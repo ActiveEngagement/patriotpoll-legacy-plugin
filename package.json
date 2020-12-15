@@ -1,6 +1,6 @@
 {
   "name": "patriotpoll",
-  "version": "0.5.23",
+  "version": "0.5.24",
   "main": "./index.js",
   "scripts": {
     "serve": "npx vue-cli-service serve",
