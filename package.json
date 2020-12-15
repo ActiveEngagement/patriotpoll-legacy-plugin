@@ -1,7 +1,9 @@
 {
   "name": "patriotpoll",
-  "version": "0.5.27",
+  "version": "0.5.26",
   "main": "./index.js",
+  "unpkg": "./dist/PatriotPoll.umd.min.js",
+  "browser": "./dist/PatriotPoll.umd.min.js",
   "scripts": {
     "serve": "npx vue-cli-service serve",
     "build": "npm run build-lib",
