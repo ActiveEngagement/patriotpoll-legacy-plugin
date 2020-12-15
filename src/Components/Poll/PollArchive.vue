@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import { ActivityIndicator, Dots, Pulse } from '@vue-interface/activity-indicator';
+import { ActivityIndicator, register, Dots, Pulse } from '@vue-interface/activity-indicator';
 import BtnActivity from '@vue-interface/btn-activity';
 import Permalink from '../../Mixins/Permalink';
 import PollCard from './PollCard';
