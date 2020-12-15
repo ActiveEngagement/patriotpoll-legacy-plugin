@@ -10,9 +10,9 @@
     "lint": "vue-cli-service lint",
     "fix": "vue-cli-service lint --fix",
     "pre-release": "git add . -A; git commit -m 'pre-release commit'; git pull origin master;",
-    "release-patch": "npm run pre-release && npm version patch && npm run release;",
-    "release-minor": "npm run pre-release && npm version minor && npm run release;",
-    "release-major": "npm run pre-release && npm version major && npm run release;",
+    "release-patch": "npm version patch && npm run release;",
+    "release-minor": "npm version minor && npm run release;",
+    "release-major": "npm version major && npm run release;",
     "release": "git push --follow-tags origin master"
   },
   "dependencies": {
@@ -24,7 +24,6 @@
     "@vue-interface/activity-indicator": "^0.10.18",
     "@vue-interface/alert": "^1.0.26",
     "@vue-interface/animate-css": "^0.9.8",
-    "@vue-interface/animated-icon": "^0.2.4",
     "@vue-interface/btn": "^0.9.11",
     "@vue-interface/btn-activity": "^0.9.8",
     "@vue-interface/btn-group": "^0.9.3",
