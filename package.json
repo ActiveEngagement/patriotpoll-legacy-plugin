@@ -1,6 +1,6 @@
 {
   "name": "patriotpoll",
-  "version": "0.5.27",
+  "version": "0.5.28",
   "main": "./index.js",
   "unpkg": "./dist/PatriotPoll.umd.min.js",
   "browser": "./dist/PatriotPoll.umd.min.js",
