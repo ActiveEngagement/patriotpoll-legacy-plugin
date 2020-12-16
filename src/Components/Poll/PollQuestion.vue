@@ -2,7 +2,6 @@
     <div class="poll-question" :style="{width: width && `${width}px`}" :class="{'ie': ie}">
         <div v-if="poll.image || poll.embed || poll.html || poll.url" class="mb-3">
             <img-loader v-if="poll.image" :src="poll.image.url" height="350px" class="poll-img" />
-            <img-loader v-else-if="poll.embed" :src="poll.embed.url" height="350px" class="poll-img" />
         
             <div v-if="poll.html" class="poll-content" v-html="poll.html" />
  
@@ -17,7 +16,7 @@
             </animate-css>
             -->
 
-            <poll-embed v-if="!poll.embed && poll.url" :key="poll.id" :poll="poll" :width="width" />
+            <poll-embed v-if="poll.embed || poll.url" :key="poll.id" :poll="poll" :width="width" />
         </div>
 
         <div v-if="poll.answers" class="poll-buttons">

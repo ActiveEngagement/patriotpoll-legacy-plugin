@@ -1,5 +1,12 @@
 <template>
-    <div class="w-100" :style="{maxWidth: `${calculatedWidth}px`}">
+    <a v-if="image" :href="poll.url">
+        <img-loader
+            :src="image"
+            :style="{maxWidth: `${calculatedWidth}px`}"
+            class="poll-img" />
+    </a>
+    
+    <div v-else class="w-100" :style="{maxWidth: `${calculatedWidth}px`}">
         <div v-if="(activity || !loaded) && !image" class="position-relative" :style="{'min-height': '300px'}">
             <activity-indicator size="sm" type="pulse" label="Loading Post..." center />
         </div>
@@ -21,6 +28,7 @@
 <script>
 import { script } from '@vue-interface/utils';
 import { ActivityIndicator } from '@vue-interface/activity-indicator';
+import Embed from './Embed';
 
 export default {
 
@@ -44,19 +52,12 @@ export default {
         }
     },
 
-    inheritAttrs: false,
+    mixins: [
+        Embed
+    ],
 
     props: {
-
-        handle: String,
-
-        id: {
-            type: String,
-            required: true
-        },
-
-        image: [String, Object],
-
+        
         showText: {
             type: Boolean,
             default: false
@@ -105,7 +106,6 @@ export default {
             });
 
             this.activity = false;
-            this.$nextTick();
         });
     },
 

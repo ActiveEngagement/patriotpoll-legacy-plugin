@@ -1,5 +1,12 @@
 <template>
-    <div class="twitter-embed" :style="{maxWidth: `${calculatedWidth}px`}">
+    <a v-if="image" :href="poll.url">
+        <img-loader
+            :src="image"
+            :style="{maxWidth: `${calculatedWidth}px`}"
+            class="poll-img" />
+    </a>
+        
+    <div v-else class="twitter-embed" :style="{maxWidth: `${calculatedWidth}px`}">
         <div v-if="(activity || !loaded) && !image" class="position-relative" :style="{'min-height': '300px'}">
             <activity-indicator size="sm" type="pulse" :min-height="300" center />
         </div>
@@ -15,6 +22,7 @@
 <script>
 import { script } from '@vue-interface/utils';
 import { ActivityIndicator } from '@vue-interface/activity-indicator';
+import Embed from './Embed';
 
 export default {
 
@@ -24,7 +32,9 @@ export default {
         ActivityIndicator
     },
 
-    inheritAttrs: false,
+    mixins: [
+        Embed
+    ],
 
     props: {
 
@@ -50,16 +60,7 @@ export default {
             type: Boolean,
             default: true
         },
-
-        image: [Object, String],
-
-        handle: String,
-
-        id: {
-            type: String,
-            required: true
-        },
-
+        
         lang: {
             type: String,
             default: 'en'
@@ -85,7 +86,6 @@ export default {
     data() {
         return {
             twttr: null,
-            loaded: false,
             activity: false,
             calculatedWidth: this.width
         };
@@ -112,14 +112,6 @@ export default {
             };
         }
 
-    },
-
-    watch: {
-        loaded(value) {
-            if(value) {
-                this.$emit('loaded');
-            }
-        }
     },
 
     mounted() {

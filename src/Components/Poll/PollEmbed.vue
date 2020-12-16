@@ -5,7 +5,7 @@
             v-if="strategy"
             v-bind="strategy.embed.props"
             :width="width"
-            :image="poll && poll.embed ? poll.embed.url : null"
+            :poll="poll"
             @loaded="$emit('loaded', strategy)" />
     </div>
 </template>

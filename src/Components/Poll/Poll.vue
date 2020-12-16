@@ -87,7 +87,7 @@ export default {
 
         step: [Number, String],
 
-        width: Number
+        width: [Number, String]
 
     },
 
