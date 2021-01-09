@@ -1,7 +1,7 @@
 <template>
     <activity-indicator
         v-if="activity"
-        type="dots"
+        type="pulse"
         size="sm"
         min-height="200px"
         center />

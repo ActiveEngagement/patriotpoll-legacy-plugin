@@ -1,6 +1,11 @@
 <template>
     <div class="img-loader" :class="{'is-loading': isLoading}">
-        <activity-indicator v-if="isLoading" type="pulse" center :height="height" />
+        <activity-indicator
+            v-if="isLoading"
+            type="pulse"
+            center
+            :height="height" />
+            
         <img v-lazy :data-src="src" v-bind="$attrs" class="d-flex w-100" @load="show">
     </div>
 </template>
