@@ -1,3 +1,4 @@
+import Pattern from './Pattern';
 import * as Strategies from '../Strategies';
 
 export default function match(url) {
@@ -6,7 +7,14 @@ export default function match(url) {
         const patterns = Strategy.patterns();
 
         for(let i in patterns) {
-            const strategy = Strategy.make(url, patterns[i]);
+            const obj = patterns[i];
+
+            // If the obj is not an instance of Pattern, then continue...
+            if(!(obj instanceof Pattern)) {
+                continue;
+            }
+
+            const strategy = Strategy.make(url, obj);
 
             if(strategy.matches) {
                 return strategy;
