@@ -196,13 +196,11 @@ export default {
                 unanswered: 1
             })
                 .then(({ data }) => {
-                    if(data && data.length) {
+                    if(data && data[0]) {
                         return data[0];
                     }
-                    
-                    throw this.exception = new Error('No polls at this time!');
-                }, e => {
-                    this.exception = e;
+
+                    throw new Error('No polls at this time!');
                 });
         },
 
@@ -212,14 +210,14 @@ export default {
             return this.get(`polls/${id}`)
                 .then(({ data }) => {
                     return data;
-                }, e => {
-                    this.exception = e;
                 });
         },
 
         load(id) { 
-            return (!id ? this.first() : this.find(id)).then(data => {
+            return (id ? this.find(id) : this.first()).then(data => {
                 this.currentPoll = data;
+            }, e => {
+                this.exception = e;
             });
         }
 

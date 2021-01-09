@@ -31,7 +31,7 @@
                         {{ form.city }} {{ form.state }} {{ form.zip }}
                         <div v-if="form.phone" class="font-weight-light" v-html="form.phone.replace(/^1?(\d{3})(\d{3})(\d{4})$/, '($1) $2-$3')" />
                     </div>
-                    <a href="#" class="btn btn-text btn-sm d-flex-inline align-items-center" style="margin-left: -.5rem" @click.prevent="resetContact">
+                    <a href="#" class="btn btn-text btn-sm d-flex-inline align-items-center" style="margin-left: -.5rem" @click.prevent="onClickReset">
                         <font-awesome-icon :icon="['far', 'window-close']" class="mr-2" /> <small>Change Information</small>
                     </a>
                 </div>
@@ -157,10 +157,11 @@ export default {
 
         return {
             form,
-            errors: null,
             activity: false,
+            contact: null,
+            errors: null,
+            showAddress: false,
             showCard: false,
-            showAddress: false
         };
     },
 
@@ -236,16 +237,10 @@ export default {
     },
 
     created() {
-        if(window.localStorage.__poll__) {
-            const contact = JSON.parse(window.localStorage.__poll__);
-            
-            this.form = Object.assign(
-                contact,
-                this.form
-            );
-
-            this.showCard = !!contact.hash;
-        }
+        this.contact = this.restoreContact();
+        this.showCard = !!this.contact.hash;
+        
+        Object.assign(this.form, this.contact);
     },
 
     mounted() {
@@ -276,10 +271,41 @@ export default {
             });
         },
 
-        resetContact() {
-            delete window.localStorage.__poll__;
+        saveContact(contact) {
+            // We need this try/catch here for browsers that block cookies.
+            try {
+                window.localStorage.__poll__ = JSON.stringify(
+                    Object.entries(contact)
+                        .filter(([ key, value ]) => !!value)
+                        .reduce((carry, [ key, value ]) => {
+                            return Object.assign(carry, { [key]: value });
+                        }, {})
+                );
+            }
+            catch (e) {
+                // Ignore the error
+            }
+        },
 
-            this.showCard = false;
+        resetContact() {
+            // We need this try/catch here for browsers that block cookies.
+            try {
+                delete window.localStorage.__poll__;
+            }
+            catch (e) {
+                // Ignore the error
+            }
+        },
+
+        restoreContact() {
+            // We need this try/catch here for browsers that block cookies.
+            try {
+                return JSON.parse(window.localStorage.__poll__);
+            }
+            catch (e) {
+                // If storage is blocked, return null.
+                return null;
+            }
         },
 
         shouldShowAddress() {
@@ -288,25 +314,25 @@ export default {
             );
         },
 
+        onClickReset() {
+            this.resetContact();
+            this.showCard = false;
+        },
+
         onSubmit() {
             this.activity = true;
             this.$emit('submit');
 
             this.$patriotpoll.post(`polls/${this.poll.id}`, this.form)
                 .then(({ data }) => {
-                    const contact = Object.entries(data.response.contact)
-                        .filter(([ key, value ]) => !!value)
-                        .reduce((carry, [ key, value ]) => {
-                            return Object.assign(carry, { [key]: value });
-                        }, {});
-
-                    window.localStorage.__poll__ = JSON.stringify(contact);
+                    this.saveContact(data.response.contact);
 
                     Object.assign(this.poll, data, {
                         statistics: data.statistics
                     });
 
                     this.active = 'results';
+
                     this.$nextTick(() => {
                         this.$emit('submit-success', data);
                     });
