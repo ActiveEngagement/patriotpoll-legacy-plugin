@@ -207,7 +207,7 @@ export default {
         find(id) {
             this.loading = true;
 
-            return this.get(`polls/${id}`)
+            return this.$patriotpoll.get(`polls/${id}`)
                 .then(({ data }) => {
                     return data;
                 });
