@@ -7,14 +7,12 @@ export default function match(url) {
         const patterns = Strategy.patterns();
 
         for(let i in patterns) {
-            const obj = patterns[i];
-
             // If the obj is not an instance of Pattern, then continue...
-            if(!(obj instanceof Pattern)) {
+            if(!(patterns[i] instanceof Pattern)) {
                 continue;
             }
 
-            const strategy = Strategy.make(url, obj);
+            const strategy = Strategy.make(url, patterns[i]);
 
             if(strategy.matches) {
                 return strategy;
