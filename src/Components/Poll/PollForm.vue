@@ -346,10 +346,8 @@ export default {
 
                         return;
                     }
-                    
-                    throw e;
                 })
-                .then(() => {
+                .finally(() => {
                     if(!this.poll.options.redirect_url) {
                         this.activity = false;
                     }
