@@ -238,7 +238,7 @@ export default {
 
     created() {
         this.contact = this.restoreContact();
-        this.showCard = !!this.contact.hash;
+        this.showCard = !!(this.contact && this.contact.hash);
         
         Object.assign(this.form, this.contact);
     },
