@@ -12,7 +12,9 @@ function unit(value) {
 }
 
 function width(el) {
-    return unit(window.getComputedStyle(el).getPropertyValue('width'));
+    const style = window.getComputedStyle(el);
+
+    return unit(style.getPropertyValue('width'));
 }
 
 function spaceWidth(el) {
@@ -36,6 +38,11 @@ function doesTextOverflow(el, selector) {
 
     for(const x in children) {
         const child = children[x];
+
+        // If the child is not an instance of an element, then continue...
+        if(!(child instanceof Element)) {
+            continue;
+        }
 
         // The offset used to divide the child width to determine if the text
         // is wider than the container.
