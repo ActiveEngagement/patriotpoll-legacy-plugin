@@ -152,8 +152,6 @@ export default {
         const key = this.key();
 
         if(this.startingPoll) {
-            // this.loading = false;
-            // this.$emit('load', this.currentPoll = this.startingPoll);
             this.currentPoll = this.startingPoll;
         }
         else if(this.key()) {
@@ -182,39 +180,47 @@ export default {
             this.$emit('step', this.currentStep = step);
         },
 
-        search() {
-            return this.$patriotpoll.get('polls')
+        search(params) {
+            this.loading = true;
+            
+            return this.$patriotpoll.get('polls', {
+                params
+            })
+                .then(({ data }) => {
+                    return data;
+                });
+        },
+
+        first() {
+            return this.search({
+                unanswered: 1
+            })
+                .then(({ data }) => {
+                    if(data && data.length) {
+                        return data[0];
+                    }
+                    
+                    throw this.exception = new Error('No polls at this time!');
+                }, e => {
+                    this.exception = e;
+                });
+        },
+
+        find(id) {
+            this.loading = true;
+
+            return this.get(`polls/${id}`)
                 .then(({ data }) => {
                     return data;
                 }, e => {
                     this.exception = e;
-
-                    return e;
                 });
         },
 
-        load(id) {
-            this.loading = true;
-
-            if(!id) {
-                return this.search()
-                    .then(({ data }) => {
-                        if(data && data.length) {
-                            return this.currentPoll = data[0];
-                        }
-                    }, e => {
-                        this.exception = e;
-                    });
-            }
-            
-            return this.$patriotpoll.get(`polls/${id}`)
-                .then(({ data }) => {
-                    return this.currentPoll = data;
-                }, e => {
-                    this.exception = e;
-
-                    return e;
-                });
+        load(id) { 
+            return (!id ? this.first() : this.find(id)).then(data => {
+                this.currentPoll = data;
+            });
         }
 
     }

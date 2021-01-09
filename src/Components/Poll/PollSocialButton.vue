@@ -4,8 +4,9 @@
         :url="url"
         :title="title"
         :description="description"
-        :hashtags="hashtags">
-        <btn size="sm" variant="social" :style="{background, color: blackOrWhite(background)}">
+        :hashtags="hashtags"
+        @click.native.prevent>
+        <btn type="button" size="sm" variant="social" :style="{background, color: blackOrWhite(background)}">
             <div class="btn-social-content">
                 <span class="btn-social-icon" :style="{fill: blackOrWhite(background), background: darken(background, .15)}">
                     <component :is="icon" />
