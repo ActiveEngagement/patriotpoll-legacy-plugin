@@ -16,8 +16,8 @@ export default function(Vue, options = {}) {
             Authorization: apiKey && `Bearer ${apiKey}`
         }
     });
-
-    if(window.localStorage.__poll__) {
+    
+    try {
         const store = JSON.parse(window.localStorage.__poll__);
         
         delete store.answer;
@@ -25,6 +25,9 @@ export default function(Vue, options = {}) {
         for(let [key, value] of Object.entries(store)) {
             axios.defaults.headers[`Contact-${key.charAt(0).toUpperCase() + key.slice(1)}`] = value;
         }
+    }
+    catch (e) {
+        // Ignore the error
     }
 
     Vue.prototype.$patriotpoll = axios;
