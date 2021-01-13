@@ -68,15 +68,19 @@ export default {
         window.addEventListener('resize', this.resize());
 
         this.ready().then(YT => {
+            const e = new Error('Video could not be loaded');
+
             const player = new YT.Player(this.$refs.iframe, {
                 events: {
                     onReady: () => {
                         if(!player.getDuration()) {
-                            this.error = new Error('Video could not be loaded');
+                            this.error = e;
                         }
                     }
                 }
             });
+        }, e => {
+            this.error = e;
         });
     },
 
@@ -90,9 +94,14 @@ export default {
             await script(`https://www.youtube.com/iframe_api`);
                         
             return new Promise(resolve => {
-                window.YT.ready(() => {
-                    this.$nextTick(() => resolve(window.YT));
-                });
+                if(window.YT.ready) {
+                    window.YT.ready(() => {
+                        this.$nextTick(() => resolve(window.YT));
+                    });
+                }
+                else {
+                    reject(new ERror('window.YT does not exist'));
+                }
             });
         },
 
