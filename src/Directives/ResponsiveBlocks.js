@@ -26,11 +26,13 @@ function spaceWidth(el) {
 }
 
 function textWidth(el, selector) {
-    return [].slice.call(el.querySelectorAll(selector)).reduce((carry, child) => {
-        return [].slice.call(child.getClientRects()).reduce((carry, child) => {
-            return carry + child.width;
+    return [].slice.call(el.querySelectorAll(selector))
+        .filter(child => child instanceof Element)
+        .reduce((carry, child) => {
+            return [].slice.call(child.getClientRects()).reduce((carry, child) => {
+                return carry + child.width;
+            }, 0);
         }, 0);
-    }, 0);
 }
 
 function doesTextOverflow(el, selector) {
