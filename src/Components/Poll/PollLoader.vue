@@ -247,6 +247,21 @@ export default {
         height: auto;
     }
 
+    
+    h1 {
+        font-size: 1.75rem;
+        line-height: 1.75rem;
+        padding-top: .5rem;
+    }
+
+    @media(min-width:768px) {
+        h1 {
+            font-size: 2.5rem;
+            line-height: 2.5rem;
+            padding-top: 0;
+        }
+    }
+
     .poll-exception-wrapper {
         display: flex;
         max-width: 100vw;
