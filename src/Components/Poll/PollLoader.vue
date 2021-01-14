@@ -24,7 +24,6 @@
                 <h3 class="text-center font-weight-light mb-4">
                     There are no polls at this time.
                 </h3>
-                <animated-clock />
             </div>
         </div>
     </div>
@@ -50,8 +49,7 @@ export default {
 
     components: {
         ActivityIndicator,
-        Poll,
-        AnimatedClock: () => import(/* webpackChunkName: 'animated-clock', webpackPrefetch: true */ '../AnimatedClock'),
+        Poll
     },
 
     mixins: [
