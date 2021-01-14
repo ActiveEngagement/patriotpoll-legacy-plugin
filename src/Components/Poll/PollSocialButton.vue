@@ -76,7 +76,14 @@ export default {
     align-items: center;
     padding-left: 2.25em;
 }
+
 .btn-social-label {
-    font-size: .95em;
+    font-size: .75em;
+}
+
+@media(min-width:768px) {
+    .btn-social-label {
+        font-size: .95em;
+    }
 }
 </style>

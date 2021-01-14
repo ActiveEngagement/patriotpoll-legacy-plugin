@@ -150,11 +150,20 @@ export default {
 		color: $primary-blue;
     }
     
+    .poll-card {
+        margin-bottom: 1rem;
+    }
 
-    .poll-cards {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        grid-gap: 1em;
+    @media(min-width:768px) {
+        .poll-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-gap: 1em;
+        }
+
+        .poll-card {
+            margin-bottom: 0;
+        }
     }
 
 	.poll-card .card-body {

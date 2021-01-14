@@ -1,5 +1,5 @@
 <template>
-    <div class="poll-question" :style="{width: width && `${width}px`}" :class="{'ie': ie}">
+    <div class="poll-question mx-3" :style="{width: width && `${width}px`}" :class="{'ie': ie}">
         <div v-if="poll.image || poll.embed || poll.html || poll.url" class="mb-3">
             <img-loader v-if="poll.image" :src="poll.image.url" height="350px" class="poll-img" />
         
@@ -19,7 +19,7 @@
             <poll-embed v-if="poll.embed || poll.url" :key="poll.id" :poll="poll" :width="width" />
         </div>
 
-        <div v-if="poll.answers" class="poll-buttons">
+        <div v-if="poll.answers" class="poll-buttons px-3 px-md-0">
             <btn-group
                 v-responsive-blocks="!ie && {selector: 'span'}"
                 :vertical="vertical"
