@@ -1,8 +1,8 @@
 <template>
-    <section class="poll-archive">
+    <section class="poll-archive container">
         <activity-indicator v-if="!loaded" type="pulse" center min-height="200" />
 
-        <div v-else-if="!!polls.length" class="container">
+        <div v-else-if="!!polls.length">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading text-uppercase">
@@ -10,21 +10,17 @@
                     </h2>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="card-columns">
-                        <poll-card
-                            v-for="poll in polls"
-                            :key="poll.id"
-                            :poll="poll"
-                            :permalink="permalink"
-                            :hide-content="hideContent"
-                            :hide-date="hideDate"
-                            :hide-image="hideImage"
-                            :hide-question="hideQuestion"
-                            :hide-statistics="hideStatistics" />
-                    </div>
-                </div>
+            <div class="poll-cards">
+                <poll-card
+                    v-for="poll in polls"
+                    :key="poll.id"
+                    :poll="poll"
+                    :permalink="permalink"
+                    :hide-content="hideContent"
+                    :hide-date="hideDate"
+                    :hide-image="hideImage"
+                    :hide-question="hideQuestion"
+                    :hide-statistics="hideStatistics" />
             </div>
 
             <div v-if="loadMore" class="row">
@@ -152,15 +148,23 @@ export default {
 
 	.section-heading {
 		color: $primary-blue;
-	}
+    }
+    
 
-	.poll-card {
+    .poll-cards {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-gap: 1em;
+    }
+
+	.poll-card .card-body {
 		border-radius: 0;
-		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.04), 0 6px 20px 0 rgba(0, 0, 0, 0.04);
 		border-color: rgba(0, 0, 0, 0.05);
-	}
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.04), 0 6px 20px 0 rgba(0, 0, 0, 0.04);
+        flex-grow: 0;
+    }
 
-	.load-more {
+    .load-more {
 		text-align: center;
 
 		.btn {
