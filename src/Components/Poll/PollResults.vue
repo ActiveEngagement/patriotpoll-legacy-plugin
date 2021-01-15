@@ -4,7 +4,7 @@
 
         <poll-social-buttons v-if="shareButtons" :poll="poll" />
 
-        <next-poll :poll="poll" :permalink="permalink" />
+        <next-poll v-if="nextPoll" :poll="poll" :permalink="permalink" />
     </div>
 </template>
 
@@ -33,6 +33,13 @@ export default {
             required: true
         },
 
+        nextPoll: {
+            type: Boolean,
+            default() {
+                return !!this.$patriotpoll;
+            }
+        },
+
         shareButtons: {
             type: Boolean,
             default: true
@@ -44,14 +51,6 @@ export default {
         return {
             mounted: false
         };
-    },
-
-    computed: {
-
-        nextPoll() {
-            return this.poll.next_poll || this.poll.prev_poll;
-        }
-
     },
 
     mounted() {
