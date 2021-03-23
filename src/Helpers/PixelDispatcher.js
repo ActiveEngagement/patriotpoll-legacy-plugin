@@ -18,11 +18,11 @@ export default class PixelDispatcher {
     }
     
     find(pixels, properties) {
-        return pixels.filter(entry => {
+        return pixels ? pixels.filter(entry => {
             return Object.keys(properties).every(key => {
                 return entry[key] === properties[key];
             });
-        });
+        }) : [];
     }
 
     capitalize(string) {
