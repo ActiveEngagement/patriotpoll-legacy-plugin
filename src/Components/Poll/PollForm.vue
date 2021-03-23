@@ -245,9 +245,7 @@ export default {
 
     mounted() {
         this.showAddress = this.shouldShowAddress();
-    },
-
-    mounted() {
+        
         setTimeout(this.focusOnEmpty, 333);
     },
     
@@ -334,6 +332,7 @@ export default {
                     this.active = 'results';
 
                     this.$nextTick(() => {
+                        this.$emit('convert', data);
                         this.$emit('submit-success', data);
                     });
                 }, e => {

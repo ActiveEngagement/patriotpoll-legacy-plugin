@@ -12,9 +12,10 @@
             :permalink="permalink"
             :hide-date="hideDate"
             :share-buttons="shareButtons"
-            @step="onStep"
-            @next="onNext"
-            @slide-enter="onSlideEnter" />
+            @convert="(...args) => this.$emit('convert', ...args)"
+            @next="(...args) => this.$emit('next', ...args)"
+            @slide-enter="(...args) => this.$emit('slide-enter', ...args)"
+            @step="step => this.$emit('step', currentStep = step)" />
             
         <div v-else class="poll-exception-wrapper">
             <div class="poll-exception">
@@ -30,9 +31,9 @@
 </template>
 
 <script>
-import Axios from 'axios';
 import Permalink from '../../Mixins/Permalink';
 import VueSocialSharing from 'vue-social-sharing';
+import PixelDispatcher from '../../Helpers/PixelDispatcher';
 import PatriotPollPlugin from '../../Plugins/PatriotPollPlugin';
 import { ActivityIndicator, register, Dots, Pulse } from '@vue-interface/activity-indicator';
 
@@ -98,6 +99,7 @@ export default {
             routed: false,
             exception: null,
             currentPoll: null,
+            dispatcher: null,
             loading: !this.poll,
             currentStep: this.step,
             startingPoll: this.poll,
@@ -139,6 +141,10 @@ export default {
     },
 
     created() {
+        const params = new URLSearchParams(window.location.search);
+
+        this.dispatcher = new PixelDispatcher(this, params.get('source'));
+    
         this.$root.constructor.use(VueSocialSharing);
         this.$root.constructor.use(PatriotPollPlugin, {
             apiKey: this.apiKey,
@@ -166,16 +172,8 @@ export default {
             return this.id || this.slug;   
         },
 
-        onNext(poll) {
-            this.$emit('next', poll);
-        },
-
         onSlideEnter(slide) {
             this.$emit('slide-enter', slide);
-        },
-
-        onStep(step) {
-            this.$emit('step', this.currentStep = step);
         },
 
         search(params) {
@@ -212,11 +210,12 @@ export default {
         },
 
         load(id) { 
-            return (id ? this.find(id) : this.first()).then(data => {
-                this.currentPoll = data;
-            }, e => {
-                this.exception = e;
-            });
+            return (id ? this.find(id) : this.first())
+                .then(data => {
+                    this.currentPoll = data;
+                }, e => {
+                    this.exception = e;
+                });
         }
 
     }

@@ -20,7 +20,7 @@
                     :answer="answer"
                     :poll="poll"
                     :api-key="apiKey"
-                    @submit-success="onSubmitSuccess"
+                    @convert="onConvert"
                     @cancel="onClickBack" />
             </div>
 
@@ -135,12 +135,14 @@ export default {
 
     methods: {
 
-        onSubmitSuccess() {
-            if(!this.poll.options.redirect_url) {
+        onConvert(poll) {
+            this.$emit('convert', poll);
+
+            if(!poll.options.redirect_url) {
                 this.active = 'results';
             }
             else {
-                window.location = this.poll.options.redirect_url;
+                window.location = poll.options.redirect_url;
             }
         },
 
