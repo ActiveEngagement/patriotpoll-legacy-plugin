@@ -33,7 +33,7 @@
 <script>
 import Permalink from '../../Mixins/Permalink';
 import VueSocialSharing from 'vue-social-sharing';
-import PixelDispatcher from '../../Helpers/PixelDispatcher';
+import PromotionDispatcher from '../../Helpers/PromotionDispatcher';
 import PatriotPollPlugin from '../../Plugins/PatriotPollPlugin';
 import { ActivityIndicator, register, Dots, Pulse } from '@vue-interface/activity-indicator';
 
@@ -143,7 +143,7 @@ export default {
     created() {
         const params = new URLSearchParams(window.location.search);
 
-        this.dispatcher = new PixelDispatcher(this, params.get('source'));
+        this.dispatcher = new PromotionDispatcher(this, params.get('source'));
     
         this.$root.constructor.use(VueSocialSharing);
         this.$root.constructor.use(PatriotPollPlugin, {

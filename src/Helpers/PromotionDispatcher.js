@@ -1,24 +1,27 @@
-export default class PixelDispatcher {
+export default class PromotionDispatcher {
 
     constructor(component, source) {
         this.component = component;
         this.source = source;
-        this.dispatched = [];
+
+        this.dispatched = {
+            load: [],
+            convert: []
+        };
 
         ['load', 'convert'].forEach(trigger => {
-            this.component.$on(trigger, ({ pixels }) => {
-                const matches = this.find(pixels, {
-                    source,
-                    trigger,
+            this.component.$on(trigger, ({ promotions }) => {
+                const matches = this.find(promotions, {
+                    source
                 });
 
-                this.dispatch(matches);
+                this.dispatch(trigger, matches);
             });
         });
     }
     
-    find(pixels, properties) {
-        return pixels ? pixels.filter(entry => {
+    find(promotions, properties) {
+        return promotions ? promotions.filter(entry => {
             return Object.keys(properties).every(key => {
                 return entry[key] === properties[key];
             });
@@ -29,14 +32,14 @@ export default class PixelDispatcher {
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
 
-    hasDispatched(pixel) {
-        return this.find(this.dispatched, pixel).length;
+    hasDispatched(trigger, promotion) {
+        return this.find(this.dispatched[trigger], promotion).length;
     }
     
-    dispatchScript(pixel) {
+    dispatchScript(trigger, promotion) {
         const node = document.createElement('div');
 
-        node.innerHTML = pixel.code;
+        node.innerHTML = promotion[`${trigger}_code`];
 
         return [].map.call(node.children, child => {
             return new Promise(resolve => {
@@ -51,10 +54,10 @@ export default class PixelDispatcher {
         });
     }
 
-    dispatchImg(pixel) {        
+    dispatchImg(trigger, promotion) {        
         const node = document.createElement('div');
 
-        node.innerHTML = pixel.code;
+        node.innerHTML = promotion[`${trigger}_code`];
 
         return [].map.call(node.children, child => {
             return new Promise(resolve => {
@@ -67,14 +70,14 @@ export default class PixelDispatcher {
         });
     }
 
-    dispatch(matches) {
-        matches.forEach(pixel => {
-            if(!this.hasDispatched(pixel)) {
-                const method = 'dispatch' + this.capitalize(pixel.type);
-
-                this[method](pixel);
-
-                this.dispatched.push(pixel);
+    dispatch(trigger, matches) {
+        matches.forEach(promotion => {
+            if(!this.hasDispatched(trigger, promotion)) {
+                const method = 'dispatch' + this.capitalize(promotion[`${trigger}_type`]);
+    
+                this[method](trigger, promotion);
+    
+                this.dispatched[trigger].push(promotion);
             }
         });
     }
