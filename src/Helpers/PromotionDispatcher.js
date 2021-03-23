@@ -61,11 +61,9 @@ export default class PromotionDispatcher {
 
         return [].map.call(node.children, child => {
             return new Promise(resolve => {
-                node.children.forEach(child => {
-                    document.body.append(child);
-                });
+                document.body.append(child);
                 
-                resolve(node.children);
+                resolve(child);
             });
         });
     }
