@@ -143,7 +143,7 @@ export default {
     created() {
         const params = new URLSearchParams(window.location.search);
 
-        this.dispatcher = new PromotionDispatcher(this, params.get('source'));
+        this.dispatcher = new PromotionDispatcher(this, params.get('source') || params.get('src') || params.get('utm_source'));
     
         this.$root.constructor.use(VueSocialSharing);
         this.$root.constructor.use(PatriotPollPlugin, {
