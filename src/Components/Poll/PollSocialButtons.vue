@@ -10,7 +10,7 @@
                 background="#3b5998"
                 class="mr-2"
                 :url="poll.permalink"
-                :title="poll.title"
+                :title="poll.question"
                 :description="poll.content"
                 :icon="require('../Icons/Facebook').default" />
 
@@ -19,7 +19,7 @@
                 background="#1da1f2"
                 class="mr-2"
                 :url="poll.permalink"
-                :title="poll.title"
+                :title="poll.question"
                 :description="poll.content"
                 :icon="require('../Icons/Twitter').default" />
 
@@ -27,7 +27,7 @@
                 network="Email"
                 background="#DD4F48"
                 :url="poll.permalink"
-                :title="poll.title"
+                :title="poll.question"
                 :description="poll.content"
                 :icon="require('../Icons/Email').default" />
         </div>
