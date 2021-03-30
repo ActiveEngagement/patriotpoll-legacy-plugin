@@ -45,7 +45,7 @@ export default {
         submit(form = {}) {
             this.$emit('submit');
 
-            return this.$patriotpoll.post(`polls/${this.poll.id}`, Object.assign(this.loadContact(), form))
+            return this.$patriotpoll.post(`polls/${this.poll.id}`, Object.assign({}, this.loadContact(), form))
                 .then(({ data }) => {
                     this.saveContact(data.response.contact);
 

@@ -1,5 +1,5 @@
 <template>
-    <form @submit.prevent="submit({ answer })">
+    <form @submit.prevent="submit(form)">
         <alert variant="success" class="w-100 mb-3 text-center">
             <h2 class="font-weight-light" v-html="answer" />
             <div>

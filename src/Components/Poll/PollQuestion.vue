@@ -47,6 +47,13 @@
             <font-awesome-icon icon="star" class="ml-2 text-secondary" />
         </div>
         
+        <a
+            v-if="poll.sponsor && poll.sponsor.logo"
+            :href="poll.sponsor.url"
+            class="mt-4 d-flex justify-content-center align-items-center">
+            <img v-if="poll.sponsor.logo" :src="poll.sponsor.logo.url" style="max-width: 300px; max-height: 100px;">
+        </a>
+        
         <poll-social-buttons :poll="poll" />
     </div>
 </template>
