@@ -38,6 +38,7 @@ import PatriotPollPlugin from '../../Plugins/PatriotPollPlugin';
 import { ActivityIndicator, register, Dots, Pulse } from '@vue-interface/activity-indicator';
 
 import Poll from './Poll';
+import { get } from '../../Helpers/URLSearchParams';
 
 register({
     dots: Dots,
@@ -141,9 +142,9 @@ export default {
     },
 
     created() {
-        const params = new URLSearchParams(window.location.search);
-
-        this.dispatcher = new PromotionDispatcher(this, params.get('source') || params.get('src') || params.get('utm_source'));
+        this.dispatcher = new PromotionDispatcher(
+            this, get('source') || get('src') || get('utm_source')
+        );
     
         this.$root.constructor.use(VueSocialSharing);
         this.$root.constructor.use(PatriotPollPlugin, {

@@ -111,6 +111,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faExclamationTriangle, faUndo, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { faWindowClose } from '@fortawesome/free-regular-svg-icons';
+import { entries, get } from '../../Helpers/URLSearchParams';
 
 library.add(faUndo, faUserCircle, faWindowClose, faExclamationTriangle);
 
@@ -138,9 +139,7 @@ export default {
     },
 
     data() {
-        const params = new URLSearchParams(window.location.search);
-
-        const form = Array.from(params.entries())
+        const form = Array.from(entries())
             .reduce((carry, [key, value]) => {
                 return Object.assign(carry, {
                     [key]: value
@@ -148,9 +147,9 @@ export default {
             }, {
                 answer: this.answer,
                 query: window.location.search,
-                mailing_id: params.get('mailing_id') || params.get('mailingid'),
-                source: params.get('source') || params.get('src') || params.get('utm_source'),
-                tracking_id: params.get('tracking_id') || params.get('trackingid')
+                mailing_id: get('mailing_id') || get('mailingid'),
+                source: get('source') || get('src') || get('utm_source'),
+                tracking_id: get('tracking_id') || get('trackingid')
             });
 
         return {

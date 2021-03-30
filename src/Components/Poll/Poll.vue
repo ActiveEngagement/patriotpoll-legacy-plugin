@@ -42,6 +42,7 @@
 import Permalink from '../../Mixins/Permalink';
 import { unit } from '@vue-interface/utils';
 import { SlideDeck } from '@vue-interface/slide-deck';
+import { get } from '../../Helpers/URLSearchParams';
 
 export default {
 
@@ -89,13 +90,10 @@ export default {
 
     },
 
-    data() {      
-        const params = new URLSearchParams(window.location.search);
-        const answer = params.get('answer');
-
+    data() {     
         return {
-            answer,
-            active: this.step || (answer && 'contact')
+            answer: get('answer'),
+            active: this.step || (get('answer') && 'contact')
         };
     },
 
@@ -136,11 +134,11 @@ export default {
         onConvert(poll) {
             this.$emit('convert', poll);
 
-            if(!poll.options.redirect_url) {
-                this.active = 'results';
+            if(poll.options.redirect_url) {
+                window.location = poll.options.redirect_url;
             }
             else {
-                window.location = poll.options.redirect_url;
+                this.active = 'results';
             }
         },
 

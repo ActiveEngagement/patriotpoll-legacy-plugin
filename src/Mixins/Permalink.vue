@@ -1,4 +1,6 @@
 <script>
+import { toJson } from '../Helpers/URLSearchParams';
+
 export default {
 
     directives: {
@@ -37,7 +39,10 @@ export default {
 
         routeToPermalink(permalink) {
             if(this.$router && !permalink.match(/^http/)) {
-                this.$router.push(permalink);
+                this.$router.push({
+                    path: permalink,
+                    query: toJson()
+                });
             }
             else {
                 window.location = permalink;
