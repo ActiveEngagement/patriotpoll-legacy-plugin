@@ -1,9 +1,5 @@
 let params = new URLSearchParams(window.location.search);
 
-window.onpopstate = e => {
-    console.log(get('source'));
-};
-
 function entries(...args) {
     return params.entries(...args);
 }
