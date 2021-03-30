@@ -43,6 +43,7 @@ export default {
         },
 
         submit(form = {}) {
+            this.activity = true;
             this.$emit('submit');
 
             return this.$patriotpoll.post(`polls/${this.poll.id}`, Object.assign({}, this.loadContact(), form))
