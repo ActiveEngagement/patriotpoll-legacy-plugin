@@ -31,6 +31,7 @@
                     v-for="key in poll.answers"
                     :key="key"
                     :active="key === value"
+                    :disabled="disabled"
                     size="lg"
                     type="button"
                     variant="primary"
