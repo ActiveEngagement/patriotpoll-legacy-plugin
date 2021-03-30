@@ -9,8 +9,6 @@ import DateFilter from '@vue-interface/date-filter';
 
 export default {
 
-    name: 'PollDate',
-
     filters: {
         'date': DateFilter
     },

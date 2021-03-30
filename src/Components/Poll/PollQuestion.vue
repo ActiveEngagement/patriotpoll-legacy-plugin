@@ -69,8 +69,6 @@ library.add(faStar);
 
 export default {
 
-    name: 'PollQuestion',
-
     components: {
         Btn,
         BtnGroup,

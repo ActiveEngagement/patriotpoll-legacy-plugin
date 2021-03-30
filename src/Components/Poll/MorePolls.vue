@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading text-uppercase">
-                        Poll Archive
+                        {{ title }}
                     </h2>
                 </div>
             </div>
@@ -49,11 +49,7 @@ register({
     pulse: Pulse
 });
 
-import Poll from './Poll';
-
 export default {
-
-    name: 'PollArchive',
 
     components: {
         ActivityIndicator,
@@ -90,6 +86,11 @@ export default {
         hideDate: {
             type: Boolean,
             default: false
+        },
+
+        title: {
+            type: String,
+            default: 'More Polls'
         }
 
     },

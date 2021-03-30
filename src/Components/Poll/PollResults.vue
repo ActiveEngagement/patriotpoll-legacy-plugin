@@ -14,8 +14,6 @@ import NextPoll from './NextPoll';
 
 export default {
 
-    name: 'PollResults',
-
     components: {
         NextPoll,
         PollDoughnutChart: () => import(/* webpackChunkName: 'poll-doughnut-chart', webpackPrefetch: true */'./PollDoughnutChart'),

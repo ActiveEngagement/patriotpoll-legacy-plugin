@@ -179,25 +179,16 @@ export default {
         search(params) {
             this.loading = true;
             
-            return this.$patriotpoll.get('polls', {
-                params
-            })
+            return this.$patriotpoll.get('unanswered')
                 .then(({ data }) => {
                     return data;
                 });
         },
 
         first() {
-            return this.search({
-                unanswered: 1
-            })
-                .then(({ data }) => {
-                    if(data && data[0]) {
-                        return data[0];
-                    }
-
-                    throw new Error('No polls at this time!');
-                });
+            return this.search().catch(() => {
+                throw new Error('No polls at this time!');
+            });
         },
 
         find(id) {

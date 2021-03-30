@@ -18,8 +18,6 @@ import HasStrategy from '../../Mixins/HasStrategy';
 
 export default {
 
-    name: 'PollEmbed',
-
     components: {
         Twitter,
         Youtube,

@@ -116,8 +116,6 @@ library.add(faUndo, faUserCircle, faWindowClose, faExclamationTriangle);
 
 export default {
 
-    name: 'PollForm',
-
     components: {
         Alert,
         // AnimateCss,

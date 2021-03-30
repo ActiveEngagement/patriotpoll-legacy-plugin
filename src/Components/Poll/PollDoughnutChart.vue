@@ -9,8 +9,6 @@ import randomcolor from 'randomcolor';
 
 export default {
 
-    name: 'PollDounutChart',
-
     props: {
 
         poll: {

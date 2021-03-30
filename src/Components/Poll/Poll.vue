@@ -45,8 +45,6 @@ import { SlideDeck } from '@vue-interface/slide-deck';
 
 export default {
 
-    name: 'Poll',
-
     components: {
         // PollDate,
         SlideDeck,
