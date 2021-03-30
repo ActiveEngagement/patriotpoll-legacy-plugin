@@ -56,6 +56,7 @@
 import Btn from '@vue-interface/btn';
 import { BtnGroup } from '@vue-interface/btn-group';
 
+import CanSubmit from '../../Mixins/CanSubmit';
 import ImgLoader from '../ImgLoader';
 import PollEmbed from './PollEmbed';
 
@@ -83,6 +84,10 @@ export default {
         ResponsiveBlocks
     },
 
+    mixins: [
+        CanSubmit
+    ],
+
     props: {
 
         value: [String, Number],
@@ -99,6 +104,7 @@ export default {
     data() {
         return {
             answer: null,
+            disabled: false,
             vertical: false
         };
     },
@@ -112,9 +118,17 @@ export default {
     methods: {
 
         onClickAnswer(answer) {
-            this.answer = answer;
-            this.$emit('input', answer);
-            this.$emit('update:value', answer);
+            if(this.contact) {
+                this.disabled = true;
+                this.submit({
+                    answer
+                });
+            }
+            else {
+                this.answer = answer;
+                this.$emit('input', this.answer);
+                this.$emit('update:value', this.answer);
+            }
         },
 
         onResize(event) {

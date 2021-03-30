@@ -12,7 +12,8 @@
                     v-model="answer"
                     :poll="poll"
                     :width="width"
-                    :value="answer" />
+                    :value="answer"
+                    @convert="onConvert" />
             </div>
 
             <div key="contact">
@@ -43,15 +44,16 @@ import Permalink from '../../Mixins/Permalink';
 import { unit } from '@vue-interface/utils';
 import { SlideDeck } from '@vue-interface/slide-deck';
 import { get } from '../../Helpers/URLSearchParams';
+import { ActivityIndicator } from '@vue-interface/activity-indicator';
 
 export default {
 
     components: {
-        // PollDate,
-        SlideDeck,
+        ActivityIndicator,
         'poll-question': () => import(/* webpackChunkName: 'poll-question', webpackPrefetch: true */ './PollQuestion'),
         'poll-results': () => import(/* webpackChunkName: 'poll-results', webpackPrefetch: true */ './PollResults'),
-        'poll-form': () => import(/* webpackChunkName: 'poll-form', webpackPrefetch: true */ './PollForm')
+        'poll-form': () => import(/* webpackChunkName: 'poll-form', webpackPrefetch: true */ './PollForm'),
+        SlideDeck,
     },
 
     mixins: [

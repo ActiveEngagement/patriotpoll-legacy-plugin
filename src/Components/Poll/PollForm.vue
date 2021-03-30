@@ -1,5 +1,5 @@
 <template>
-    <form @submit.prevent="onSubmit">
+    <form @submit.prevent="submit({ answer })">
         <alert variant="success" class="w-100 mb-3 text-center">
             <h2 class="font-weight-light" v-html="answer" />
             <div>
@@ -104,6 +104,7 @@ import { Alert } from '@vue-interface/alert';
 // import AnimateCss from '@vue-interface/animate-css';
 import Btn from '@vue-interface/btn';
 import BtnActivity from '@vue-interface/btn-activity';
+import CanSubmit from '../../Mixins/CanSubmit';
 import InputField from './Fields/InputField';
 import SelectField from './Fields/SelectField';
 
@@ -126,6 +127,10 @@ export default {
         InputField,
         SelectField,
     },
+
+    mixins: [
+        CanSubmit
+    ],
 
     props: {
 
@@ -154,9 +159,7 @@ export default {
 
         return {
             form,
-            activity: false,
             contact: null,
-            errors: null,
             showAddress: false,
             showCard: false,
         };
@@ -192,12 +195,6 @@ export default {
                 }],
                 city: ['input-field', {
                     label: 'City'
-                }],
-                state: ['select-field', {
-                    label: 'State',
-                    options: [{
-                        1: 'Label 1'
-                    }]
                 }],
                 zip: ['input-field', {
                     label: 'Postal Code',
@@ -266,22 +263,6 @@ export default {
             });
         },
 
-        saveContact(contact) {
-            // We need this try/catch here for browsers that block cookies.
-            try {
-                window.localStorage.__poll__ = JSON.stringify(
-                    Object.entries(contact)
-                        .filter(([ key, value ]) => !!value)
-                        .reduce((carry, [ key, value ]) => {
-                            return Object.assign(carry, { [key]: value });
-                        }, {})
-                );
-            }
-            catch (e) {
-                // Ignore the error
-            }
-        },
-
         resetContact() {
             // We need this try/catch here for browsers that block cookies.
             try {
@@ -312,44 +293,6 @@ export default {
         onClickReset() {
             this.resetContact();
             this.showCard = false;
-        },
-
-        onSubmit() {
-            this.activity = true;
-            this.$emit('submit');
-
-            this.$patriotpoll.post(`polls/${this.poll.id}`, this.form)
-                .then(({ data }) => {
-                    this.saveContact(data.response.contact);
-
-                    Object.assign(this.poll, data, {
-                        statistics: data.statistics
-                    });
-
-                    this.active = 'results';
-
-                    this.$nextTick(() => {
-                        this.$emit('convert', data);
-                        this.$emit('submit-success', data);
-                    });
-                }, e => {
-                    this.errors = e.response
-                        && e.response.data
-                        && e.response.data.errors;
-
-                    if(this.errors) {
-                        this.$emit('submit-failed', this.errors);
-
-                        return;
-                    }
-                })
-                .finally(() => {
-                    if(!this.poll.options.redirect_url) {
-                        this.activity = false;
-                    }
-
-                    this.$emit('submit-complete');
-                });
         }
 
     }
