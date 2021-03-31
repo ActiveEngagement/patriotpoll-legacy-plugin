@@ -13,14 +13,17 @@
                     :poll="poll"
                     :width="width"
                     :value="answer"
-                    @convert="onConvert" />
+                    @convert="onConvert"
+                    @submit-failed="onSubmitFailed" />
             </div>
 
             <div key="contact">
                 <poll-form
+                    ref="form"
                     :answer="answer"
                     :poll="poll"
                     :api-key="apiKey"
+                    :errors="e"
                     @convert="onConvert"
                     @cancel="onClickBack" />
             </div>
@@ -44,12 +47,10 @@ import Permalink from '../../Mixins/Permalink';
 import { unit } from '@vue-interface/utils';
 import { SlideDeck } from '@vue-interface/slide-deck';
 import { get } from '../../Helpers/URLSearchParams';
-import { ActivityIndicator } from '@vue-interface/activity-indicator';
 
 export default {
 
     components: {
-        ActivityIndicator,
         'poll-question': () => import(/* webpackChunkName: 'poll-question', webpackPrefetch: true */ './PollQuestion'),
         'poll-results': () => import(/* webpackChunkName: 'poll-results', webpackPrefetch: true */ './PollResults'),
         'poll-form': () => import(/* webpackChunkName: 'poll-form', webpackPrefetch: true */ './PollForm'),
@@ -95,7 +96,8 @@ export default {
     data() {     
         return {
             answer: get('answer'),
-            active: this.step || (get('answer') && 'contact')
+            active: this.step || (get('answer') && 'contact'),
+            errors: null,
         };
     },
 
@@ -118,6 +120,10 @@ export default {
 
         active(value) {
             this.$emit('step', value);
+
+            setTimeout(() => {
+                this.$refs.form && this.$refs.form.focusOnEmpty();
+            }, 333);
         },
 
         poll(value) {
@@ -147,6 +153,11 @@ export default {
         onClickBack() {
             this.answer = null;
             this.active = null;
+        },
+
+        onSubmitFailed(errors) {
+            this.errors = errors;
+            this.active = 'contact';
         }
 
     }

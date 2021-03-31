@@ -23,22 +23,56 @@ export default function(Vue, options = {}) {
         headers: {
             Authorization: apiKey && `Bearer ${apiKey}`
         }
-    });
+    });    
     
-    // Get the data from storage and set the request headers.
-    try {
-        const store = JSON.parse(window.localStorage.__poll__);
-        
-        delete store.answer;
-        
-        for(let [key, value] of Object.entries(store)) {
-            axios.defaults.headers[`Contact-${key.charAt(0).toUpperCase() + key.slice(1)}`] = value;
-        }
-    }
-    catch (e) {
-        // Ignore the error
-    }
+    Vue.prototype.$patriotpoll = Object.assign(axios, {
 
-    // Set the axios instace on the prototype.
-    Vue.prototype.$patriotpoll = axios;
+        contact() {
+            try {
+                return JSON.parse(window.localStorage.__poll__);
+            }
+            catch (e) {
+                // Ignore the error
+            }
+        },
+
+        forget() {
+            try {
+                window.localStorage.removeItem('__poll__');
+
+                return true;
+            }
+            catch (e) {
+                return false;
+            }
+        },
+        
+        headers(contact) {
+            for(let [key, value] of Object.entries(contact || {})) {
+                Object.assign(axios.defaults.headers, {
+                    [`Contact-${key.charAt(0).toUpperCase() + key.slice(1)}`]: value
+                });
+            }
+        },
+
+        remember(contact) {
+            try {
+                const saveData = Object.fromEntries(
+                    Object.entries(contact).filter(([ key, value ]) => !!value)
+                );
+
+                window.localStorage.setItem('__poll__', JSON.stringify(saveData));
+
+                this.headers(saveData);
+                
+                return true;
+            }
+            catch (e) {
+                return false;
+            }
+        },
+
+    });
+
+    axios.headers(axios.contact());
 }

@@ -1,5 +1,5 @@
 <template>
-    <form @submit.prevent="submit(form)">
+    <form v-visible="" @submit.prevent="submit(form)">
         <alert variant="success" class="w-100 mb-3 text-center">
             <h2 class="font-weight-light" v-html="answer" />
             <div>
@@ -38,30 +38,6 @@
             </div>
         </div>
 
-        <!--
-        @todo: need to make animate css compatible with purgecss by making
-                an alt syntax from `<animate-css name="fade" in>` to 
-                `<animate-css fadeIn>`, so that the regex can match the css
-                names.
-
-        <animate-css name="fade" in duration="250ms">
-            <div v-if="!showCard" class="mb-3">
-                <p><em>* Indicates the required fields.</em></p>
-
-                <template v-for="([is, field], name) in fields">
-                    <components :is="is"
-                        :key="`field-${name}`"
-                        v-model="form[name]"
-                        :name="name"
-                        :errors="errors"
-                        :value="form[name]"
-                        v-bind="field"
-                        custom />
-                </template>
-            </div>
-        </animate-css>
-        -->
-
         <div v-if="!showCard" class="mb-3">
             <p><em>* Indicates the required fields.</em></p>
 
@@ -83,12 +59,13 @@
 
         <btn-activity
             v-else
+            type="submit"
             variant="primary"
             size="lg"
             block
             indicator="dots"
             :activity="activity"
-            :disabled="disabled">
+            :disabled="isDisabled()">
             Submit Poll
         </btn-activity>
 
@@ -143,83 +120,12 @@ export default {
 
     },
 
-    data() {
-        const form = Array.from(entries())
-            .reduce((carry, [key, value]) => {
-                return Object.assign(carry, {
-                    [key]: value
-                });
-            }, {
-                answer: this.answer,
-                query: window.location.search,
-                mailing_id: get('mailing_id') || get('mailingid'),
-                source: get('source') || get('src') || get('utm_source'),
-                tracking_id: get('tracking_id') || get('trackingid')
-            });
-
-        return {
-            form,
-            contact: null,
-            showAddress: false,
-            showCard: false,
-        };
-    },
-
-    computed: {
-        disabled() {
-            return Object.entries(this.fields)
-                .filter(([name, [is, obj]]) => {
-                    return obj.required && !this.form[name];
-                })
-                .length > 0;
-        },
-        fields() {
-            const entries = Object.entries({
-                first: ['input-field', {
-                    label: 'First Name'
-                }],
-                last: ['input-field', {
-                    label: 'Last Name'
-                }],
-                email: ['input-field', {
-                    label: 'Email Address'
-                }],
-                phone: ['input-field', {
-                    label: 'Phone Number'
-                }],
-                street: ['input-field', {
-                    label: 'Street'
-                }],
-                addr2: ['input-field', {
-                    label: 'Unit #'
-                }],
-                city: ['input-field', {
-                    label: 'City'
-                }],
-                zip: ['input-field', {
-                    label: 'Postal Code',
-                    maxlength: 5
-                }]
-            })
-                .map(([key, [is, obj]]) => {
-                    obj.required = this.poll.options.required_fields && 
-                        this.poll.options.required_fields[key];
-
-                    return [key, [is, obj]];
-                })
-                .filter(([key, value]) => {
-                    return this.poll.options.show_fields &&
-                        this.poll.options.show_fields[key];
-                });
-
-            return Object.fromEntries(entries);
-        }
-    },
-
     watch: {
+
         showCard() {
             this.focusOnEmpty();
         },
+
         form: {
             deep: true,
             handler() {
@@ -230,68 +136,44 @@ export default {
         }
     },
 
-    created() {
-        this.contact = this.restoreContact();
-        this.showCard = !!(this.contact && this.contact.hash);
-        
-        Object.assign(this.form, this.contact);
-    },
-
-    mounted() {
+    mounted() {      
         this.showAddress = this.shouldShowAddress();
-        
-        setTimeout(this.focusOnEmpty, 333);
+        this.showCard = this.shouldShowContactCard();
     },
     
     methods: {
 
-        focusOnEmpty() {
-            this.$nextTick(() => {
-                const fields = Array.from(this.$el.querySelectorAll(
-                    '.focusable input, .focusable select, .focusable textarea'
-                ));
-
-                if(fields.length) {
-                    const emptyField = fields.reduce((carry, el) => {
-                        return carry || !el.value && el;
-                    }, null);
-
-                    if(emptyField) {
-                        emptyField.focus();
+        focusOnEmpty() {            
+            // Get the array of fields and sort them be required.
+            // Doing so will focus on the first empty required field,
+            // or then the first empty actual field, if all required fields
+            // have been populated.
+            const fields = Object.entries(this.fields)
+                .sort(([x, [xKey, a]], [y, [yKey, b]]) => {
+                    if(a.required && b.required) {
+                        return 0;
                     }
+
+                    if(a.required) {
+                        return -1;
+                    }
+            
+                    return 1;
+                });
+
+            for(const [name, field] of fields) {
+                const el = this.$el.querySelector(`[name=${name}]`);
+
+                if(!el.value) {
+                    return el.focus();
                 }
-            });
-        },
+            }
 
-        resetContact() {
-            // We need this try/catch here for browsers that block cookies.
-            try {
-                delete window.localStorage.__poll__;
-            }
-            catch (e) {
-                // Ignore the error
-            }
-        },
-
-        restoreContact() {
-            // We need this try/catch here for browsers that block cookies.
-            try {
-                return JSON.parse(window.localStorage.__poll__);
-            }
-            catch (e) {
-                // If storage is blocked, return null.
-                return null;
-            }
-        },
-
-        shouldShowAddress() {
-            return this.showAddress || !!(
-                this.form.first && this.form.last && this.form.email
-            );
+            this.$el.querySelector('[type=submit]').focus();
         },
 
         onClickReset() {
-            this.resetContact();
+            this.$patriotpoll.forget();
             this.showCard = false;
         }
 

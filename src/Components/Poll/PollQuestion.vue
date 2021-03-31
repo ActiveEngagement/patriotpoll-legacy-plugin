@@ -125,11 +125,17 @@ export default {
 
     methods: {
 
+        shouldAutomaticallySubmit() {
+            return !!this.contact && !this.isDisabled();
+        },
+
         onClickAnswer(answer) {
-            if(this.contact) {
+            if(this.shouldAutomaticallySubmit()) {
                 this.disabled = true;
                 this.submit({
                     answer
+                }).catch(e => {
+                    this.disabled = false;
                 });
             }
             else {

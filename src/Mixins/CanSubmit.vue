@@ -1,54 +1,108 @@
 <script>
-let lastSubmit = null;
+import { entries, get } from '../Helpers/URLSearchParams';
+let lastSubmit = new Date;
 
 export default {
 
     data() {
         return {
             activity: false,
-            contact: lastSubmit && this.loadContact(),
-            errors: null,
+            contact: lastSubmit && this.$patriotpoll.contact(),
+            form: this.formData(),
+            errors: this.$attrs.errors || null,
+            showAddress: false,
+            showCard: false,
         };
+    },
+
+    computed: {
+        fields() {
+            const entries = Object.entries({
+                first: ['input-field', {
+                    label: 'First Name'
+                }],
+                last: ['input-field', {
+                    label: 'Last Name'
+                }],
+                email: ['input-field', {
+                    label: 'Email Address'
+                }],
+                phone: ['input-field', {
+                    label: 'Phone Number'
+                }],
+                street: ['input-field', {
+                    label: 'Street'
+                }],
+                addr2: ['input-field', {
+                    label: 'Unit #'
+                }],
+                city: ['input-field', {
+                    label: 'City'
+                }],
+                zip: ['input-field', {
+                    label: 'Postal Code',
+                    maxlength: 5
+                }]
+            })
+                .map(([key, [is, obj]]) => {
+                    obj.required = this.poll.options.required_fields && 
+                        this.poll.options.required_fields[key];
+
+                    return [key, [is, obj]];
+                })
+                .filter(([key, value]) => {
+                    return this.poll.options.show_fields &&
+                        this.poll.options.show_fields[key];
+                });
+
+            return Object.fromEntries(entries);
+        }
     },
 
     methods: {
 
-        loadContact() {
-            try {
-                return JSON.parse(window.localStorage.__poll__);
-            }
-            catch (e) {
-                return null;
-            }
+        formData() {
+            return Array.from(entries())
+                .reduce((carry, [key, value]) => {
+                    return Object.assign(carry, {
+                        [key]: value
+                    });
+                }, Object.assign({
+                    answer: this.answer,
+                    query: window.location.search,
+                    mailing_id: get('mailing_id') || get('mailingid'),
+                    source: get('source') || get('src') || get('utm_source'),
+                    tracking_id: get('tracking_id') || get('trackingid')
+                }, this.$patriotpoll.contact()));
+        },
+        
+        isDisabled() {
+            return Object.entries(this.fields)
+                .filter(([name, [is, obj]]) => {
+                    return obj.required && !this.form[name];
+                })
+                .length > 0;
         },
 
-        saveContact(contact) {
-            const saveData = Object.entries(contact)
-                .filter(([ key, value ]) => !!value)
-                .reduce((carry, [ key, value ]) => {
-                    return Object.assign(carry, { [key]: value });
-                }, {});
-                        
-            // We need this try/catch here for browsers that block cookies.
-            try {
-                window.localStorage.__poll__ = JSON.stringify(saveData);
+        shouldShowContactCard() {
+            return !!(this.contact && this.contact.hash) && !this.isDisabled();
+        },
 
-                this.contact = saveData;
-            }
-            catch (e) {
-                window.localStorage.removeItem('__poll__');
-                
-                this.contact = null;
-            }
+        shouldShowAddress() {
+            return this.showAddress || !!(
+                this.form.first && this.form.last && this.form.email
+            );
         },
 
         submit(form = {}) {
             this.activity = true;
             this.$emit('submit');
 
-            return this.$patriotpoll.post(`polls/${this.poll.id}`, Object.assign({}, this.loadContact(), form))
+            form = Object.assign({}, this.$patriotpoll.contact(), form);
+
+            return this.$patriotpoll.post(`polls/${this.poll.id}`, form)
                 .then(({ data }) => {
-                    this.saveContact(data.response.contact);
+                    this.$patriotpoll.remember(data.response.contact);
 
                     Object.assign(this.poll, data, {
                         statistics: data.statistics
@@ -65,9 +119,9 @@ export default {
 
                     if(this.errors) {
                         this.$emit('submit-failed', this.errors);
-
-                        return;
                     }
+                    
+                    throw e;
                 })
                 .finally(() => {
                     this.activity = false;
