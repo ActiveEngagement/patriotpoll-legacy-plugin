@@ -164,7 +164,7 @@ export default {
             for(const [name, field] of fields) {
                 const el = this.$el.querySelector(`[name=${name}]`);
 
-                if(!el.value) {
+                if(el && !el.value) {
                     return el.focus();
                 }
             }
