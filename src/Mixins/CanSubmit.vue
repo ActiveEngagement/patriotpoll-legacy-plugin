@@ -1,6 +1,7 @@
 <script>
 import { entries, get } from '../Helpers/URLSearchParams';
-let lastSubmit = new Date;
+
+let lastSubmit;
 
 export default {
 
