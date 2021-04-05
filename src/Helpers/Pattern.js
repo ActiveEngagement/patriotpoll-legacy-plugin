@@ -18,7 +18,7 @@ export default class Pattern {
     }
 
     toJSON() {
-        return this.regex.toString();
+        return this.regex ? this.regex.toString() : null;
     }
 
 }

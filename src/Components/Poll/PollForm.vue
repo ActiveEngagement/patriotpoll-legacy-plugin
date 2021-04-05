@@ -1,5 +1,5 @@
 <template>
-    <form v-visible="" @submit.prevent="submit(form)">
+    <form @submit.prevent="onSubmit">
         <alert variant="success" class="w-100 mb-3 text-center">
             <h2 class="font-weight-light" v-html="answer" />
             <div>
@@ -172,9 +172,20 @@ export default {
             this.$el.querySelector('[type=submit]').focus();
         },
 
+        focusOnError() {
+            this.$el.querySelector('input.is-invalid, select.is-invalid, textarea.is-invalid').focus();
+        },
+
         onClickReset() {
             this.$patriotpoll.forget();
             this.showCard = false;
+        },
+
+        onSubmit() {
+            this.submit(this.form)
+                .catch(e => {
+                    this.focusOnError();
+                });
         }
 
     }

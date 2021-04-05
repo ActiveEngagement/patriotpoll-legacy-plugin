@@ -23,7 +23,7 @@
                     :answer="answer"
                     :poll="poll"
                     :api-key="apiKey"
-                    :errors="e"
+                    :errors="errors"
                     @convert="onConvert"
                     @cancel="onClickBack" />
             </div>

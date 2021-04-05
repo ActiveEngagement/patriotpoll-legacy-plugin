@@ -69,7 +69,8 @@ function doesHaveLineBreaks(el, selector) {
     const children = [].slice.call(el.children);
 
     for(const x in children) {
-        const text = [].slice.call(el.children[x].querySelectorAll(selector));
+        const text = [].slice.call(el.children[x].querySelectorAll(selector))
+            .filter(child => child instanceof Element);
 
         for(const y in text) {
             if(text[y].getClientRects().length > 1) {
