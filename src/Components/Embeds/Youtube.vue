@@ -90,18 +90,18 @@ export default {
 
     methods: {
 
-        async ready() {
-            await script(`https://www.youtube.com/iframe_api`);
-                        
-            return new Promise(resolve => {
-                if(window.YT.ready) {
-                    window.YT.ready(() => {
-                        this.$nextTick(() => resolve(window.YT));
-                    });
-                }
-                else {
-                    reject(new ERror('window.YT does not exist'));
-                }
+        ready() {
+            return script(`https://www.youtube.com/iframe_api`).then(() => {
+                return new Promise((resolve, reject) => {
+                    if(this.id && window.YT.ready) {
+                        window.YT.ready(() => {
+                            this.$nextTick(() => resolve(window.YT));
+                        });
+                    }
+                    else {
+                        reject(new Error('window.YT does not exist'));
+                    }
+                });
             });
         },
 
@@ -110,10 +110,6 @@ export default {
             this.calculatedHeight = this.height || this.calculatedWidth * (9 / 16);
 
             return this.resize;
-        },
-
-        onLoad(e) {
-            this.$emit('loaded', e);
         }
 
     }
