@@ -126,7 +126,7 @@ export default {
 
     bind(el, binding, vnode) {
         if(!!binding.value) {
-            window.addEventListener('resize', debouncer(() => {
+            window.addEventListener('resize', () => debouncer(() => {
                 resize(el, binding, vnode);
             }));
         }

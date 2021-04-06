@@ -16,11 +16,11 @@ function values(...args) {
     return params.values(...args);
 }
 
-function toJson() {
+function toJson(merge = {}) {
     return Array.from(entries())
         .reduce((obj, [key, value]) => (Object.assign(obj, {
             [key]: value
-        })), {});
+        })), merge);
 }
 
 export {

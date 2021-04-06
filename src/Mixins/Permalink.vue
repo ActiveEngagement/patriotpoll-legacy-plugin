@@ -42,6 +42,8 @@ export default {
                 this.$router.push({
                     path: permalink,
                     query: toJson()
+                }).catch(e => {
+                    window.location = permalink;
                 });
             }
             else {
