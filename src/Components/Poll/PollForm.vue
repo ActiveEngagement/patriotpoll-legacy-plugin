@@ -173,7 +173,9 @@ export default {
         },
 
         focusOnError() {
-            this.$el.querySelector('input.is-invalid, select.is-invalid, textarea.is-invalid').focus();
+            const el = this.$el.querySelector('input.is-invalid, select.is-invalid, textarea.is-invalid');
+
+            el && el.focus();
         },
 
         onClickReset() {

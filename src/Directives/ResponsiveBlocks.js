@@ -1,3 +1,9 @@
+import { debounce } from '@vue-interface/utils';
+
+const debouncer = debounce((fn, ...args) => {
+    return fn(...args);
+}, 250);
+
 const attrs = [
     'border-left-width',
     'border-right-width',
@@ -31,20 +37,18 @@ function textWidth(el, selector) {
         .reduce((carry, child) => {
             return [].slice.call(child.getClientRects()).reduce((carry, child) => {
                 return carry + child.width;
-            }, 0);
+            }, carry);
         }, 0);
 }
 
 function doesTextOverflow(el, selector) {
-    const children = [].slice.call(el.children);
+    // Get an array of child Elements.
+    const children = [].slice.call(el.children)
+        .filter(child => child instanceof Element);
 
     for(const x in children) {
+        // Extract the child from the array.
         const child = children[x];
-
-        // If the child is not an instance of an element, then continue...
-        if(!(child instanceof Element)) {
-            continue;
-        }
 
         // The offset used to divide the child width to determine if the text
         // is wider than the container.
@@ -122,15 +126,15 @@ export default {
 
     bind(el, binding, vnode) {
         if(!!binding.value) {
-            window.addEventListener('resize', () => {
-                vnode.context.$nextTick(() => el && resize(el, binding, vnode));
-            });
+            window.addEventListener('resize', debouncer(() => {
+                resize(el, binding, vnode);
+            }));
         }
     },
 
     inserted(el, binding, vnode) {
         if(!!binding.value) {
-            window.dispatchEvent(new Event('resize'));
+            resize(el, binding, vnode);
         }
     },
 
