@@ -8,9 +8,10 @@ export default {
     data() {
         return {
             activity: false,
-            contact: lastSubmit && this.$patriotpoll.contact(),
-            form: this.formData(),
+            contact: this.$patriotpoll.contact(),
             errors: this.$attrs.errors || null,
+            form: this.formData(),
+            lastSubmit,
             showAddress: false,
             showCard: false,
         };

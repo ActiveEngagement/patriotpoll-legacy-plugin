@@ -126,7 +126,7 @@ export default {
     methods: {
 
         shouldAutomaticallySubmit() {
-            return !!this.contact && !this.isDisabled();
+            return !!this.contact && !!this.lastSubmit && !this.isDisabled();
         },
 
         onClickAnswer(answer) {

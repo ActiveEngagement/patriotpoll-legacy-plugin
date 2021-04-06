@@ -136,7 +136,7 @@ export default {
         }
     },
 
-    mounted() {      
+    beforeMount() {
         this.showAddress = this.shouldShowAddress();
         this.showCard = this.shouldShowContactCard();
     },
@@ -168,8 +168,6 @@ export default {
                     return el.focus();
                 }
             }
-
-            this.$el.querySelector('[type=submit]').focus();
         },
 
         focusOnError() {
@@ -179,7 +177,6 @@ export default {
         },
 
         onClickReset() {
-            this.$patriotpoll.forget();
             this.showCard = false;
         },
 
