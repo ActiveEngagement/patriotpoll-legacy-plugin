@@ -13,7 +13,11 @@ export default {
             }
             else {
                 if(el.tagName === 'A' && !el.getAttribute('href')) {
-                    el.setAttribute('href', context.permalink(value));
+                    const url = new URL(context.permalink(value), window.location.origin);
+
+                    url.search = window.location.search;
+
+                    el.setAttribute('href', url.toString());
                 }
 
                 el.addEventListener('click', e => {
@@ -39,8 +43,11 @@ export default {
 
         routeToPermalink(permalink) {
             if(this.$router && !permalink.match(/^http/)) {
+                const [ path, hash ] = permalink.split('#');
+
                 this.$router.push({
-                    path: permalink,
+                    path,
+                    hash,
                     query: toJson()
                 }).catch(e => {
                     window.location = permalink;
