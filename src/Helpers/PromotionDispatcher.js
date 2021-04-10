@@ -43,7 +43,7 @@ export default class PromotionDispatcher {
 
         return [].map.call(node.children, child => {
             return new Promise(resolve => {
-                const script = document.createElement('script');
+                const script = document.createElement(child.tagName);
             
                 script.appendChild(document.createTextNode(child.innerHTML));
 
