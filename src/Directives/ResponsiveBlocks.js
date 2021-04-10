@@ -127,14 +127,14 @@ export default {
     bind(el, binding, vnode) {
         if(!!binding.value) {
             window.addEventListener('resize', () => debouncer(() => {
-                resize(el, binding, vnode);
+                el instanceof Element && resize(el, binding, vnode);
             }));
         }
     },
 
     inserted(el, binding, vnode) {
         if(!!binding.value) {
-            resize(el, binding, vnode);
+            el instanceof Element && resize(el, binding, vnode);
         }
     },
 
