@@ -87,6 +87,11 @@ function doesHaveLineBreaks(el, selector) {
 }
 
 function resize(el, binding, vnode) {
+    // In the event `el` is not an element, just return the function.
+    if(!(el instanceof Element)) {
+        return resize;
+    }
+    
     const isObject = binding.value instanceof Object;
 
     const options = Object.assign({
