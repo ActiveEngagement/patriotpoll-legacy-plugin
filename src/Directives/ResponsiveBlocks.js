@@ -35,9 +35,10 @@ function textWidth(el, selector) {
     return [].slice.call(el.querySelectorAll(selector))
         .filter(child => child instanceof Element)
         .reduce((carry, child) => {
-            return [].slice.call(child.getClientRects()).reduce((carry, child) => {
-                return carry + child.width;
-            }, carry);
+            return [].slice.call(child.getClientRects())
+                .reduce((carry, child) => {
+                    return carry + child.width;
+                }, carry);
         }, 0);
 }
 
@@ -70,19 +71,18 @@ function doesTextOverflow(el, selector) {
 }
 
 function doesHaveLineBreaks(el, selector) {
-    const children = [].slice.call(el.children);
+    // Get an array of child Elements.
+    const children = [].slice.call(el.children)
+        .filter(child => child instanceof Element);
 
     for(const x in children) {
-        const text = [].slice.call(el.children[x].querySelectorAll(selector))
-            .filter(child => child instanceof Element);
-
-        for(const y in text) {
-            if(text[y].getClientRects().length > 1) {
+        for(const child of children[x].querySelectorAll(selector)) {
+            if(child.getClientRects().length > 1) {
                 return true;
             }
         }
     }
-
+    
     return false;
 }
 
@@ -138,7 +138,7 @@ export default {
         }
     },
 
-    unbind(el, binding, vnode) {
+    unbind(el, binding) {
         if(!!binding.value) {
             window.removeEventListener('resize', resize);
         }
