@@ -86,12 +86,7 @@ function doesHaveLineBreaks(el, selector) {
     return false;
 }
 
-function resize(el, binding, vnode) {
-    // In the event `el` is not an element, just return the function.
-    if(!(el instanceof Element)) {
-        return resize;
-    }
-    
+function resize(el, binding) {
     const isObject = binding.value instanceof Object;
 
     const options = Object.assign({
@@ -125,28 +120,28 @@ function resize(el, binding, vnode) {
     el.dispatchEvent(event);
 
     return resize;
+};
+
+function onResize(el, binding) { 
+    return binding.def.onResize = () => debouncer(() => resize(el, binding));
 }
 
 export default {
 
-    bind(el, binding, vnode) {
+    bind(el, binding) {
         if(!!binding.value) {
-            window.addEventListener('resize', () => debouncer(() => {
-                el instanceof Element && resize(el, binding, vnode);
-            }));
+            window.addEventListener('resize', onResize(el, binding));
         }
     },
 
     inserted(el, binding, vnode) {
         if(!!binding.value) {
-            el instanceof Element && resize(el, binding, vnode);
+            resize(el, binding, vnode);
         }
     },
 
-    unbind(el, binding) {
-        if(!!binding.value) {
-            window.removeEventListener('resize', resize);
-        }
+    unbind(el, { def: { onResize } }) {
+        onResize && window.removeEventListener('resize', onResize);
     },
 
 };
