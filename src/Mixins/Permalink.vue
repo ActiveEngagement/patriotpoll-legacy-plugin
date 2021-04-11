@@ -13,7 +13,7 @@ export default {
             }
             else {
                 if(el.tagName === 'A' && !el.getAttribute('href')) {
-                    const url = new URL(context.permalink(value), window.location.origin);
+                    const url = new URL(context.permalink(value), window.location.toString());
 
                     url.search = window.location.search;
 
