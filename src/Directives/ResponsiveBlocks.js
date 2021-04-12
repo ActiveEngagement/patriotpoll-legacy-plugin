@@ -110,11 +110,11 @@ function resize(el, binding) {
     const event = new Event('resize');
 
     Object.assign(event, {
-        containerWidth: containerWidth,
         calculatedWidth: roundedCalculatedWidth,
-        doesTextOverflow: doesTextOverflow(el, options.selector),
+        containerWidth: containerWidth,
+        doesCalculatedWidthExceedContainer: roundedCalculatedWidth > containerWidth,
         doesHaveLineBreaks: doesHaveLineBreaks(el, options.selector),
-        doesCalculatedWidthExceedContainer: roundedCalculatedWidth > containerWidth
+        doesTextOverflow: doesTextOverflow(el, options.selector),
     });
     
     el.dispatchEvent(event);
