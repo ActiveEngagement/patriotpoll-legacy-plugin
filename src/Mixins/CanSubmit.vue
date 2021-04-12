@@ -72,9 +72,9 @@ export default {
                 }, Object.assign({
                     answer: this.answer,
                     query: window.location.search,
-                    mailing_id: get('mailing_id') || get('mailingid'),
+                    mailing_id: get('mailing_id') || get('mailingid') || get('mid'),
                     source: get('source') || get('src') || get('utm_source'),
-                    tracking_id: get('tracking_id') || get('trackingid')
+                    tracking_id: get('tracking_id') || get('tid') || get('trackingid')
                 }, this.$patriotpoll.contact()));
         },
         
