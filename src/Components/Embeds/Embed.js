@@ -1,6 +1,12 @@
+import ImgLoader from '../ImgLoader';
+
 export default {
 
     inheritAttrs: false,
+
+    components: {
+        ImgLoader
+    },
 
     props: {
 

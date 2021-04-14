@@ -34,6 +34,9 @@ export default {
             if(!(strategy instanceof Strategy) && strategy) {
                 strategy = match(strategy.url);
             }
+            else {
+                strategy = match(this.poll.url);
+            }
 
             return strategy;
         }
