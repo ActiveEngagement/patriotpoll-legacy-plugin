@@ -38,7 +38,7 @@ export default {
 
     watch: {
         loaded(value) {
-            value && this.$emit('loaded');
+            value && this.$emit('loaded', this.strategy);
         }
     },
 

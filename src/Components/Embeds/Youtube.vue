@@ -24,8 +24,6 @@ import Embed from './Embed';
 
 export default {
 
-    name: 'Youtube',
-
     mixins: [
         Embed
     ],

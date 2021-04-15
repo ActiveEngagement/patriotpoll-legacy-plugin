@@ -30,8 +30,6 @@ import Embed from './Embed';
 
 export default {
 
-    name: 'Twitter',
-
     components: {
         ActivityIndicator
     },
@@ -91,7 +89,7 @@ export default {
         return {
             twttr: null,
             activity: false,
-            calculatedWidth: this.width
+            calculatedWidth: this.width,
         };
     },
 
@@ -118,23 +116,34 @@ export default {
 
     },
 
+
     mounted() {
-        script('https://platform.twitter.com/widgets.js').then(() => {
-            window.twttr.ready(twttr => {
-                this.twttr = twttr;
-                this.activity = false;
+        script('https://platform.twitter.com/widgets.js').then(e => {
+            if(!e.twttr) {                  
+                window.twttr.ready(twttr => {                
+                    twttr.events.bind('loaded', (event) => {
+                        this.activity = false;                    
+                        this.loaded = true;
+                        
+                        event.widgets.forEach(widget => {
+                            widget.style.marginTop = 0;
+                            widget.style.marginBottom = 0;
+                        });
 
-                twttr.events.bind('loaded', (event) => {
-                    this.loaded = true;
-
-                    event.widgets.forEach(widget => {
-                        widget.style.marginTop = 0;
-                        widget.style.marginBottom = 0;
+                        window.addEventListener('resize', this.resize());   
                     });
-                });
 
-                window.addEventListener('resize', this.resize());
-            });
+                    e.twttr = twttr;
+                });
+            }
+            else {
+                e.twttr.widgets.load().then(() => {
+                    this.activity = false;   
+                    this.loaded = true;         
+
+                    window.addEventListener('resize', this.resize());            
+                });
+            }
         });
     },
 

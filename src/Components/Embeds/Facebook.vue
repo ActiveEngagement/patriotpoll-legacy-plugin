@@ -36,8 +36,6 @@ import Embed from './Embed';
 
 export default {
 
-    name: 'Facebook',
-
     components: {
         ActivityIndicator
     },
