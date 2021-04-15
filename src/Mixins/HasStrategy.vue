@@ -20,6 +20,7 @@ export default {
         strategy() {
             let strategy = null;
             
+            
             if(this.url) {
                 return match(this.url);
             }

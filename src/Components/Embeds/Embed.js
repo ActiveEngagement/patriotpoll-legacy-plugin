@@ -23,7 +23,7 @@ export default {
 
         poll: {
             type: Object,
-            required: true
+            default: () => ({})
         }
 
     },

@@ -15,7 +15,7 @@ export default class Twitter extends Strategy {
 
     static patterns() {
         return [
-            new Pattern(/https?:\/\/(www\.)?twitter\.com\/(\w+)\/status\/(\w+)$/, strategy => {
+            new Pattern(/https?:\/\/(www\.)?twitter\.com\/(\w+)\/status\/(\w+)(\?.+)?$/, strategy => {
                 strategy.handle = strategy.matches[2];
 
                 return strategy.matches[3];

@@ -1,5 +1,5 @@
 <template>
-    <a v-if="image" :href="poll.url">
+    <a v-if="image" :href="url || poll.url">
         <img-loader
             :src="image"
             :style="{maxWidth: `${calculatedWidth}px`}"

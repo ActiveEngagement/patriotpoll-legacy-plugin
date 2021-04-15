@@ -12,10 +12,10 @@
             :permalink="permalink"
             :hide-date="hideDate"
             :share-buttons="shareButtons"
-            @convert="(...args) => this.$emit('convert', ...args)"
-            @next="(...args) => this.$emit('next', ...args)"
-            @slide-enter="(...args) => this.$emit('slide-enter', ...args)"
-            @step="step => this.$emit('step', currentStep = step)" />
+            @convert="(...args) => $emit('convert', ...args)"
+            @next="(...args) => $emit('next', ...args)"
+            @slide-enter="(...args) => $emit('slide-enter', ...args)"
+            @step="step => $emit('step', currentStep = step)" />
             
         <div v-else class="poll-exception-wrapper">
             <div class="poll-exception">
