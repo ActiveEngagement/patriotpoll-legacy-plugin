@@ -120,17 +120,18 @@ export default {
                         widget.style.marginTop = 0;
                         widget.style.marginBottom = 0;
                     });   
-                
-                    window.addEventListener('resize', this.resize());
+
+                    this.resize();
                 });
             });
                 
             window.twttr.widgets.load().then(() => {
                 this.activity = false;   
                 this.loaded = true;
-
-                window.addEventListener('resize', this.resize());            
+                this.resize();            
             });
+
+            window.addEventListener('resize', this.resize());
         });
     },
 
