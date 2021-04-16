@@ -120,6 +120,8 @@ export default {
                         widget.style.marginTop = 0;
                         widget.style.marginBottom = 0;
                     });   
+                
+                    window.addEventListener('resize', this.resize());
                 });
             });
                 
