@@ -1,25 +1,24 @@
 <template>
-    <a v-if="image" :href="url || poll.url">
-        <img-loader
-            :src="image"
-            :style="{maxWidth: `${calculatedWidth}px`}"
-            class="poll-img" />
-    </a>
-        
-    <div v-else class="twitter-embed" :style="{maxWidth: `${calculatedWidth}px`}">
-        <div v-if="(activity || !loaded) && !image" class="position-relative" :style="{'min-height': '300px'}">
-            <activity-indicator
-                size="sm"
-                type="pulse"
-                :min-height="300"
-                center />
-        </div>
+    <div>
+        <div class="twitter-embed" :style="{maxWidth: `${calculatedWidth}px`}">
+            <div v-if="(activity || !loaded) && !image" class="position-relative" :style="{'min-height': '300px'}">
+                <activity-indicator
+                    size="sm"
+                    type="pulse"
+                    :min-height="300"
+                    center />
+            </div>
 
-        <blockquote v-if="!activity || image" v-bind="attributes" :style="{'visibility': !loaded ? 'hidden' : 'visible'}">
-            <a :href="url">
-                <img v-if="image" :src="image.url || image" :alt="`Screenshot of ${image}.`" class="img-fluid">
-            </a>
-        </blockquote>
+            <blockquote v-if="!activity || image" v-bind="attributes">
+                <a v-if="image" :href="url || poll.url">
+                    <img-loader
+                        :src="image"
+                        :style="{maxWidth: `${calculatedWidth}px`}"
+                        :min-height="300"
+                        class="poll-img" />
+                </a>
+            </blockquote>
+        </div>
     </div>
 </template>
 
@@ -91,7 +90,6 @@ export default {
 
     data() {
         return {
-            twttr: null,
             activity: false,
             calculatedWidth: this.width,
         };
@@ -117,9 +115,8 @@ export default {
                 'data-dnt': this.dnt
             };
         }
-
+        
     },
-
 
     mounted() {
         script('https://platform.twitter.com/widgets.js').then(e => {

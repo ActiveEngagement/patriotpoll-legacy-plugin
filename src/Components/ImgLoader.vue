@@ -4,7 +4,9 @@
             v-if="isLoading"
             type="pulse"
             center
-            :height="height" />
+            :height="height"
+            :max-height="maxHeight"
+            :min-height="minHeight" />
             
         <img v-lazy :data-src="src" v-bind="$attrs" class="d-flex w-100" @load="show">
     </div>
@@ -28,6 +30,8 @@ export default {
     inheritAttrs: false,
     props: {
         height: [Number, String],
+        maxHeight: [Number, String],
+        minHeight: [Number, String],
         loading: {
             type: Boolean,
             default: true
