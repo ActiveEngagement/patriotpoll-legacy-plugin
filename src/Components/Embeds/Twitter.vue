@@ -24,9 +24,13 @@
 </template>
 
 <script>
+import { ActivityIndicator, register, Pulse } from '@vue-interface/activity-indicator';
 import { script } from '@vue-interface/utils';
-import { ActivityIndicator } from '@vue-interface/activity-indicator';
 import Embed from './Embed';
+
+register({
+    pulse: Pulse
+});
 
 export default {
 
@@ -119,31 +123,21 @@ export default {
 
     mounted() {
         script('https://platform.twitter.com/widgets.js').then(e => {
-            if(!e.twttr) {                  
-                window.twttr.ready(twttr => {                
-                    twttr.events.bind('loaded', (event) => {
-                        this.activity = false;                    
-                        this.loaded = true;
-                        
-                        event.widgets.forEach(widget => {
-                            widget.style.marginTop = 0;
-                            widget.style.marginBottom = 0;
-                        });
-
-                        window.addEventListener('resize', this.resize());   
-                    });
-
-                    e.twttr = twttr;
+            window.twttr.ready(twttr => {                
+                twttr.events.bind('loaded', (event) => {                        
+                    event.widgets.forEach(widget => {
+                        widget.style.marginTop = 0;
+                        widget.style.marginBottom = 0;
+                    });   
                 });
-            }
-            else {
-                e.twttr.widgets.load().then(() => {
-                    this.activity = false;   
-                    this.loaded = true;         
+            });
+                
+            window.twttr.widgets.load().then(() => {
+                this.activity = false;   
+                this.loaded = true;
 
-                    window.addEventListener('resize', this.resize());            
-                });
-            }
+                window.addEventListener('resize', this.resize());            
+            });
         });
     },
 
