@@ -30,9 +30,13 @@
 </template>
 
 <script>
+import { ActivityIndicator, register, Pulse } from '@vue-interface/activity-indicator';
 import { script } from '@vue-interface/utils';
-import { ActivityIndicator } from '@vue-interface/activity-indicator';
 import Embed from './Embed';
+
+register({
+    pulse: Pulse
+});
 
 export default {
 

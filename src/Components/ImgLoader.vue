@@ -12,7 +12,11 @@
 
 <script>
 import Lazy from '@vue-interface/lazy';
-import { ActivityIndicator } from '@vue-interface/activity-indicator';
+import { ActivityIndicator, register, Pulse } from '@vue-interface/activity-indicator';
+
+register({
+    pulse: Pulse
+});
 
 export default {
     components: {

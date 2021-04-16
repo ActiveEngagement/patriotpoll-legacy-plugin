@@ -29,7 +29,11 @@
 <script>
 import Btn from '@vue-interface/btn';
 import Permalink from '../../Mixins/Permalink';
-import { ActivityIndicator } from '@vue-interface/activity-indicator';
+import { ActivityIndicator, register, Pulse } from '@vue-interface/activity-indicator';
+
+register({
+    pulse: Pulse
+});
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';

@@ -35,13 +35,12 @@ import Permalink from '../../Mixins/Permalink';
 import VueSocialSharing from 'vue-social-sharing';
 import PromotionDispatcher from '../../Helpers/PromotionDispatcher';
 import PatriotPollPlugin from '../../Plugins/PatriotPollPlugin';
-import { ActivityIndicator, register, Dots, Pulse } from '@vue-interface/activity-indicator';
+import { ActivityIndicator, register, Pulse } from '@vue-interface/activity-indicator';
 
 import Poll from './Poll';
 import { get } from '../../Helpers/URLSearchParams';
 
 register({
-    dots: Dots,
     pulse: Pulse
 });
 
