@@ -1,24 +1,18 @@
 <template>
-    <div>
-        <div class="twitter-embed" :style="{maxWidth: `${calculatedWidth}px`}">
-            <div v-if="(activity || !loaded) && !image" class="position-relative" :style="{'min-height': '300px'}">
-                <activity-indicator
-                    size="sm"
-                    type="pulse"
-                    :min-height="300"
-                    center />
-            </div>
-
-            <blockquote v-if="!activity || image" v-bind="attributes">
-                <a v-if="image" :href="url || poll.url">
-                    <img-loader
-                        :src="image"
-                        :style="{maxWidth: `${calculatedWidth}px`}"
-                        :min-height="300"
-                        class="poll-img" />
-                </a>
-            </blockquote>
+    <div class="twitter-embed" :style="{maxWidth: `${calculatedWidth}px`}">
+        <div v-if="(activity || !loaded) && !image" class="position-relative" :style="{'min-height': '300px'}">
+            <activity-indicator
+                size="sm"
+                type="pulse"
+                :min-height="300"
+                center />
         </div>
+
+        <blockquote v-if="!activity || image" v-bind="attributes">
+            <a :href="url">
+                <img-loader v-if="image" :src="image.url || image" :alt="`Screenshot of ${image}.`" class="img-fluid" />
+            </a>
+        </blockquote>
     </div>
 </template>
 
