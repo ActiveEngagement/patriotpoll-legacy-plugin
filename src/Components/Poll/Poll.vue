@@ -141,13 +141,7 @@ export default {
 
         onConvert(poll) {
             this.$emit('convert', poll);
-
-            if(poll.options.redirect_url) {
-                window.location = poll.options.redirect_url;
-            }
-            else {
-                this.active = 'results';
-            }
+            this.active = 'results';
         },
 
         onClickBack() {

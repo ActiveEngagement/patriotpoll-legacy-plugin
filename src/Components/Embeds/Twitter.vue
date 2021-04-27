@@ -114,24 +114,26 @@ export default {
 
     mounted() {
         script('https://platform.twitter.com/widgets.js').then(e => {
-            window.twttr.ready(twttr => {                
-                twttr.events.bind('loaded', (event) => {                        
-                    event.widgets.forEach(widget => {
-                        widget.style.marginTop = 0;
-                        widget.style.marginBottom = 0;
-                    });   
+            if(window.twttr) {
+                window.twttr.ready(twttr => {                
+                    twttr.events.bind('loaded', (event) => {                        
+                        event.widgets.forEach(widget => {
+                            widget.style.marginTop = 0;
+                            widget.style.marginBottom = 0;
+                        });   
 
-                    this.resize();
+                        this.resize();
+                    });
                 });
-            });
                 
-            window.twttr.widgets.load().then(() => {
-                this.activity = false;   
-                this.loaded = true;
-                this.resize();            
-            });
+                window.twttr.widgets.load().then(() => {
+                    this.activity = false;   
+                    this.loaded = true;
+                    this.resize();            
+                });
 
-            window.addEventListener('resize', this.resize());
+                window.addEventListener('resize', this.resize());
+            }
         });
     },
 
