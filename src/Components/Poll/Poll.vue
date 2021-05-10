@@ -126,7 +126,7 @@ export default {
             }, 333);
         },
 
-        poll(value) {
+        poll() {
             this.errors = null;
             this.active = null;
         },

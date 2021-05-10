@@ -32,7 +32,7 @@ export default function(Vue, options = {}) {
                 return JSON.parse(window.localStorage.__poll__);
             }
             catch (e) {
-                // Ignore the error
+                return null;
             }
         },
 
@@ -53,6 +53,8 @@ export default function(Vue, options = {}) {
                     [`Contact-${key.charAt(0).toUpperCase() + key.slice(1)}`]: value
                 });
             }
+
+            return this;
         },
 
         remember(contact) {
@@ -73,6 +75,6 @@ export default function(Vue, options = {}) {
         },
 
     });
-
+    
     axios.headers(axios.contact());
 }
