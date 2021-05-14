@@ -23,8 +23,9 @@ export default function(Vue, options = {}) {
         headers: {
             Authorization: apiKey && `Bearer ${apiKey}`
         }
-    });    
-    
+    });
+        
+    /*    
     // Add a request interceptor
     axios.interceptors.request.use(function(config) {
         const id = Vue.prototype.$patriotpoll.session();
@@ -46,6 +47,7 @@ export default function(Vue, options = {}) {
     }, function(error) {
         return Promise.reject(error);
     });
+    */
   
     Vue.prototype.$patriotpoll = Object.assign(axios, {
         
