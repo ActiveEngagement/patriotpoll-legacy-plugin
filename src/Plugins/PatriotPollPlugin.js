@@ -25,7 +25,46 @@ export default function(Vue, options = {}) {
         }
     });    
     
+    // Add a request interceptor
+    axios.interceptors.request.use(function(config) {
+        const id = Vue.prototype.$patriotpoll.session();
+
+        if(id) {
+            config.headers['session-id'] = id;
+        }
+
+        return config;
+    }, function(error) {
+        return Promise.reject(error);
+    });
+
+    // Add a response interceptor
+    axios.interceptors.response.use(function(response) {
+        Vue.prototype.$patriotpoll.session(response.headers['session-id']);
+        
+        return response;
+    }, function(error) {
+        return Promise.reject(error);
+    });
+  
     Vue.prototype.$patriotpoll = Object.assign(axios, {
+        
+        getSessionId() {
+            return window.localStorage.getItem('__poll_session__');
+        },
+        
+        setSessionId(value) {
+            window.localStorage.setItem('__poll_session__', value);
+        },
+
+        session(id) {
+            try {
+                return id ? this.setSessionId(id) : this.getSessionId();
+            }
+            catch (e) {
+                return null;
+            }
+        },
 
         contact() {
             try {
