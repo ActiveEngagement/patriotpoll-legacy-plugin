@@ -45,6 +45,7 @@ export default {
     computed: {
         classes() {
             return {
+                'px-md-3': this.lineBreaks <= 2,
                 'mx-md-5': this.lineBreaks <= 3,
                 'mx-md-3': this.lineBreaks === 4,
                 'mx-md-2': this.lineBreaks >= 5,
