@@ -5,17 +5,6 @@
         
             <div v-if="poll.html" class="poll-content" v-html="poll.html" />
  
-            <!--
-            @todo: need to make animate css compatible with purgecss by making
-                   an alt syntax from `<animate-css name="fade" in>` to 
-                   `<animate-css fadeIn>`, so that the regex can match the css
-                   names.
-
-            <animate-css name="fade" in>
-                <poll-embed v-if="!poll.embed && poll.url" :key="poll.id" :poll="poll" :width="width" />
-            </animate-css>
-            -->
-
             <poll-embed v-if="poll.embed || poll.url" :key="poll.id" :poll="poll" :width="width" />
         </div>
 

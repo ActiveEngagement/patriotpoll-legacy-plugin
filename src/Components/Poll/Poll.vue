@@ -1,43 +1,45 @@
 <template>
-    <div class="poll" :style="styles">
+    <div class="poll">
         <!--
         <poll-date v-if="showDate && poll.published_at" :poll="poll" />
         -->
 
-        <h1 v-if="poll.question" class="poll-header text-center mt-2 mb-4" v-html="poll.question" />
+        <poll-header v-if="poll.question" :poll="poll" />
 
-        <slide-deck :active="active" @enter="slide => $emit('slide-enter', slide)">
-            <div key="question">
-                <poll-question
-                    v-model="answer"
-                    :poll="poll"
-                    :width="width"
-                    :value="answer"
-                    @convert="onConvert"
-                    @submit-failed="onSubmitFailed" />
-            </div>
+        <div :style="styles" class="mx-auto">
+            <slide-deck :active="active" @enter="slide => $emit('slide-enter', slide)">
+                <div key="question">
+                    <poll-question
+                        v-model="answer"
+                        :poll="poll"
+                        :width="width"
+                        :value="answer"
+                        @convert="onConvert"
+                        @submit-failed="onSubmitFailed" />
+                </div>
 
-            <div key="contact">
-                <poll-form
-                    ref="form"
-                    :answer="answer"
-                    :poll="poll"
-                    :api-key="apiKey"
-                    :errors="errors"
-                    @convert="onConvert"
-                    @cancel="onClickBack" />
-            </div>
+                <div key="contact">
+                    <poll-form
+                        ref="form"
+                        :answer="answer"
+                        :poll="poll"
+                        :api-key="apiKey"
+                        :errors="errors"
+                        @convert="onConvert"
+                        @cancel="onClickBack" />
+                </div>
 
-            <div key="results">
-                <poll-results
-                    :poll="poll"
-                    :api-key="apiKey"
-                    :permalink="permalink"
-                    :share-buttons="shareButtons"
-                    @back="onClickBack"
-                    @next="poll => $emit('next', poll)" />
-            </div>
-        </slide-deck>
+                <div key="results">
+                    <poll-results
+                        :poll="poll"
+                        :api-key="apiKey"
+                        :permalink="permalink"
+                        :share-buttons="shareButtons"
+                        @back="onClickBack"
+                        @next="poll => $emit('next', poll)" />
+                </div>
+            </slide-deck>
+        </div>
     </div>
 </template>
 
@@ -47,10 +49,12 @@ import Permalink from '../../Mixins/Permalink';
 import { unit } from '@vue-interface/utils';
 import { SlideDeck } from '@vue-interface/slide-deck';
 import { get } from '../../Helpers/URLSearchParams';
+import PollHeader from './PollHeader.vue';
 
 export default {
 
     components: {
+        'poll-header': () => import(/* webpackChunkName: 'poll-header', webpackPrefetch: true */ './PollHeader'),
         'poll-question': () => import(/* webpackChunkName: 'poll-question', webpackPrefetch: true */ './PollQuestion'),
         'poll-results': () => import(/* webpackChunkName: 'poll-results', webpackPrefetch: true */ './PollResults'),
         'poll-form': () => import(/* webpackChunkName: 'poll-form', webpackPrefetch: true */ './PollForm'),
