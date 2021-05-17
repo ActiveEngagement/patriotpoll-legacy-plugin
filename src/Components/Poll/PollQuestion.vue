@@ -33,14 +33,15 @@
 
         <div v-if="poll.sponsor && poll.options.hide_sponsor !== '1'" class="text-center mt-4 d-flex justify-content-center align-items-center">
             <font-awesome-icon icon="star" class="mr-2 text-secondary" />
-            <em>This poll is sponsored by <a v-if="poll.sponsor.url" :href="poll.sponsor.url">{{ poll.sponsor.name }}</a><template v-else>{{ poll.sponsor.name }}</template></em>
+            <em>This poll is sponsored by <a v-if="poll.sponsor.url" :href="poll.sponsor.url" target="_blank">{{ poll.sponsor.name }}</a><template v-else>{{ poll.sponsor.name }}</template></em>
             <font-awesome-icon icon="star" class="ml-2 text-secondary" />
         </div>
         
         <a
             v-if="poll.sponsor && poll.sponsor.logo"
             :href="poll.sponsor.url"
-            class="mt-4 d-flex justify-content-center align-items-center">
+            class="mt-4 d-flex justify-content-center align-items-center"
+            target="_blank">
             <img v-if="poll.sponsor.logo" :src="poll.sponsor.logo.url" style="max-width: 300px; max-height: 100px;">
         </a>
         
