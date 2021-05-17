@@ -49,6 +49,7 @@
                     :errors="errors"
                     :value="form[name]"
                     v-bind="field"
+                    autocapitalize="off"
                     custom />
             </template>
         </div>
