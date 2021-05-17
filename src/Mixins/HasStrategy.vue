@@ -1,5 +1,6 @@
 <script>
-import { match, Strategy } from '../Helpers';
+import match from '../Helpers/match';
+import Strategy from '../Helpers/Strategy';
 
 export default {
 

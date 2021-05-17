@@ -69,8 +69,8 @@
             Submit Poll
         </btn-activity>
 
-        <p v-if="poll.sponsor" class="text-center mt-2">
-            <small><em>By submitting this poll, I agree to receive updates from <a v-if="poll.sponsor.url" :href="poll.sponsor.url" target="_blank">{{ poll.sponsor.name }} <font-awesome-icon :icon="['fas', 'external-link-alt']" /></a><template v-else>{{ poll.sponsor.name }}</template>.</em></small>
+        <p v-if="poll.sponsor" class="text-center mt-2" style="font-size: .85em;">
+            <em>By submitting this poll, I agree to receive updates from <a v-if="poll.sponsor.url" :href="poll.sponsor.url" target="_blank">{{ poll.sponsor.name }} <small><font-awesome-icon :icon="['fas', 'external-link-alt']" /></small></a><template v-else>{{ poll.sponsor.name }}</template></em>
         </p>
     </form>
 </template>

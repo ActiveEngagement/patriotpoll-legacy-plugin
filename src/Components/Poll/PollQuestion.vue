@@ -33,7 +33,7 @@
 
         <div v-if="poll.sponsor && poll.options.hide_sponsor !== '1'" class="text-center mt-4 d-flex justify-content-center align-items-center">
             <font-awesome-icon icon="star" class="mr-2 text-secondary" />
-            <em>This poll is sponsored by <a v-if="poll.sponsor.url" :href="poll.sponsor.url" target="_blank">{{ poll.sponsor.name }} <font-awesome-icon :icon="['fas', 'external-link-alt']" /></a><template v-else>{{ poll.sponsor.name }}</template></em>
+            <em>This poll is sponsored by <a v-if="poll.sponsor.url" :href="poll.sponsor.url" target="_blank" class="d-flex-inline">{{ poll.sponsor.name }} <small><font-awesome-icon :icon="['fas', 'external-link-alt']" /></small></a><template v-else>{{ poll.sponsor.name }}</template></em>
             <font-awesome-icon icon="star" class="ml-2 text-secondary" />
         </div>
         
