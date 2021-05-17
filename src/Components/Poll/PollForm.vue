@@ -70,7 +70,7 @@
         </btn-activity>
 
         <p v-if="poll.sponsor" class="text-center mt-2">
-            <small><em>By submitting this poll, I agree to receive updates from <a v-if="poll.sponsor.url" :href="poll.sponsor.url" target="_blank">{{ poll.sponsor.name }}</a><template v-else>{{ poll.sponsor.name }}</template>.</em></small>
+            <small><em>By submitting this poll, I agree to receive updates from <a v-if="poll.sponsor.url" :href="poll.sponsor.url" target="_blank">{{ poll.sponsor.name }} <font-awesome-icon :icon="['fas', 'external-link-alt']" /></a><template v-else>{{ poll.sponsor.name }}</template>.</em></small>
         </p>
     </form>
 </template>
@@ -87,11 +87,10 @@ import SelectField from './Fields/SelectField';
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faExclamationTriangle, faUndo, faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import { faExclamationTriangle, faExternalLinkAlt, faUndo, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { faWindowClose } from '@fortawesome/free-regular-svg-icons';
-import { entries, get } from '../../Helpers/URLSearchParams';
 
-library.add(faUndo, faUserCircle, faWindowClose, faExclamationTriangle);
+library.add(faUndo, faUserCircle, faWindowClose, faExclamationTriangle, faExternalLinkAlt);
 
 export default {
 
