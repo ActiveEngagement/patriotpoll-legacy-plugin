@@ -44,12 +44,16 @@ function textWidth(el, selector) {
 
 function doesTextOverflow(el, selector) {
     // Get an array of child Elements.
-    const children = [].slice.call(el.children)
-        .filter(child => child instanceof Element);
+    const children = [].slice.call(el.children);
 
     for(const x in children) {
         // Extract the child from the array.
         const child = children[x];
+
+        // If the child is not an HTMLElement, then continue...
+        if(!(child instanceof HTMLElement)) {
+            continue;
+        }
 
         // The offset used to divide the child width to determine if the text
         // is wider than the container.
@@ -72,11 +76,17 @@ function doesTextOverflow(el, selector) {
 
 function doesHaveLineBreaks(el, selector) {
     // Get an array of child Elements.
-    const children = [].slice.call(el.children)
-        .filter(child => child instanceof Element);
+    const children = [].slice.call(el.children);
 
     for(const x in children) {
+        // If the child is not an HTMLElement, then continue...
+        if(!(child instanceof HTMLElement)) {
+            continue;
+        }
+        
+        // Once we check that the child is an HTMLElement, use it to query the selector.
         for(const child of children[x].querySelectorAll(selector)) {
+            // If we have multiple client rectangles, we can assume we have linebreaks.
             if(child.getClientRects().length > 1) {
                 return true;
             }
