@@ -35,7 +35,7 @@
     "@vue-interface/progress-bar": "^0.9.4",
     "@vue-interface/select-field": "^0.9.0",
     "@vue-interface/slide-deck": "^0.9.8",
-    "@vue-interface/utils": "^0.9.33",
+    "@vue-interface/utils": "^0.9.34",
     "axios": "^0.21.0",
     "bootstrap": "^4.5.3",
     "chart.js": "^2.9.3",

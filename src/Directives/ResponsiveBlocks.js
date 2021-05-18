@@ -1,4 +1,4 @@
-import { debounce } from '@vue-interface/utils';
+import { debounce, event } from '@vue-interface/utils';
 
 const debouncer = debounce((fn, ...args) => {
     return fn(...args);
@@ -107,17 +107,13 @@ function resize(el, binding) {
 
     const roundedCalculatedWidth = Math.round(calculatedWidth * 100) / 100;
 
-    const event = new Event('resize');
-
-    Object.assign(event, {
+    el.dispatchEvent(Object.assign(event('resize'), {
         calculatedWidth: roundedCalculatedWidth,
         containerWidth: containerWidth,
         doesCalculatedWidthExceedContainer: roundedCalculatedWidth > containerWidth,
         doesHaveLineBreaks: doesHaveLineBreaks(el, options.selector),
         doesTextOverflow: doesTextOverflow(el, options.selector),
-    });
-    
-    el.dispatchEvent(event);
+    }));
 
     return resize;
 };
