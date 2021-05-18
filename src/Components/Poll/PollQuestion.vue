@@ -31,7 +31,7 @@
             </btn-group>
         </div>
 
-        <div v-if="poll.sponsor && poll.options.hide_sponsor !== '1'" class="text-center mt-4 d-flex justify-content-center align-items-center">
+        <div v-if="poll.sponsor && poll.options.hide_sponsor !== '1'" class="text-center mt-4 d-block d-flex justify-content-center align-items-center">
             <font-awesome-icon icon="star" class="mr-2 text-secondary" />
             <em>This poll is sponsored by <a v-if="poll.sponsor.url" :href="poll.sponsor.url" target="_blank" class="d-flex-inline">{{ poll.sponsor.name }} <small><font-awesome-icon :icon="['fas', 'external-link-alt']" /></small></a><template v-else>{{ poll.sponsor.name }}</template></em>
             <font-awesome-icon icon="star" class="ml-2 text-secondary" />
@@ -40,7 +40,7 @@
         <a
             v-if="poll.sponsor && poll.sponsor.logo"
             :href="poll.sponsor.url"
-            class="mt-4 d-flex justify-content-center align-items-center"
+            class="mt-4 d-block text-center d-flex justify-content-center align-items-center"
             target="_blank">
             <img v-if="poll.sponsor.logo" :src="poll.sponsor.logo.url" style="max-width: 300px; max-height: 100px;">
         </a>
