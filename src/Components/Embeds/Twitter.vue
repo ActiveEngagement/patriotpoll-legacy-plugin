@@ -134,6 +134,10 @@ export default {
 
                 window.addEventListener('resize', this.resize());
             }
+            else {
+                this.activity = false;   
+                this.loaded = true;
+            }
         });
     },
 
