@@ -80,7 +80,7 @@ function doesHaveLineBreaks(el, selector) {
 
     for(const x in children) {
         // If the child is not an HTMLElement, then continue...
-        if(!(child instanceof HTMLElement)) {
+        if(!(children[x] instanceof HTMLElement)) {
             continue;
         }
         
