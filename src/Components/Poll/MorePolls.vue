@@ -10,17 +10,17 @@
                     </h2>
                 </div>
             </div>
-            <div class="poll-cards">
-                <poll-card
-                    v-for="poll in polls"
-                    :key="poll.id"
-                    :poll="poll"
-                    :permalink="permalink"
-                    :hide-content="hideContent"
-                    :hide-date="hideDate"
-                    :hide-image="hideImage"
-                    :hide-question="hideQuestion"
-                    :hide-statistics="hideStatistics" />
+            <div class="row">
+                <div v-for="poll in polls" :key="poll.id" class="col-md-4 mb-4">
+                    <poll-card
+                        :poll="poll"
+                        :permalink="permalink"
+                        :hide-content="hideContent"
+                        :hide-date="hideDate"
+                        :hide-image="hideImage"
+                        :hide-question="hideQuestion"
+                        :hide-statistics="hideStatistics" />
+                </div>
             </div>
 
             <div v-if="loadMore" class="row">
@@ -152,22 +152,7 @@ export default {
     }
     
     .poll-card {
-        margin-bottom: 1rem;
-    }
-
-    @media(min-width:768px) {
-        .poll-cards {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            grid-gap: 1em;
-        }
-
-        .poll-card {
-            margin-bottom: 0;
-        }
-    }
-
-	.poll-card .card-body {
+        padding-right: 1rem;
 		border-radius: 0;
 		border-color: rgba(0, 0, 0, 0.05);
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.04), 0 6px 20px 0 rgba(0, 0, 0, 0.04);
