@@ -122,6 +122,7 @@ export default {
 
         exception(e) {
             this.loading = false;
+            this.$emit('error', e);
         },
 
         currentPoll(value) {
