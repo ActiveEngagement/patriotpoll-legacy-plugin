@@ -9,25 +9,43 @@
         custom
         @input="value => $emit('input', value)">
         <option />
-        <option v-for="[value, label] in options" :key="value" :value="value">
-            {{ label }}
+        <option v-for="[ value, optionLabel ] in options" :key="value" :value="value">
+            {{ optionLabel }}
         </option>
     </select-field>
 </template>
 
 <script>
-import InputField from '@vue-interface/input-field';
-import SelectField from '@vue-interface/select-field';
+import FormControl from '@vue-interface/form-control';
 
 export default {
     components: {
-        SelectField
+        SelectField: () => import(/* webpackChunkName: 'vue-interface', webpackPrefetch: true */'@vue-interface/select-field')
     },
-    extends: InputField,
+    mixins: [
+        FormControl
+    ],
     props: {
+        label: String,
+        required: Boolean,
+        name: {
+            type: String,
+            required: true
+        },
+        errors: {
+            type: Object,
+            default() {
+                return {};
+            }
+        },
         options: {
             type: Array,
             required: true
+        }
+    },
+    computed: {
+        fieldLabel() {
+            return `${this.label || this.name}${this.required ? '*' : ''}`;
         }
     }
 };

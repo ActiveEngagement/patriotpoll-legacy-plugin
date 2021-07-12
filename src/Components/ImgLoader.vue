@@ -14,15 +14,15 @@
 
 <script>
 import Lazy from '@vue-interface/lazy';
-import { ActivityIndicator, register, Pulse } from '@vue-interface/activity-indicator';
+import { register } from '@vue-interface/activity-indicator';
 
 register({
-    pulse: Pulse
+    pulse: () => import(/* webpackChunkName: 'vue-interface', webpackPrefetch: true */'@vue-interface/activity-indicator').then(({ Pulse }) => Pulse)
 });
 
 export default {
     components: {
-        ActivityIndicator
+        ActivityIndicator: () => import(/* webpackChunkName: 'vue-interface', webpackPrefetch: true */'@vue-interface/activity-indicator').then(({ ActivityIndicator }) => ActivityIndicator)
     },
     directives: {
         Lazy

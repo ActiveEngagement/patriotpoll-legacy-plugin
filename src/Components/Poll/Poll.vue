@@ -4,6 +4,10 @@
         <poll-date v-if="showDate && poll.published_at" :poll="poll" />
         -->
 
+        <div v-if="$slots['before-poll']" class="mb-3">
+            <slot name="before-poll" />
+        </div>
+                        
         <poll-header v-if="poll.question" :poll="poll" />
 
         <div :style="styles" class="mx-auto">
@@ -15,7 +19,20 @@
                         :width="width"
                         :value="answer"
                         @convert="onConvert"
-                        @submit-failed="onSubmitFailed" />
+                        @submit-failed="onSubmitFailed">
+                        <template #before-media>
+                            <slot name="poll-question-before-media" />
+                        </template>
+                        <template #after-media>
+                            <slot name="poll-question-after-media" />
+                        </template>
+                        <template #after-buttons>
+                            <slot name="poll-question-after-buttons" />
+                        </template>
+                        <template #after-social-buttons>
+                            <slot name="poll-question-after-social-buttons" />
+                        </template>
+                    </poll-question>
                 </div>
 
                 <div key="contact">
@@ -36,29 +53,40 @@
                         :permalink="permalink"
                         :share-buttons="shareButtons"
                         @back="onClickBack"
-                        @next="poll => $emit('next', poll)" />
+                        @next="poll => $emit('next', poll)">
+                        <template #results-after-chart>
+                            <slot name="results-after-chart" />
+                        </template>
+                        <template #results-after-social-buttons>
+                            <slot name="results-after-social-buttons" />
+                        </template>
+                        <template #results-after-next-poll>
+                            <slot name="results-after-next-poll" />
+                        </template>
+                    </poll-results>
                 </div>
             </slide-deck>
+        </div>
+
+        <div v-if="$slots['after-poll']" class="mt-3">
+            <slot name="after-poll" />
         </div>
     </div>
 </template>
 
 <script>
-// import PollDate from './PollDate';
 import Permalink from '../../Mixins/Permalink';
 import { unit } from '@vue-interface/utils';
-import { SlideDeck } from '@vue-interface/slide-deck';
 import { get } from '../../Helpers/URLSearchParams';
-import PollHeader from './PollHeader.vue';
 
 export default {
 
     components: {
-        'poll-header': () => import(/* webpackChunkName: 'poll-header', webpackPrefetch: true */ './PollHeader'),
-        'poll-question': () => import(/* webpackChunkName: 'poll-question', webpackPrefetch: true */ './PollQuestion'),
-        'poll-results': () => import(/* webpackChunkName: 'poll-results', webpackPrefetch: true */ './PollResults'),
-        'poll-form': () => import(/* webpackChunkName: 'poll-form', webpackPrefetch: true */ './PollForm'),
-        SlideDeck,
+        PollForm: () => import(/* webpackChunkName: 'poll-form', webpackPrefetch: true */ './PollForm'),
+        PollHeader: () => import(/* webpackChunkName: 'poll-header', webpackPrefetch: true */ './PollHeader'),
+        PollQuestion: () => import(/* webpackChunkName: 'poll-question', webpackPrefetch: true */ './PollQuestion'),
+        PollResults: () => import(/* webpackChunkName: 'poll-results', webpackPrefetch: true */ './PollResults'),
+        SlideDeck: () => import(/* webpackChunkName: 'vue-interface', webpackPrefetch: true */'@vue-interface/slide-deck').then(({ SlideDeck }) => SlideDeck),
     },
 
     mixins: [

@@ -4,8 +4,10 @@
             <img-loader v-if="poll.image" :src="poll.image.url" height="350px" class="poll-img" />
         
             <div v-if="poll.html" class="poll-content" v-html="poll.html" />
- 
+
             <poll-embed v-if="poll.embed || poll.url" :key="poll.id" :poll="poll" :width="width" />
+
+            <slot name="after-media" />
         </div>
 
         <div v-if="poll.answers" class="poll-buttons px-3 px-md-0">
@@ -29,6 +31,10 @@
                     <span v-html="key" />
                 </btn>
             </btn-group>
+
+            <div v-if="$slots['after-buttons']" class="mt-3">
+                <slot name="after-buttons" />
+            </div>
         </div>
 
         <div v-if="poll.sponsor && poll.options.hide_sponsor !== '1'" class="text-center mt-4 d-block d-flex justify-content-center align-items-center">
@@ -45,22 +51,18 @@
             <img v-if="poll.sponsor.logo" :src="poll.sponsor.logo.url" style="max-width: 300px; max-height: 100px;">
         </a>
         
-        <poll-social-buttons :poll="poll" />
+        <poll-social-buttons :poll="poll">
+            <slot name="after-social-buttons" />
+        </poll-social-buttons>
     </div>
 </template>
 
 <script>
-// import AnimateCss from '@vue-interface/animate-css';
-import Btn from '@vue-interface/btn';
-import { BtnGroup } from '@vue-interface/btn-group';
-
 import CanSubmit from '../../Mixins/CanSubmit';
 import ImgLoader from '../ImgLoader';
 import PollEmbed from './PollEmbed';
-
 import ResponsiveBlocks from '../../Directives/ResponsiveBlocks';
 
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faExternalLinkAlt, faStar } from '@fortawesome/free-solid-svg-icons';
 
@@ -69,12 +71,12 @@ library.add(faStar, faExternalLinkAlt);
 export default {
 
     components: {
-        Btn,
-        BtnGroup,
+        Btn: () => import(/* webpackChunkName: 'vue-interface', webpackPrefetch: true */'@vue-interface/btn'),
+        BtnGroup: () => import(/* webpackChunkName: 'vue-interface', webpackPrefetch: true */'@vue-interface/btn-group').then(({ BtnGroup }) => BtnGroup),
         ImgLoader,
         PollEmbed,
         // AnimateCss,
-        FontAwesomeIcon,
+        FontAwesomeIcon: () => import(/* webpackChunkName: 'font-awesome', webpackPrefetch: true */'@fortawesome/vue-fontawesome').then(({ FontAwesomeIcon }) => FontAwesomeIcon),
         PollSocialButtons: () => import(/* webpackChunkName: 'poll-social-buttons', webpackPrefetch: true */'./PollSocialButtons')
     },
 

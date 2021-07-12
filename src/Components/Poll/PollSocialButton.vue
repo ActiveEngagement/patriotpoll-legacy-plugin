@@ -21,11 +21,10 @@
 
 <script>
 import Color from 'color';
-import Btn from '@vue-interface/btn';
 
 export default {
     components: {
-        Btn
+        Btn: () => import(/* webpackChunkName: 'vue-interface', webpackPrefetch: true */'@vue-interface/btn')
     },
     props: {
         url: {

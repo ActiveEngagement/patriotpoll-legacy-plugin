@@ -4,12 +4,17 @@
 
         <div v-else-if="!!polls.length">
             <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2 class="section-heading text-uppercase">
+                <div class="col-lg-12">
+                    <h2 class="section-heading text-uppercase text-center">
                         {{ title }}
                     </h2>
                 </div>
             </div>
+            
+            <div v-if="$slots['before-grid']" class="my-3">
+                <slot name="before-grid" />
+            </div>
+
             <div class="row">
                 <div v-for="poll in polls" :key="poll.id" class="col-md-4 mb-4">
                     <poll-card
@@ -21,6 +26,9 @@
                         :hide-question="hideQuestion"
                         :hide-statistics="hideStatistics" />
                 </div>
+            </div>
+            <div v-if="$slots['after-grid']" class="mt-3">
+                <slot name="after-grid" />
             </div>
 
             <div v-if="loadMore" class="row">
@@ -34,26 +42,30 @@
                     </btn-activity>
                 </div>
             </div>
+                
+            <div v-if="$slots['after-load-more-button']" class="mt-3">
+                <slot name="after-load-more-button" />
+            </div>
         </div>
     </section>
 </template>
 
 <script>
-import { ActivityIndicator, register, Dots, Pulse } from '@vue-interface/activity-indicator';
-import BtnActivity from '@vue-interface/btn-activity';
 import Permalink from '../../Mixins/Permalink';
 import PollCard from './PollCard';
 
+import { register } from '@vue-interface/activity-indicator';
+
 register({
-    dots: Dots,
-    pulse: Pulse
+    dots: () => import(/* webpackChunkName: 'vue-interface', webpackPrefetch: true */'@vue-interface/activity-indicator').then(({ Dots }) => Dots),
+    pulse: () => import(/* webpackChunkName: 'vue-interface', webpackPrefetch: true */'@vue-interface/activity-indicator').then(({ Pulse }) => Pulse)
 });
 
 export default {
 
     components: {
-        ActivityIndicator,
-        BtnActivity,
+        ActivityIndicator: () => import(/* webpackChunkName: 'vue-interface', webpackPrefetch: true */'@vue-interface/activity-indicator').then(({ ActivityIndicator }) => ActivityIndicator),
+        BtnActivity: () => import(/* webpackChunkName: 'vue-interface', webpackPrefetch: true */'@vue-interface/btn-activity'),
         PollCard,
     },
 

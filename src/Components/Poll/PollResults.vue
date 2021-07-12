@@ -1,10 +1,18 @@
 <template>
     <div class="poll-results mt-4 p-3">
         <poll-doughnut-chart v-if="mounted" :poll="poll" />
+        
+        <div v-if="$slots['results-after-chart']" class="mt-3">
+            <slot name="results-after-chart" />
+        </div>
 
-        <poll-social-buttons v-if="shareButtons" :poll="poll" />
+        <poll-social-buttons v-if="shareButtons" :poll="poll">
+            <slot name="results-after-social-buttons" />
+        </poll-social-buttons>
 
-        <next-poll v-if="nextPoll" :poll="poll" :permalink="permalink" />
+        <next-poll v-if="nextPoll" :poll="poll" :permalink="permalink">
+            <slot name="results-after-next-poll" />
+        </next-poll>
     </div>
 </template>
 

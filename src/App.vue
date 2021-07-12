@@ -1,6 +1,16 @@
 <template>
     <div>
-        <poll-loader />
+        <poll-loader>
+            <template #results-after-chart>
+                results-after-chart
+            </template>
+            <template #results-after-social-buttons>
+                results-after-social-buttons
+            </template>
+            <template #results-after-next-poll>
+                results-after-next-poll
+            </template>
+        </poll-loader>
     </div>
 </template>
 

@@ -13,11 +13,10 @@
 
 <script>
 import FormControl from '@vue-interface/form-control';
-import InputField from '@vue-interface/input-field';
 
 export default {
     components: {
-        InputField
+        InputField: () => import(/* webpackChunkName: 'vue-interface', webpackPrefetch: true */'@vue-interface/input-field')
     },
     mixins: [
         FormControl

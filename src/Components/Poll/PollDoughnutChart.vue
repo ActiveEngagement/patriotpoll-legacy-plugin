@@ -3,7 +3,6 @@
 </template>
 
 <script>
-import Color from 'color';
 import Chart from 'chart.js';
 import randomcolor from 'randomcolor';
 

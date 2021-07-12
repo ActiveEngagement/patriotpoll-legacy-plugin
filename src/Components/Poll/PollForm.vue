@@ -77,16 +77,8 @@
 </template>
 
 <script>
-
-import { Alert } from '@vue-interface/alert';
-// import AnimateCss from '@vue-interface/animate-css';
-import Btn from '@vue-interface/btn';
-import BtnActivity from '@vue-interface/btn-activity';
 import CanSubmit from '../../Mixins/CanSubmit';
-import InputField from './Fields/InputField';
-import SelectField from './Fields/SelectField';
 
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faExclamationTriangle, faExternalLinkAlt, faUndo, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { faWindowClose } from '@fortawesome/free-regular-svg-icons';
@@ -96,13 +88,12 @@ library.add(faUndo, faUserCircle, faWindowClose, faExclamationTriangle, faExtern
 export default {
 
     components: {
-        Alert,
-        // AnimateCss,
-        Btn,
-        BtnActivity,
-        FontAwesomeIcon,
-        InputField,
-        SelectField,
+        Alert: () => import(/* webpackChunkName: 'vue-interface', webpackPrefetch: true */'@vue-interface/alert').then(({ Alert }) => Alert),
+        Btn: () => import(/* webpackChunkName: 'vue-interface', webpackPrefetch: true */'@vue-interface/btn'),
+        BtnActivity: () => import(/* webpackChunkName: 'vue-interface', webpackPrefetch: true */'@vue-interface/btn-activity'),
+        InputField: () => import(/* webpackChunkName: 'vue-interface', webpackPrefetch: true */'@vue-interface/input-field'),
+        SelectField: () => import(/* webpackChunkName: 'vue-interface', webpackPrefetch: true */'@vue-interface/select-field'),
+        FontAwesomeIcon: () => import(/* webpackChunkName: 'font-awesome', webpackPrefetch: true */'@fortawesome/vue-fontawesome').then(({ FontAwesomeIcon }) => FontAwesomeIcon),
     },
 
     mixins: [

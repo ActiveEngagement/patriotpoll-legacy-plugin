@@ -15,7 +15,35 @@
             @convert="(...args) => this.$emit('convert', ...args)"
             @next="(...args) => this.$emit('next', ...args)"
             @slide-enter="(...args) => this.$emit('slide-enter', ...args)"
-            @step="step => this.$emit('step', currentStep = step)" />
+            @step="step => this.$emit('step', currentStep = step)">
+            <template #before-poll>
+                <slot name="before-poll" />
+            </template>
+            <template #after-poll>
+                <slot name="after-poll" />
+            </template>
+            <template #poll-question-before-media>
+                <slot name="poll-question-before-media" />
+            </template>
+            <template #poll-question-after-media>
+                <slot name="poll-question-after-media" />
+            </template>
+            <template #poll-question-after-buttons>
+                <slot name="poll-question-after-buttons" />
+            </template>
+            <template #poll-question-after-social-buttons>
+                <slot name="poll-question-after-social-buttons" />
+            </template>
+            <template #results-after-chart>
+                <slot name="results-after-chart" />
+            </template>
+            <template #results-after-social-buttons>
+                <slot name="results-after-social-buttons" />
+            </template>
+            <template #results-after-next-poll>
+                <slot name="results-after-next-poll" />
+            </template>
+        </poll>
             
         <div v-else class="poll-exception-wrapper">
             <div class="poll-exception">
@@ -31,26 +59,23 @@
 </template>
 
 <script>
-import Permalink from '../../Mixins/Permalink';
 import VueSocialSharing from 'vue-social-sharing';
+
+import Permalink from '../../Mixins/Permalink';
 import PromotionDispatcher from '../../Helpers/PromotionDispatcher';
 import PatriotPollPlugin from '../../Plugins/PatriotPollPlugin';
-import { ActivityIndicator, register, Pulse } from '@vue-interface/activity-indicator';
-
-import Poll from './Poll';
 import { get } from '../../Helpers/URLSearchParams';
 
+import { register } from '@vue-interface/activity-indicator';
+
 register({
-    pulse: Pulse
+    pulse: () => import(/* webpackChunkName: 'vue-interface', webpackPrefetch: true */'@vue-interface/activity-indicator').then(({ Pulse }) => Pulse)
 });
 
-const BASE_URL = 'https://api.patriotpoll.net/v1';
-
 export default {
-
     components: {
-        ActivityIndicator,
-        Poll
+        ActivityIndicator: () => import(/* webpackChunkName: 'vue-interface', webpackPrefetch: true */'@vue-interface/activity-indicator').then(({ ActivityIndicator }) => ActivityIndicator),
+        Poll: () => import(/* webpackChunkName: 'poll', webpackPrefetch: true */'./Poll')
     },
 
     mixins: [

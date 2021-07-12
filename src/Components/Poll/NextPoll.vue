@@ -13,6 +13,7 @@
         <h3 class="mb-4 font-weight-light">
             {{ nextPoll.question }}
         </h3>
+        
         <btn
             v-permalink.native="nextPoll"
             type="button"
@@ -23,19 +24,21 @@
             <font-awesome-icon icon="poll" size="2x" class="mr-3" /> Take Next Poll
             <font-awesome-icon icon="long-arrow-alt-right" size="2x" class="ml-3" />
         </btn>
+
+        <div v-if="$slots.default" class="mt-3">
+            <slot />
+        </div>
     </div>
 </template>
 
 <script>
-import Btn from '@vue-interface/btn';
 import Permalink from '../../Mixins/Permalink';
-import { ActivityIndicator, register, Pulse } from '@vue-interface/activity-indicator';
+import { register } from '@vue-interface/activity-indicator';
 
 register({
-    pulse: Pulse
+    pulse: () => import(/* webpackChunkName: 'vue-interface', webpackPrefetch: true */'@vue-interface/activity-indicator').then(({ Pulse }) => Pulse)
 });
 
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faLongArrowAltRight, faPoll } from '@fortawesome/free-solid-svg-icons';
 
@@ -43,9 +46,9 @@ library.add(faLongArrowAltRight, faPoll);
 
 export default {
     components: {
-        ActivityIndicator,
-        Btn,
-        FontAwesomeIcon,
+        ActivityIndicator: () => import(/* webpackChunkName: 'vue-interface', webpackPrefetch: true */'@vue-interface/activity-indicator').then(({ ActivityIndicator }) => ActivityIndicator),
+        Btn: () => import(/* webpackChunkName: 'vue-interface', webpackPrefetch: true */'@vue-interface/btn'),
+        FontAwesomeIcon: () => import(/* webpackChunkName: 'font-awesome', webpackPrefetch: true */'@fortawesome/vue-fontawesome').then(({ FontAwesomeIcon }) => FontAwesomeIcon),
     },
     mixins: [
         Permalink   

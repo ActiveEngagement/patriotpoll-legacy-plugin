@@ -17,18 +17,17 @@
 </template>
 
 <script>
-import { ActivityIndicator, register, Pulse } from '@vue-interface/activity-indicator';
+import { register } from '@vue-interface/activity-indicator';
 import { script } from '@vue-interface/utils';
 import Embed from './Embed';
 
 register({
-    pulse: Pulse
+    pulse: () => import(/* webpackChunkName: 'vue-interface', webpackPrefetch: true */'@vue-interface/activity-indicator').then(({ Pulse }) => Pulse)
 });
 
 export default {
-
     components: {
-        ActivityIndicator
+        ActivityIndicator: () => import(/* webpackChunkName: 'vue-interface', webpackPrefetch: true */'@vue-interface/activity-indicator').then(({ ActivityIndicator }) => ActivityIndicator)
     },
 
     mixins: [

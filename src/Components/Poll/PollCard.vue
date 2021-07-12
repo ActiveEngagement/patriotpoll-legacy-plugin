@@ -26,13 +26,12 @@
 <script>
 import randomcolor from 'randomcolor';
 import Permalink from '../../Mixins/Permalink';
-import ProgressBar from '@vue-interface/progress-bar';
 import DateFilter from '@vue-interface/date-filter';
 
 export default {
 
     components: {
-        ProgressBar
+        ProgressBar: () => import(/* webpackChunkName: 'vue-interface', webpackPrefetch: true */'@vue-interface/progress-bar')
     },
 
     filters: {
