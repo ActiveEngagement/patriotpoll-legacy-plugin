@@ -1,5 +1,5 @@
 <script>
-import { entries, get } from '../Helpers/URLSearchParams';
+import { entries, mailingId, source, trackingId } from '../Helpers/URLSearchParams';
 
 let lastSubmit;
 
@@ -72,9 +72,9 @@ export default {
                 }, Object.assign({
                     answer: this.answer,
                     query: window.location.search,
-                    mailing_id: get('mailing_id') || get('mailingid') || get('mid'),
-                    source: get('source') || get('src') || get('utm_source'),
-                    tracking_id: get('tracking_id') || get('tid') || get('trackingid')
+                    mailing_id: mailingId(),
+                    source: source(),
+                    tracking_id: trackingId()
                 }, this.$patriotpoll.contact()));
         },
         

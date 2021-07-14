@@ -1,6 +1,7 @@
 import Axios from 'axios';
 
 export const BASE_URL = 'https://api.patriotpoll.net/v1';
+import { source } from '../Helpers/URLSearchParams';
 
 export default function(Vue, options = {}) {
     // If Axios is not installed, then just ignore the plugin.
@@ -16,12 +17,14 @@ export default function(Vue, options = {}) {
         || options.baseURL
         || process.env.VUE_APP_PATRIOT_POLL_BASE_URL
         || BASE_URL;
-    
+
     // Create an Axios instance.
     const axios = Axios.create({
         baseURL,
         headers: {
-            Authorization: apiKey && `Bearer ${apiKey}`
+            Authorization: apiKey && `Bearer ${apiKey}`,
+            Source: source(),
+            Href: window.location.href,
         }
     });
         

@@ -64,8 +64,7 @@ import VueSocialSharing from 'vue-social-sharing';
 import Permalink from '../../Mixins/Permalink';
 import PromotionDispatcher from '../../Helpers/PromotionDispatcher';
 import PatriotPollPlugin from '../../Plugins/PatriotPollPlugin';
-import { get } from '../../Helpers/URLSearchParams';
-
+import { source } from '../../Helpers/URLSearchParams';
 import { register } from '@vue-interface/activity-indicator';
 
 register({
@@ -168,7 +167,7 @@ export default {
 
     created() {
         this.dispatcher = new PromotionDispatcher(
-            this, get('source') || get('src') || get('utm_source')
+            this, source()
         );
     
         this.$root.constructor.use(VueSocialSharing);

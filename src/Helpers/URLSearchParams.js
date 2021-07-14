@@ -23,10 +23,25 @@ function toJson(merge = {}) {
         })), merge);
 }
 
+function mailingId() {
+    return  get('mailing_id') || get('mailingid') || get('mid');
+}
+
+function source() {
+    return get('source') || get('src') || get('utm_source');
+}
+
+function trackingId() {
+    return get('tracking_id') || get('tid') || get('trackingid');
+}
+
 export {
     entries,
     get,
     getAll,
+    mailingId,
+    source,
     toJson,
+    trackingId,
     values
 };
