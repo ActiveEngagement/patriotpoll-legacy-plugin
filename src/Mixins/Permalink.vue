@@ -20,7 +20,11 @@ export default {
                     el.setAttribute('href', url.toString());
                 }
 
-                el.addEventListener('click', e => {
+                if(el.permalinkClickCallback) {
+                    el.removeEventListener('click', el.permalinkClickCallback);
+                }
+
+                el.addEventListener('click', el.permalinkClickCallback = e => {
                     context.onClickPermalink(value);
 
                     e.preventDefault();
@@ -42,6 +46,7 @@ export default {
     methods: {
 
         routeToPermalink(permalink) {
+
             if(this.$router && !permalink.match(/^http/)) {
                 const [ path, hash ] = permalink.split('#');
 
