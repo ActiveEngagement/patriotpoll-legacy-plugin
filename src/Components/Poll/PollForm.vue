@@ -77,6 +77,8 @@
 </template>
 
 <script>
+import InputField from './Fields/InputField';
+import SelectField from './Fields/SelectField';
 import CanSubmit from '../../Mixins/CanSubmit';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -91,8 +93,8 @@ export default {
         Alert: () => import(/* webpackChunkName: 'vue-interface', webpackPrefetch: true */'@vue-interface/alert').then(({ Alert }) => Alert),
         Btn: () => import(/* webpackChunkName: 'vue-interface', webpackPrefetch: true */'@vue-interface/btn'),
         BtnActivity: () => import(/* webpackChunkName: 'vue-interface', webpackPrefetch: true */'@vue-interface/btn-activity'),
-        InputField: () => import(/* webpackChunkName: 'vue-interface', webpackPrefetch: true */'./Fields/InputField'),
-        SelectField: () => import(/* webpackChunkName: 'vue-interface', webpackPrefetch: true */'./Fields/SelectField'),
+        InputField,
+        SelectField,
         FontAwesomeIcon: () => import(/* webpackChunkName: 'font-awesome', webpackPrefetch: true */'@fortawesome/vue-fontawesome').then(({ FontAwesomeIcon }) => FontAwesomeIcon),
     },
 
