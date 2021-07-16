@@ -91,8 +91,8 @@ export default {
         Alert: () => import(/* webpackChunkName: 'vue-interface', webpackPrefetch: true */'@vue-interface/alert').then(({ Alert }) => Alert),
         Btn: () => import(/* webpackChunkName: 'vue-interface', webpackPrefetch: true */'@vue-interface/btn'),
         BtnActivity: () => import(/* webpackChunkName: 'vue-interface', webpackPrefetch: true */'@vue-interface/btn-activity'),
-        InputField: () => import(/* webpackChunkName: 'vue-interface', webpackPrefetch: true */'@vue-interface/input-field'),
-        SelectField: () => import(/* webpackChunkName: 'vue-interface', webpackPrefetch: true */'@vue-interface/select-field'),
+        InputField: () => import(/* webpackChunkName: 'vue-interface', webpackPrefetch: true */'./Fields/InputField'),
+        SelectField: () => import(/* webpackChunkName: 'vue-interface', webpackPrefetch: true */'./Fields/SelectField'),
         FontAwesomeIcon: () => import(/* webpackChunkName: 'font-awesome', webpackPrefetch: true */'@fortawesome/vue-fontawesome').then(({ FontAwesomeIcon }) => FontAwesomeIcon),
     },
 
