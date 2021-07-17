@@ -4,9 +4,9 @@ export const BASE_URL = 'https://api.patriotpoll.net/v1';
 import { source } from '../Helpers/URLSearchParams';
 
 export default function(Vue, options = {}) {
-    // If Axios is not installed, then just ignore the plugin.
+    // If Axios is not installed, throw an error
     if(!Axios) {
-        return;
+        throw new Error('Axios is a required external dependency. Make sure its available in the global scope.');
     }
 
     // Get the api key from the options or config file.
@@ -28,30 +28,6 @@ export default function(Vue, options = {}) {
         }
     });
         
-    /*    
-    // Add a request interceptor
-    axios.interceptors.request.use(function(config) {
-        const id = Vue.prototype.$patriotpoll.session();
-
-        if(id) {
-            config.headers['session-id'] = id;
-        }
-
-        return config;
-    }, function(error) {
-        return Promise.reject(error);
-    });
-
-    // Add a response interceptor
-    axios.interceptors.response.use(function(response) {
-        Vue.prototype.$patriotpoll.session(response.headers['session-id']);
-        
-        return response;
-    }, function(error) {
-        return Promise.reject(error);
-    });
-    */
-  
     Vue.prototype.$patriotpoll = Object.assign(axios, {
         
         getSessionId() {
