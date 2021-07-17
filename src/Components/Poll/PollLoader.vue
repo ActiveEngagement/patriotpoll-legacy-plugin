@@ -165,16 +165,18 @@ export default {
 
     },
 
+    beforeCreate() {
+        this.$root.constructor.use(VueSocialSharing);
+        this.$root.constructor.use(PatriotPollPlugin, {
+            apiKey: this.$options.propsData.apiKey,
+            baseUrl: this.$options.propsData.baseUrl
+        });
+    },
+
     created() {
         this.dispatcher = new PromotionDispatcher(
             this, source()
         );
-    
-        this.$root.constructor.use(VueSocialSharing);
-        this.$root.constructor.use(PatriotPollPlugin, {
-            apiKey: this.apiKey,
-            baseUrl: this.baseUrl
-        });
     },
 
     mounted() {
