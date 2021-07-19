@@ -1,21 +1,35 @@
 <template>
     <div class="patriot-poll form-group">
-        <activity-indicator v-if="loading" type="pulse" min-height="350" center />
         <poll
-            v-else-if="currentPoll"
             :api-key="apiKey"
+            :loading="loading"
             :poll="currentPoll"
             :step="currentStep"
             :scroll-to="scrollTo"
             :width="width"
-            :class="{'loading': loading}"
             :permalink="permalink"
             :hide-date="hideDate"
             :share-buttons="shareButtons"
+            @automatic-submit="automaticSubmit"
             @convert="(...args) => this.$emit('convert', ...args)"
             @next="(...args) => this.$emit('next', ...args)"
             @slide-enter="(...args) => this.$emit('slide-enter', ...args)"
             @step="step => this.$emit('step', currentStep = step)">
+            <template #activity-indicator>
+                <activity-indicator type="pulse" min-height="350" center />
+            </template>
+            <template #no-results>
+                <div class="poll-exception-wrapper">
+                    <div class="poll-exception">
+                        <h2 class="text-center">
+                            Ooops!
+                        </h2>
+                        <h3 class="text-center font-weight-light mb-4">
+                            There are no polls at this time.
+                        </h3>
+                    </div>
+                </div>
+            </template>
             <template #before-poll>
                 <slot name="before-poll" />
             </template>
@@ -44,17 +58,6 @@
                 <slot name="results-after-next-poll" />
             </template>
         </poll>
-            
-        <div v-else class="poll-exception-wrapper">
-            <div class="poll-exception">
-                <h2 class="text-center">
-                    Ooops!
-                </h2>
-                <h3 class="text-center font-weight-light mb-4">
-                    There are no polls at this time.
-                </h3>
-            </div>
-        </div>
     </div>
 </template>
 
@@ -120,6 +123,7 @@ export default {
 
     data() {
         return {
+            automaticallySubmitting: false,
             routed: false,
             exception: null,
             currentPoll: null,
@@ -151,7 +155,6 @@ export default {
 
         currentPoll(value) {
             this.loading = !value;
-            this.$emit('load', value);
         },
 
         loading(value) {
@@ -194,6 +197,10 @@ export default {
     },
     
     methods: {
+
+        automaticSubmit({ submit, form}) {
+            this.loading = true;
+        },
         
         key() {
             return this.id || this.slug;   

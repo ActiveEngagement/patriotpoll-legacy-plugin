@@ -10,7 +10,7 @@
             <slot name="results-after-social-buttons" />
         </poll-social-buttons>
 
-        <next-poll v-if="nextPoll" :poll="poll" :permalink="permalink">
+        <next-poll v-if="nextPoll" :poll="poll" :permalink="permalink" @click.native="$emit('next')">
             <slot name="results-after-next-poll" />
         </next-poll>
     </div>

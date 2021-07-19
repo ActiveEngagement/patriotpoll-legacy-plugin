@@ -53,7 +53,9 @@ export default {
                 this.$router.push({
                     path,
                     hash,
-                    query: toJson()
+                    query: Object.assign({}, toJson(), {
+                        answer: undefined
+                    })
                 }).catch(e => {
                     window.location = permalink;
                 });

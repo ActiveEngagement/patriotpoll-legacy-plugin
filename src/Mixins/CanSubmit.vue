@@ -1,5 +1,5 @@
 <script>
-import { entries, mailingId, source, trackingId } from '../Helpers/URLSearchParams';
+import { entries, get, mailingId, source, trackingId } from '../Helpers/URLSearchParams';
 
 let lastSubmit;
 
@@ -61,6 +61,12 @@ export default {
         }
     },
 
+    mounted() {
+        if(this.shouldAutomaticallySubmit()) {
+            this.$emit('automatic-submit', this);
+        }
+    },
+
     methods: {
 
         formData() {
@@ -88,6 +94,12 @@ export default {
 
         shouldShowContactCard() {
             return !!(this.contact && this.contact.hash) && !this.isDisabled();
+        },
+
+        shouldAutomaticallySubmit() {
+            const key = get('submit');
+
+            return !this.isDisabled() && key && key.toLowerCase() === 'true';
         },
 
         shouldShowAddress() {
@@ -130,6 +142,6 @@ export default {
                     this.$emit('submit-complete');                    
                 });
         }
-    }
+    },
 };
 </script>

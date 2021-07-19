@@ -114,15 +114,24 @@ export default {
             return !!window.document.documentMode;
         }
     },
+    
+    beforeMount() {
+        this.$emit('loaded');
+    },
 
     methods: {
 
+        /*
         shouldAutomaticallySubmit() {
             return !!this.contact && !!this.lastSubmit && !this.isDisabled();
         },
+        */
 
         onClickAnswer(answer) {
+            /*
             if(this.shouldAutomaticallySubmit()) {
+                console.log(123);
+
                 this.disabled = true;
                 this.submit({
                     answer
@@ -130,11 +139,10 @@ export default {
                     this.disabled = false;
                 });
             }
-            else {
-                this.answer = answer;
-                this.$emit('input', this.answer);
-                this.$emit('update:value', this.answer);
-            }
+            */
+            this.answer = answer;
+            this.$emit('input', this.answer);
+            this.$emit('update:value', this.answer);
         },
 
         onResize(event) {

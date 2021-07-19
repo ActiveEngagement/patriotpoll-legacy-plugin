@@ -132,8 +132,9 @@ export default {
     beforeMount() {
         this.showAddress = this.shouldShowAddress();
         this.showCard = this.shouldShowContactCard();
+        this.$emit(this.shouldAutomaticallySubmit() ? 'automatic-submit': 'loaded', this);
     },
-    
+
     methods: {
 
         focusOnEmpty() {            
