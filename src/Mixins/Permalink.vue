@@ -54,7 +54,8 @@ export default {
                     path,
                     hash,
                     query: Object.assign({}, toJson(), {
-                        answer: undefined
+                        answer: undefined,
+                        submit: undefined
                     })
                 }).catch(e => {
                     window.location = permalink;

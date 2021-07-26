@@ -150,6 +150,10 @@ export default {
 
     watch: {
 
+        ['$route.params.id'](value) {
+            this.answer = null;
+        },
+
         answer(value) {
             this.active = value ? 'contact' : 'question';
         },
@@ -177,7 +181,12 @@ export default {
         onAutomaticSubmit({ submit, form }) {
             this.loading = true;
 
-            submit(form).then(() => this.loading = false);
+            submit(form)
+                .catch(({ response: { data } }) => {
+                    this.errors = data.errors;
+                    this.loading = false;
+                })
+                .finally(() => this.loading = false);
         },
 
         onConvert(poll) {
@@ -191,7 +200,6 @@ export default {
         },
 
         onClickNext(poll) {
-            console.log('next');
             this.answer = null;
             this.$emit('next', poll);
         },

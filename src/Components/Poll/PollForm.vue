@@ -1,15 +1,16 @@
 <template>
     <form @submit.prevent="onSubmit">
-        <alert variant="success" class="w-100 mb-3 text-center">
-            <h2 class="font-weight-light" v-html="answer" />
-            <div>
+        <alert :variant="errors && errors.answer ? 'danger' : 'success'" class="w-100 mb-3">
+            <h2 class="font-weight-light text-center" v-html="answer" />
+            <div class="justify-content-center d-flex">
+                <div v-if="errors && errors.answer" class="mr-2" v-html="errors.answer.join('<br>')" />
                 <btn type="button"
                     size="sm"
                     variant="text"
                     outline
                     class="p-0"
                     @click="$emit('cancel')">
-                    <font-awesome-icon icon="undo" class="mr-2" /> <em>Start over</em>
+                    <font-awesome-icon icon="undo" class="mr-1" /> <em>Start over</em>
                 </btn>
             </div>
         </alert>

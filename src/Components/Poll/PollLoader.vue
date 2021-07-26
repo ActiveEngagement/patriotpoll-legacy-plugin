@@ -10,7 +10,6 @@
             :permalink="permalink"
             :hide-date="hideDate"
             :share-buttons="shareButtons"
-            @automatic-submit="automaticSubmit"
             @convert="(...args) => this.$emit('convert', ...args)"
             @next="(...args) => this.$emit('next', ...args)"
             @slide-enter="(...args) => this.$emit('slide-enter', ...args)"
@@ -67,7 +66,7 @@ import VueSocialSharing from 'vue-social-sharing';
 import Permalink from '../../Mixins/Permalink';
 import PromotionDispatcher from '../../Helpers/PromotionDispatcher';
 import PatriotPollPlugin from '../../Plugins/PatriotPollPlugin';
-import { source } from '../../Helpers/URLSearchParams';
+import { get, source } from '../../Helpers/URLSearchParams';
 import { register } from '@vue-interface/activity-indicator';
 
 register({
@@ -141,6 +140,7 @@ export default {
         },
         
         ['$route.params.id'](value) {
+            this.currentPoll = null;
             this.load(value);
         },
 
@@ -182,26 +182,19 @@ export default {
         );
     },
 
-    mounted() {
-        const key = this.key();
+    async mounted() {
+        await this.$patriotpoll.mounted(this);
 
         if(this.startingPoll) {
             this.currentPoll = this.startingPoll;
         }
-        else if(this.key()) {
-            this.load(this.key());
-        }
         else {
-            this.load();
+            await this.load(this.key());
         }
     },
     
     methods: {
 
-        automaticSubmit({ submit, form}) {
-            this.loading = true;
-        },
-        
         key() {
             return this.id || this.slug;   
         },
@@ -213,10 +206,11 @@ export default {
         search(params) {
             this.loading = true;
             
-            return this.$patriotpoll.get('unanswered')
-                .then(({ data }) => {
-                    return data;
-                });
+            return this.$patriotpoll.get('unanswered', { params }).then(({ data }) => data);
+        },
+
+        contact(id) {
+            return this.$patriotpoll.get(`contacts/${id}`).then(({ data }) => data);
         },
 
         first() {
@@ -228,13 +222,10 @@ export default {
         find(id) {
             this.loading = true;
 
-            return this.$patriotpoll.get(`polls/${id}`)
-                .then(({ data }) => {
-                    return data;
-                });
+            return this.$patriotpoll.get(`polls/${id}`).then(({ data }) => data);
         },
 
-        load(id) { 
+        load(id) {
             return (id ? this.find(id) : this.first())
                 .then(data => {
                     this.currentPoll = data;

@@ -1,5 +1,6 @@
 <script>
-import { entries, get, mailingId, source, trackingId } from '../Helpers/URLSearchParams';
+import filter from '../Helpers/filter';
+import { toJson, get, mailingId, source, trackingId } from '../Helpers/URLSearchParams';
 
 let lastSubmit;
 
@@ -61,6 +62,12 @@ export default {
         }
     },
 
+    watch: {
+        answer(value) {
+            this.form.answer = value;
+        }
+    },
+
     mounted() {
         if(this.shouldAutomaticallySubmit()) {
             this.$emit('automatic-submit', this);
@@ -70,18 +77,13 @@ export default {
     methods: {
 
         formData() {
-            return Array.from(entries())
-                .reduce((carry, [key, value]) => {
-                    return Object.assign(carry, {
-                        [key]: value
-                    });
-                }, Object.assign({
-                    answer: this.answer,
-                    query: window.location.search,
-                    mailing_id: mailingId(),
-                    source: source(),
-                    tracking_id: trackingId()
-                }, this.$patriotpoll.contact()));
+            return filter(toJson(), this.$patriotpoll.contact(), {
+                answer: this.answer,
+                query: window.location.search,
+                mailing_id: mailingId(),
+                source: source(),
+                tracking_id: trackingId()
+            });
         },
         
         isDisabled() {

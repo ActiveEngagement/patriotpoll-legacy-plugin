@@ -121,17 +121,12 @@ export default {
 
     methods: {
 
-        /*
-        shouldAutomaticallySubmit() {
+        shouldSubmitOnAnswer() {
             return !!this.contact && !!this.lastSubmit && !this.isDisabled();
         },
-        */
 
         onClickAnswer(answer) {
-            /*
-            if(this.shouldAutomaticallySubmit()) {
-                console.log(123);
-
+            if(this.shouldSubmitOnAnswer()) {
                 this.disabled = true;
                 this.submit({
                     answer
@@ -139,10 +134,11 @@ export default {
                     this.disabled = false;
                 });
             }
-            */
-            this.answer = answer;
-            this.$emit('input', this.answer);
-            this.$emit('update:value', this.answer);
+            else {
+                this.answer = answer;
+                this.$emit('input', this.answer);
+                this.$emit('update:value', this.answer);
+            }
         },
 
         onResize(event) {
