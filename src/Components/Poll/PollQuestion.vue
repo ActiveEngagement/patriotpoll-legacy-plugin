@@ -1,6 +1,6 @@
 <template>
     <div class="poll-question mx-3" :style="{width: width && `${width}px`}" :class="{'ie': ie}">
-        <div v-if="poll.image || poll.embed || poll.html || poll.url" class="mb-3">
+        <div v-if="poll.image || poll.embed || poll.html || poll.url" class="mb-3 px-3 px-md-0">
             <img-loader v-if="poll.image" :src="poll.image.url" height="350px" class="poll-img" />
         
             <div v-if="poll.html" class="poll-content" v-html="poll.html" />
