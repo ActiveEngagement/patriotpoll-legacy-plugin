@@ -1,6 +1,7 @@
-import { debounce, event } from '@vue-interface/utils';
+import { throttle, event } from '@vue-interface/utils';
 
-const debouncer = debounce((fn, ...args) => {
+const throttler = throttle((fn, ...args) => {
+    console.log(123);
     return fn(...args);
 }, 250);
 
@@ -129,7 +130,7 @@ function resize(el, binding) {
 };
 
 function onResize(el, binding) { 
-    return binding.def.onResize = () => debouncer(() => resize(el, binding));
+    return binding.def.onResize = () => throttler(() => resize(el, binding));
 }
 
 export default {
