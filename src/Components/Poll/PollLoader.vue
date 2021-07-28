@@ -155,6 +155,10 @@ export default {
 
         currentPoll(value) {
             this.loading = !value;
+
+            if(value) {
+                this.$nextTick(() => this.$emit('load',  value));
+            }
         },
 
         loading(value) {
@@ -164,8 +168,7 @@ export default {
                 this.$emit('start-loading');
             }
             else {
-                this.$emit('stop-loading', this.currentPoll);
-                this.$emit('load',  this.currentPoll);
+                this.$emit('stop-loading');
             }
         },
 
