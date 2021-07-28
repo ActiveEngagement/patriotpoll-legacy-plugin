@@ -1,7 +1,6 @@
 import { throttle, event } from '@vue-interface/utils';
 
 const throttler = throttle((fn, ...args) => {
-    console.log(123);
     return fn(...args);
 }, 250);
 
