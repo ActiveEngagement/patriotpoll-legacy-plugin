@@ -155,12 +155,18 @@ export default {
 
         currentPoll(value) {
             this.loading = !value;
-            this.$emit('load', value);
         },
 
         loading(value) {
             this.$emit('toggle-loading', value);
-            this.$emit(value ? 'start-loading' : 'stop-loading');
+
+            if(value) {
+                this.$emit('start-loading');
+            }
+            else {
+                this.$emit('stop-loading', this.currentPoll);
+                this.$emit('load',  this.currentPoll);
+            }
         },
 
         poll(value) {
