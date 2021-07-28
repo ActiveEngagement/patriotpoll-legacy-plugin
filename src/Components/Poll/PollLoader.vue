@@ -65,8 +65,8 @@ import VueSocialSharing from 'vue-social-sharing';
 
 import Permalink from '../../Mixins/Permalink';
 import PromotionDispatcher from '../../Helpers/PromotionDispatcher';
+import { source } from '../../Helpers/URLSearchParams';
 import PatriotPollPlugin from '../../Plugins/PatriotPollPlugin';
-import { get, source } from '../../Helpers/URLSearchParams';
 import { register } from '@vue-interface/activity-indicator';
 
 register({
@@ -155,6 +155,7 @@ export default {
 
         currentPoll(value) {
             this.loading = !value;
+            this.$emit('load', value);
         },
 
         loading(value) {
