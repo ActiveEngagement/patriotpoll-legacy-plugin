@@ -2,6 +2,7 @@
     <div class="patriot-poll form-group">
         <poll
             :api-key="apiKey"
+            :exception="exception"
             :loading="loading"
             :poll="currentPoll"
             :step="currentStep"
@@ -16,18 +17,6 @@
             @step="step => this.$emit('step', currentStep = step)">
             <template #activity-indicator>
                 <activity-indicator type="pulse" min-height="350" center />
-            </template>
-            <template #no-results>
-                <div class="poll-exception-wrapper">
-                    <div class="poll-exception">
-                        <h2 class="text-center">
-                            Ooops!
-                        </h2>
-                        <h3 class="text-center font-weight-light mb-4">
-                            There are no polls at this time.
-                        </h3>
-                    </div>
-                </div>
             </template>
             <template #before-poll>
                 <slot name="before-poll" />
@@ -225,7 +214,7 @@ export default {
 
         first() {
             return this.search().catch(() => {
-                throw new Error('No polls at this time!');
+                throw new Error('There are no polls at this time.');
             });
         },
 

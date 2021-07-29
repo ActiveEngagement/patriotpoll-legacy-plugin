@@ -1,5 +1,21 @@
 <template>
-    <div class="poll">
+    <div v-if="exception">
+        <slot v-if="$slots['no-results']" name="no-results" />
+
+        <template v-else>
+            <div class="poll-exception-wrapper">
+                <div class="poll-exception">
+                    <h2 class="text-center">
+                        Ooops!
+                    </h2>
+                    <h3 class="text-center font-weight-light mb-4">
+                        {{ exception.message }}
+                    </h3>
+                </div>
+            </div>
+        </template>
+    </div>
+    <div v-else class="poll">
         <div v-if="$slots['activity-indicator'] && loading">
             <slot name="activity-indicator" />
         </div>
@@ -100,6 +116,8 @@ export default {
     props: {
 
         apiKey: String,
+
+        exception: Error,
 
         showDate: {
             type: Boolean,
