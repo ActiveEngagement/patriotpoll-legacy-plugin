@@ -168,7 +168,7 @@ export default {
 
     watch: {
 
-        ['$route.params.id'](value) {
+        ['$route.params.id']() {
             this.answer = null;
         },
 

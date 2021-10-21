@@ -31,12 +31,14 @@ export default function(Vue, options = {}) {
             Href: window.location.href,
         })
     });
-
+    
     Vue.prototype.$patriotpoll = Object.assign(axios, {
 
         async mounted(vue) {
             if(!this.contact() && get('contact')) {
-                scope.contact = await this.loadContactFromServer(get('contact'));
+                const { data } = await this.get(`contact/${get('contact')}`);
+
+                scope.contact = data;
             }
     
             axios.headers(this.contact());
@@ -79,9 +81,9 @@ export default function(Vue, options = {}) {
             }
         },
         
-        headers(contact) {
+        headers(contact, headers) {
             for(let [key, value] of Object.entries(contact || {})) {
-                Object.assign(axios.defaults.headers, {
+                Object.assign(headers || axios.defaults.headers, {
                     [`Contact-${key.charAt(0).toUpperCase() + key.slice(1)}`]: value
                 });
             }
@@ -106,5 +108,27 @@ export default function(Vue, options = {}) {
 
     });
     
+    // Set the default headers with last known contact
     axios.headers(axios.contact());
+
+    /**
+     * Do NOT remove the session interceptors!
+     */
+    axios.interceptors.request.use(config => {
+        // Set the existing session to the request headers
+        config.headers['session-id'] = axios.session();
+        
+        // Set the existing contact to the request headers. This is important
+        // if the contact info changes from the default.
+        axios.headers(axios.contact(), config.headers);
+
+        return config;
+    });
+
+    axios.interceptors.response.use(response => {
+        // Store the last known session ID in localstorage.
+        axios.session(response.headers['session-id']);
+
+        return response;
+    });
 }
