@@ -31,6 +31,8 @@ export default function(Vue, options = {}) {
             Href: window.location.href,
         })
     });
+
+    let sessionId;
     
     Vue.prototype.$patriotpoll = Object.assign(axios, {
 
@@ -42,23 +44,6 @@ export default function(Vue, options = {}) {
             }
     
             axios.headers(this.contact());
-        },
-        
-        getSessionId() {
-            return window.localStorage.getItem('__poll_session__');
-        },
-        
-        setSessionId(value) {
-            window.localStorage.setItem('__poll_session__', value);
-        },
-
-        session(id) {
-            try {
-                return id ? this.setSessionId(id) : this.getSessionId();
-            }
-            catch (e) {
-                return null;
-            }
         },
 
         contact() {
@@ -116,7 +101,9 @@ export default function(Vue, options = {}) {
      */
     axios.interceptors.request.use(config => {
         // Set the existing session to the request headers
-        config.headers['session-id'] = axios.session();
+        if(sessionId) {
+            config.headers['session-id'] = sessionId;
+        }
         
         // Set the existing contact to the request headers. This is important
         // if the contact info changes from the default.
@@ -126,8 +113,10 @@ export default function(Vue, options = {}) {
     });
 
     axios.interceptors.response.use(response => {
-        // Store the last known session ID in localstorage.
-        axios.session(response.headers['session-id']);
+        // Store the last known session ID in memory
+        if(!sessionId) {
+            sessionId = response.headers['session-id'];
+        }
 
         return response;
     });
