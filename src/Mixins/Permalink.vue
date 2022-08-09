@@ -5,30 +5,32 @@ export default {
 
     directives: {
 
-        permalink(el, { value, native }, { context, componentInstance }) {
-            if(!native && componentInstance) {
-                componentInstance.$on('click', () => {
-                    context.onClickPermalink(value);
-                });
-            }
-            else {
-                if(el.tagName === 'A' && !el.getAttribute('href')) {
-                    const url = new URL(context.permalink(value), window.location.toString());
-
-                    url.search = window.location.search;
-
-                    el.setAttribute('href', url.toString());
+        permalink: {
+            bind(el, { value, native }, { context, componentInstance }) {
+                if(!native && componentInstance) {
+                    componentInstance.$on('click', () => {
+                        context.onClickPermalink(value);
+                    });
                 }
+                else {
+                    if(el.tagName === 'A' && !el.getAttribute('href')) {
+                        const url = new URL(context.permalink(value), window.location.toString());
 
-                if(el.permalinkClickCallback) {
-                    el.removeEventListener('click', el.permalinkClickCallback);
+                        url.search = window.location.search;
+
+                        el.setAttribute('href', url.toString());
+                    }
+
+                    if(el.permalinkClickCallback) {
+                        el.removeEventListener('click', el.permalinkClickCallback);
+                    }
+
+                    el.addEventListener('click', el.permalinkClickCallback = e => {
+                        context.onClickPermalink(value);
+
+                        e.preventDefault();
+                    });
                 }
-
-                el.addEventListener('click', el.permalinkClickCallback = e => {
-                    context.onClickPermalink(value);
-
-                    e.preventDefault();
-                });
             }
         }
 
@@ -46,7 +48,6 @@ export default {
     methods: {
 
         routeToPermalink(permalink) {
-
             if(this.$router && !permalink.match(/^http/)) {
                 const [ path, hash ] = permalink.split('#');
 

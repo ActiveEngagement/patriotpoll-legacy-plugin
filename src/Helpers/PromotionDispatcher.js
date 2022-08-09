@@ -15,6 +15,7 @@ export default class PromotionDispatcher {
                     source
                 });
 
+        
                 this.dispatch(trigger, matches);
             });
         });
@@ -41,17 +42,9 @@ export default class PromotionDispatcher {
 
         node.innerHTML = promotion[`${trigger}_code`];
 
-        return [].map.call(node.children, child => {
-            return new Promise(resolve => {
-                const script = document.createElement(child.tagName);
-            
-                script.appendChild(document.createTextNode(child.innerHTML));
-
-                document.body.appendChild(script);
-
-                resolve(script);
-            });
-        });
+        while(node.children.length) {
+            document.body.appendChild(node.children[0]);
+        }
     }
 
     dispatchImg(trigger, promotion) {        
@@ -59,13 +52,9 @@ export default class PromotionDispatcher {
 
         node.innerHTML = promotion[`${trigger}_code`];
 
-        return [].map.call(node.children, child => {
-            return new Promise(resolve => {
-                document.body.append(child);
-                
-                resolve(child);
-            });
-        });
+        while(node.children.length) {
+            document.body.appendChild(node.children[0]);
+        }
     }
 
     dispatch(trigger, matches) {
